@@ -1,5 +1,7 @@
 package chat;
 
+import main.ShadyBotty;
+
 public class ChatRules {
 	
 	
@@ -12,7 +14,7 @@ public class ChatRules {
 	//returs the amount of seconds the user should be timed out. If the result is -1, then no timeout should be performed.
 	public int checkMessage(String nick, String message){
 		int result = 0;
-		if ((ShadyBotty.database.getPrivilages(nick).links() == -1 || checkLink(message) == -1){
+		if ((ShadyBotty.database.getPrivileges(nick).links() == -1 || checkLink(message) == -1){
 			return -1;
 		} 
 		

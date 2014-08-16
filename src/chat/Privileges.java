@@ -7,6 +7,7 @@ public class Privileges {
 	private int links;
 	private int filters; // used for caps & emoticons. 
 	private boolean premium;
+	private boolean subscriber;
 	
 	
 	public Privileges(String n){
@@ -29,6 +30,10 @@ public class Privileges {
 	
 	public boolean hasPremium(){
 		return premium;
-	}	
+	}
+	
+	public boolean isSubscriber(){
+		return subscriber;
+	}
 
 }
