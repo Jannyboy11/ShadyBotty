@@ -3,11 +3,12 @@ package main;
 import org.jibble.pircbot.PircBot;
 
 import points.GivePointsThread;
+import points.Points;
 
 public class ShadyBotty extends PircBot {
 	public static Database database;
 	public static GivePointsThread pointsThread;
-	
+	public static Points points;
 	public void sendToBunny(String text) {
 		sendMessage("#shadybunny",text);
 	}
@@ -15,6 +16,7 @@ public class ShadyBotty extends PircBot {
 	public ShadyBotty(){
 		this.setName("ShadyBotty");
 		database = new Database();
+		points = new Points();
 		pointsThread = new GivePointsThread(this);
 		pointsThread.start();
 	}
