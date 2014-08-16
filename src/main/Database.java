@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
+import chat.Privileges;
+
 public class Database {
 	private HashMap<String,Long> lastChat;
-	private HashMap<String,chat.Privileges> privileges;
+	private HashMap<String,Privileges> privileges;
 	private ArrayList<String> currentUsers;
 
 	public Database() {
@@ -18,7 +20,7 @@ public class Database {
 
 
 
-	public chat.Privileges getPrivilege(String user) {
+	public Privileges getPrivileges(String user) {
 		return privileges.get(user);
 	}
 
