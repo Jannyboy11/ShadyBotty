@@ -6,12 +6,12 @@ import java.util.Date;
 import java.util.HashMap;
 
 public class Database {
-	private HashMap<String,Long> lastChat1;
+	private HashMap<String,Long> lastChat;
 	private HashMap<String,chat.Privileges> privileges;
 	private ArrayList<String> currentUsers;
 
 	public Database() {
-		lastChat1 = new HashMap<String,Long>();
+		lastChat = new HashMap<String,Long>();
 		currentUsers = (new ArrayList<String>());
 	}
 
@@ -26,14 +26,14 @@ public class Database {
 
 
 	public void setLastMessage(String user, Long time) { 
-		lastChat1.put(user, time);
+		lastChat.put(user, time);
 	}
 
 
 
 
 	public Long getLongLastMessage(String user) { 
-		Long last = lastChat1.get(user);
+		Long last = lastChat.get(user);
 		return last;
 	}
 
@@ -51,9 +51,9 @@ public class Database {
 	public Long getDifferenceInLong(String user) {
 		Long last =  System.currentTimeMillis();;
 
-		if (lastChat1.containsKey(user)) 
-			last = lastChat1.get(user);
-
+		if (lastChat.containsKey(user)) 
+			last = lastChat.get(user);
+		
 		Long now = System.currentTimeMillis();
 		Long difference = now-last;
 		return difference;
