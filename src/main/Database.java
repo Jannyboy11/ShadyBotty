@@ -14,6 +14,7 @@ public class Database {
 
 	public Database() {
 		lastChat = new HashMap<String,Long>();
+		privileges = new HashMap<String,chat.Privileges>();
 		currentUsers = (new ArrayList<String>());
 	}
 
@@ -24,7 +25,10 @@ public class Database {
 		return privileges.get(user);
 	}
 
-
+	public void addPrivileges(String nick) {
+		if (!privileges.containsKey(nick))
+		privileges.put(nick,new chat.Privileges(nick));
+	}
 
 
 	public void setLastMessage(String user, Long time) { 
@@ -43,7 +47,6 @@ public class Database {
 		Long last = getLongLastMessage(user);
 		Date lastDate = new Date(last);
 		SimpleDateFormat ft = new SimpleDateFormat ("yyyy.MM.dd hh:mm:ss");
-		System.out.println(ft.format(lastDate));
 		return ft.format(lastDate);
 	}
 
@@ -55,6 +58,7 @@ public class Database {
 
 		if (lastChat.containsKey(user)) 
 			last = lastChat.get(user);
+		else return new Long(6000000);
 		
 		Long now = System.currentTimeMillis();
 		Long difference = now-last;
@@ -63,7 +67,6 @@ public class Database {
 
 	public Long getDifferenceSeconds(String user) {
 		Long difference = getDifferenceInLong(user);
-		System.out.println(difference/1000);
 		return difference/1000;
 	}
 

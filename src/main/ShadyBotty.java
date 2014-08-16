@@ -1,6 +1,10 @@
 package main;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+
 import org.jibble.pircbot.PircBot;
+import org.jibble.pircbot.User;
 
 import points.GivePointsThread;
 import points.Points;
@@ -34,7 +38,10 @@ public class ShadyBotty extends PircBot {
 			}
 			try {
    		// Connect to the IRC server.
-				this.connect("irc.twitch.tv",6667,"oauth:h9c144makj10x84wdazgf0exgl13p9k");
+	            BufferedReader blub = new BufferedReader(new FileReader("C:/wachtwoord.txt"));
+	            String password = blub.readLine();
+	            blub.close();
+				this.connect("irc.twitch.tv",6667,password);
 
 	        // Join the #pircbot channel.
 				this.joinChannel("#shadybunny");
@@ -59,6 +66,14 @@ public class ShadyBotty extends PircBot {
 	}
 	public void onJoin(String channel, String sender, String login, String hostname) {
 		database.addCurrentUsers(sender);
+		database.addPrivileges(sender);
+	}
+	public void onUserList(String channel, User[] users) {
+		for (int i =0; i< users.length;i++){
+			database.addCurrentUsers(users[i].getNick());
+			database.addPrivileges(users[i].getNick());
+		}
+
 	}
 	public void onLeave(String channel, String sender, String login, String hostname) {
 		database.delCurrentUsers(sender);
