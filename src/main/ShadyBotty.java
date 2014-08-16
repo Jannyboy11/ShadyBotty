@@ -3,10 +3,10 @@ package main;
 import org.jibble.pircbot.PircBot;
 
 public class ShadyBotty extends PircBot {
-	private Database messages;
+	private Database database;
 	public ShadyBotty(){
 		this.setName("ShadyBotty");
-		messages = new Database();
+		database = new Database();
 	}
 	public void onConnect() {
 		sendRawLine("TWITCHCLIENT 3");	
@@ -32,9 +32,9 @@ public class ShadyBotty extends PircBot {
 	
 	public void onMessage(String channel, String sender,
 			String login, String hostname, String message) {
-		messages.getDifferenceSeconds(sender);
-		messages.setLastMessage(sender, System.currentTimeMillis());
-		messages.getTimeLastMessage(sender);
+		database.getDifferenceSeconds(sender);
+		database.setLastMessage(sender, System.currentTimeMillis());
+		database.getTimeLastMessage(sender);
 		//CHECK IF USER VIOLATED CHATRULES(CAPS/SWEAR/EMOTES ETC.)
 		
 		//CHECK IF USER USED A  COMMAND

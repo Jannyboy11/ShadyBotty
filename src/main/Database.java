@@ -5,12 +5,15 @@ import java.util.Date;
 import java.util.HashMap;
 
 public class Database {
- HashMap<String,Long> lastChat;
+ private HashMap<String,Long> lastChat;
+ private HashMap<String,chat.Privileges> Privileges;
  
  public Database() {
 	 lastChat = new HashMap<String,Long>();
  }
- 
+ public chat.Privileges getPrivilege(String user) {
+	 return Privileges.get(user);
+ }
  public void setLastMessage(String user, Long time) { 
 	 lastChat.put(user, time);
  }
