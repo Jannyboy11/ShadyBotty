@@ -32,8 +32,9 @@ public class ShadyBotty extends PircBot {
 	
 	public void onMessage(String channel, String sender,
 			String login, String hostname, String message) {
+		messages.getDifferenceSeconds(sender);
 		messages.setLastMessage(sender, System.currentTimeMillis());
-		
+		messages.getTimeLastMessage(sender);
 		//CHECK IF USER VIOLATED CHATRULES(CAPS/SWEAR/EMOTES ETC.)
 		
 		//CHECK IF USER USED A  COMMAND
