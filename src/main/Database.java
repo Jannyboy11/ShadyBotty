@@ -1,22 +1,36 @@
 package main;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
 public class Database {
  private HashMap<String,Long> lastChat;
  private HashMap<String,chat.Privileges> Privileges;
+ private ArrayList<String> currentUsers;
  
  public Database() {
 	 lastChat = new HashMap<String,Long>();
+	 currentUsers = (new ArrayList<String>());
  }
+ 
+ 
+ 
+ 
  public chat.Privileges getPrivilege(String user) {
 	 return Privileges.get(user);
  }
+ 
+ 
+ 
+ 
  public void setLastMessage(String user, Long time) { 
 	 lastChat.put(user, time);
  }
+ 
+ 
+ 
  
  public Long getLongLastMessage(String user) { 
 	 Long last = lastChat.get(user);
@@ -30,6 +44,9 @@ public class Database {
      System.out.println(ft.format(lastDate));
      return ft.format(lastDate);
  }
+ 
+ 
+ 
  
  public Long getDifferenceInLong(String user) {
 	 Long last =  System.currentTimeMillis();;
@@ -47,5 +64,13 @@ public class Database {
     System.out.println(difference/1000);
     return difference/1000;
  }
+ 
+ 
+ 
+ 
+ 
+public ArrayList<String> getCurrentUsers() {
+	return currentUsers;
+}
  
 }

@@ -45,6 +45,7 @@ public class ShadyBotty extends PircBot {
 			String login, String hostname, String message) {
 		if (message.startsWith("!woah"))
 		sendMessage(channel,"your last message was: " + database.getDifferenceSeconds(sender) + "seconds ago.");
+		if (message.toLowerCase().startsWith("!points")) sendToBunny(sender + " currently has no points! Kappa");
 		database.setLastMessage(sender, System.currentTimeMillis());
 		database.getTimeLastMessage(sender);
 		//CHECK IF USER VIOLATED CHATRULES(CAPS/SWEAR/EMOTES ETC.)
