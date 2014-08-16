@@ -29,14 +29,24 @@ public class ChatRules {
 	}
 	
 	private int checkEmoticons(String s) {
+		int emocounter = 0;
+		int total = 0;
 		for (String sub : getWords(s)){
-			for (){
-				if(){
-					
+			total++;
+			for(String emo : emoticons){
+				if (emo.equals(sub)){
+					emocounter++;
 				}
 			}
 		}
-		return 0;
+		if (emocounter - 10 > total / 4){
+			// too many emoticons!
+			// TODO get how many times the player already typed too much emoticons, and base the timeout length on that value;
+			return 2;
+		} else {
+			// not too many emoticons
+			return -1;
+		}
 	}
 
 	private int checkLink(String s) {
