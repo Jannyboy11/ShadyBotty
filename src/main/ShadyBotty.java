@@ -3,9 +3,10 @@ package main;
 import org.jibble.pircbot.PircBot;
 
 public class ShadyBotty extends PircBot {
-
+	private LastMessage messages;
 	public ShadyBotty(){
 		this.setName("ShadyBotty");
+		messages = new LastMessage();
 	}
 	public void onConnect() {
 		sendRawLine("TWITCHCLIENT 3");	
@@ -31,7 +32,7 @@ public class ShadyBotty extends PircBot {
 	
 	public void onMessage(String channel, String sender,
 			String login, String hostname, String message) {
-		 //SET LASTEST TIME OF MESSAGE FOR POINTS
+		messages.setLastMessage(sender, System.currentTimeMillis());
 		
 		//CHECK IF USER VIOLATED CHATRULES(CAPS/SWEAR/EMOTES ETC.)
 		
