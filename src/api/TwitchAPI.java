@@ -29,9 +29,5 @@ public class TwitchAPI {
 		return json.getJSONObject("stream");
 	}
 	
-	public static void main(String[] args) {
-		JSONObject a = getJSONStreamShady();
-		System.out.println(a.getJSONObject("channel").get("status").toString());
-	}
 
 }
