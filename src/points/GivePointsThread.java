@@ -24,7 +24,7 @@ public class GivePointsThread extends Thread {
 				ShadyBotty.points.addPoints(nick,(ShadyBotty.database.getPrivileges(nick).getGain() + 2));
 			}
 			try {
-				Thread.sleep(20000);
+				Thread.sleep(60000);
 			} catch (Exception e) {}
 		}
 	}
