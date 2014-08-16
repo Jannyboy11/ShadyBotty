@@ -2,6 +2,8 @@ package points;
 import java.io.File;
 import java.io.IOException;
 
+import main.ShadyBotty;
+
 import org.ini4j.*;
 public class Points {
 	public Points() {
@@ -12,7 +14,7 @@ public class Points {
 		double points;
 		Wini ini;
 		try {
-			ini = new Wini(new File("C:/Users/Gebruiker/Documents/GitHub/users.ini"));
+			ini = new Wini(new File("currencies.ini"));
 			points = ini.get(nick,"points") == null ? new Double(0) : Double.parseDouble(ini.get(nick,"points"));
 			return points;
 		} catch (IOException e) {
@@ -25,7 +27,7 @@ public class Points {
 	public void setPoints(String nick, double amount) {
 		Wini ini;
 		try {
-			ini = new Wini(new File("C:/Users/Gebruiker/Documents/GitHub/users.ini"));
+			ini = new Wini(new File("currencies.ini"));
 			ini.put(nick, "points", amount);
 			ini.store();
 		} catch (InvalidFileFormatException e) {
@@ -40,7 +42,7 @@ public class Points {
 	public void addPoints(String nick, double amount) {
 		Wini ini;
 		try {
-			ini = new Wini(new File("C:/Users/Gebruiker/Documents/GitHub/users.ini"));
+			ini = new Wini(new File("currencies.ini"));
 
 			ini.put(nick, "points", getPoints(nick)+amount);
 			ini.store();
@@ -58,7 +60,7 @@ public class Points {
 	public void delPoints(String nick, double amount) {
 		Wini ini;
 		try {
-			ini = new Wini(new File("C:/Users/Gebruiker/Documents/GitHub/users.ini"));
+			ini = new Wini(new File("currencies.ini"));
 			ini.put(nick, "points", getPoints(nick) - amount);
 			ini.store();
 		} catch (InvalidFileFormatException e) {
@@ -68,6 +70,12 @@ public class Points {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void buyItemWithPoints(String nick, double amount) {
+		if (ShadyBotty.database.getPrivileges(nick).getFaction() == "jb940")
+			amount = amount*0.9;
+		delPoints(nick, amount);
 	}
 
 }

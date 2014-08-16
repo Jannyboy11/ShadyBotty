@@ -6,12 +6,14 @@ import java.io.FileReader;
 import org.jibble.pircbot.PircBot;
 import org.jibble.pircbot.User;
 
+import api.CheckStreamThread;
 import points.GivePointsThread;
 import points.Points;
 
 public class ShadyBotty extends PircBot {
 	public static Database database;
 	public static GivePointsThread pointsThread;
+	public static CheckStreamThread streamThread;
 	public static Points points;
 	public void sendToBunny(String text) {
 		sendMessage("#shadybunny",text);
@@ -23,6 +25,8 @@ public class ShadyBotty extends PircBot {
 		points = new Points();
 		pointsThread = new GivePointsThread(this);
 		pointsThread.start();
+		streamThread = new CheckStreamThread(this);
+		streamThread.start();
 	}
 	
 	public void onConnect() {
