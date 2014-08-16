@@ -9,6 +9,8 @@ public class Privileges {
 	private boolean premium;
 	private boolean subscriber;
 	private int gain;
+	private String faction;
+	
 	
 	
 	public Privileges(String n){
@@ -47,6 +49,14 @@ public class Privileges {
 	public void setGain(int gain) {
 		this.gain = gain;
 		//todo: WRITEINI
+	}
+
+	public String getFaction() {
+		return faction;
+	}
+
+	public void setFaction(String faction) {
+		this.faction = faction;
 	}
 
 
