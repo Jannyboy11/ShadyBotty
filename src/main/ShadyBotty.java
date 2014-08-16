@@ -60,6 +60,9 @@ public class ShadyBotty extends PircBot {
 	public void onJoin(String channel, String sender, String login, String hostname) {
 		database.addCurrentUsers(sender);
 	}
+	public void onLeave(String channel, String sender, String login, String hostname) {
+		database.delCurrentUsers(sender);
+	}
 
 
 

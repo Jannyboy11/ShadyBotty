@@ -80,6 +80,11 @@ public class Database {
 		currentUsers.add(nick);
 	}
 	
+	public void delCurrentUsers(String nick) {
+		if (currentUsers.contains(nick))
+		currentUsers.remove(nick);
+	}
+	
 
 
 }
