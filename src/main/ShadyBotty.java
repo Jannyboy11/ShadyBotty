@@ -2,11 +2,21 @@ package main;
 
 import org.jibble.pircbot.PircBot;
 
+import points.GivePointsThread;
+
 public class ShadyBotty extends PircBot {
 	public static Database database;
+	public static GivePointsThread pointsThread;
+	
+	public void sendToBunny(String text) {
+		sendMessage("#shadybunny",text);
+	}
+
 	public ShadyBotty(){
 		this.setName("ShadyBotty");
 		database = new Database();
+		pointsThread = new GivePointsThread(this);
+		pointsThread.start();
 	}
 	
 	public void onConnect() {
@@ -33,6 +43,7 @@ public class ShadyBotty extends PircBot {
 	
 	public void onMessage(String channel, String sender,
 			String login, String hostname, String message) {
+		if (message.startsWith("!woah"))
 		sendMessage(channel,"your last message was: " + database.getDifferenceSeconds(sender) + "seconds ago.");
 		database.setLastMessage(sender, System.currentTimeMillis());
 		database.getTimeLastMessage(sender);
@@ -44,6 +55,7 @@ public class ShadyBotty extends PircBot {
 		
 		return;
 	}
-	
+
+
 
 }
