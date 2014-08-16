@@ -1,5 +1,8 @@
 package main;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+
 public class ShadyBottyMain {
     
     public static void main(String[] args) throws Exception {
@@ -11,7 +14,10 @@ public class ShadyBottyMain {
             bot.setVerbose(true);
             
             // Connect to the IRC server.
-            bot.connect("irc.twitch.tv",6667,"oauth:h9c144makj10x84wdazgf0exgl13p9k");
+            BufferedReader blub = new BufferedReader(new FileReader("C:/wachtwoord.txt"));
+            String password = blub.readLine();
+            blub.close();
+            bot.connect("irc.twitch.tv",6667,password);
 
             // Join the #pircbot channel.
             bot.joinChannel("#shadybunny");
