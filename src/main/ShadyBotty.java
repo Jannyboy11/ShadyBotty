@@ -10,7 +10,7 @@ public class ShadyBotty extends PircBot {
 	}
 	
 	public void onConnect() {
-		sendRawLine("TWITCHCLIENT 3");	
+//something
 		return;
 	}
 
@@ -33,7 +33,7 @@ public class ShadyBotty extends PircBot {
 	
 	public void onMessage(String channel, String sender,
 			String login, String hostname, String message) {
-		database.getDifferenceSeconds(sender);
+		sendMessage(channel,"your last message was: " + database.getDifferenceSeconds(sender) + "seconds ago.");
 		database.setLastMessage(sender, System.currentTimeMillis());
 		database.getTimeLastMessage(sender);
 		//CHECK IF USER VIOLATED CHATRULES(CAPS/SWEAR/EMOTES ETC.)
