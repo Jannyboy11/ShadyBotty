@@ -29,7 +29,13 @@ public class ChatRules {
 	}
 	
 	private int checkEmoticons(String s) {
-		// TODO Auto-generated method stub
+		for (String sub : getWords(s)){
+			for (){
+				if(){
+					
+				}
+			}
+		}
 		return 0;
 	}
 
@@ -40,6 +46,10 @@ public class ChatRules {
 
 	public int checkCaps(String s){
 		return 0;
+	}
+	
+	public String[] getWords(String s){
+		return s.split(" ");
 	}
 	
 	
