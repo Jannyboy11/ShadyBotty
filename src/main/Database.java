@@ -4,15 +4,18 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
+import chat.Privileges;
+
 public class Database {
- private HashMap<String,Long> lastChat;
- private HashMap<String,chat.Privileges> Privileges;
+ private HashMap<String, Long> lastChat;
+ private HashMap<String, Privileges> privileges;
  
  public Database() {
 	 lastChat = new HashMap<String,Long>();
+	 privileges = new HashMap<String,Privileges>();
  }
- public chat.Privileges getPrivilege(String user) {
-	 return Privileges.get(user);
+ public Privileges getPrivileges(String user) {
+	 return privileges.get(user);
  }
  public void setLastMessage(String user, Long time) { 
 	 lastChat.put(user, time);
