@@ -27,10 +27,15 @@ public class ShadyBotty extends PircBot {
 	
 	public void onMessage(String channel, String sender,
 			String login, String hostname, String message) {
-		if (message.equalsIgnoreCase("time")) {
-			String time = new java.util.Date().toString();
-			sendMessage(channel, sender + ": The time is now " + time);
-		}
+		 //SET LASTEST TIME OF MESSAGE FOR POINTS
+		
+		//CHECK IF USER VIOLATED CHATRULES(CAPS/SWEAR/EMOTES ETC.)
+		
+		//CHECK IF USER USED A  COMMAND
+		
+		// CHECK IF HE TRIGGERED AN AUTOREPLY
+		
+		return;
 	}
 	
 
