@@ -48,15 +48,15 @@ public class Privileges {
 
 	public void setGain(int gain) {
 		this.gain = gain;
-		//todo: WRITEINI
+		//TODO: WRITEINI
 	}
 
 	public String getFaction() {
 		return faction;
 	}
 
-	public void setFaction(String faction) {
-		this.faction = faction;
+	public void setFaction(String f) {
+		faction = f;
 	}
 
 
