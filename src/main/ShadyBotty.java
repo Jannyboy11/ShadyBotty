@@ -3,10 +3,10 @@ package main;
 import org.jibble.pircbot.PircBot;
 
 public class ShadyBotty extends PircBot {
-	private LastMessage messages;
+	private Database messages;
 	public ShadyBotty(){
 		this.setName("ShadyBotty");
-		messages = new LastMessage();
+		messages = new Database();
 	}
 	public void onConnect() {
 		sendRawLine("TWITCHCLIENT 3");	

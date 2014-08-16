@@ -2,10 +2,10 @@ package main;
 
 import java.util.HashMap;
 
-public class LastMessage {
+public class Database {
  HashMap<String,Long> Users;
  
- public LastMessage() {
+ public Database() {
 	 Users = new HashMap<String,Long>();
  }
  
