@@ -52,9 +52,11 @@ public class ChatRules {
 			if (filters == 3) return 240;
 			if (filters == 4) return 400;			
 			return 600;
+			//TODO create a thread in the ShadyBotty.java that decreases the value of filters above -1 for all users every 10 minutes. also for links Kappa.
 		} else {
 			// not too many emoticons;
 			return -1;
+			
 		}
 	}
 
