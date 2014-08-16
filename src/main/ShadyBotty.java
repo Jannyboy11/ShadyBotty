@@ -8,7 +8,7 @@ public class ShadyBotty extends PircBot {
 		this.setName("ShadyBotty");
 	}
 	public void onConnect() {
-		sendRawLine("/TWITCHCLIENT 3");	
+		sendRawLine("TWITCHCLIENT 3");	
 		return;
 	}
 
