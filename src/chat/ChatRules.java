@@ -86,7 +86,7 @@ public class ChatRules {
 				//the word is obviously a url
 				ShadyBotty.database.getPrivileges(nick).setLinks(links + 1);
 				isLink = true;
-			} else if ((length > 5 && (word.charAt(length - 4) == '.' || word.charAt(length - 3 ) == '.' || word.charAt(length - 5) == '.'))){
+			} else if ((length > 5 && ((word.charAt(length - 4) == '.' && word.charAt(length - 3 ) != '.'  && word.charAt(length - 2 ) != '.'  && word.charAt(length - 1 ) != '.') || (word.charAt(length - 3 ) == '.' && word.charAt(length - 2 ) != '.'  && word.charAt(length - 1 ) != '.') || (word.charAt(length - 5) == '.' && word.charAt(length - 4) != '.' && word.charAt(length - 3 ) != '.'  && word.charAt(length - 2 ) != '.'  && word.charAt(length - 1 ) != '.')))){
 				//the word is probably a link or emailaddress
 				ShadyBotty.database.getPrivileges(nick).setLinks(++links);
 				isLink = true;
@@ -141,11 +141,14 @@ public class ChatRules {
 	public String removeEmoticons(String s){
 		String result = "";
 		for (String word : getWords(s)){
+			boolean in = false;
 			for (String emo : emoticons){
-				if (!(word.contains(emo))){
-					result += (word + " ");
+				if ((word.contains(emo))){
+					in = true;
 				}
 			}
+			if (!in)
+				result += word + " ";
 		}
 		System.out.println(result);
 		return result;
