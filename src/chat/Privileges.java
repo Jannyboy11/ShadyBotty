@@ -26,12 +26,20 @@ public class Privileges {
 		
 	}
 	
-	public int links(){
+	public int getLinks(){
 		return links;
 	}
 	
-	public int filters(){
+	public void setLinks(int i){
+		links = i;
+	}
+	
+	public int getFilters(){
 		return filters;		
+	}
+	
+	public void setFilters(int i){
+		filters = i;
 	}
 	
 	public boolean hasPremium(){

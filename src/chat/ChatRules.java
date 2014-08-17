@@ -44,15 +44,16 @@ public class ChatRules {
 		if (emocounter - 10 > total / 4){ //if the amount of emoticons minus 10 is greater then a quarter of the message, then the amount is too much.
 			// too many emoticons!
 			// TODO get how many times the player already typed too much emoticons, and base the timeout length on that value DONE;
-			int filters = ShadyBotty.database.getPrivileges(nick).filters();	
+			int filters = ShadyBotty.database.getPrivileges(nick).getFilters();	
 			if (filters == -1) return -1;
+			ShadyBotty.database.getPrivileges(nick).setFilters(++filters); //adds one point to the warningcounter
 			if (filters == 0) return 2;
 			if (filters == 1) return 30;
 			if (filters == 2) return 60;
 			if (filters == 3) return 240;
 			if (filters == 4) return 400;			
 			return 600;
-			//TODO create a thread in the ShadyBotty.java that decreases the value of filters above -1 for all users every 10 minutes. also for links Kappa.
+			//TODO create a thread in the ShadyBotty.java that decreases the value of filters above 0 for all users every 10 minutes. also for links Kappa.
 		} else {
 			// not too many emoticons;
 			return -1;
