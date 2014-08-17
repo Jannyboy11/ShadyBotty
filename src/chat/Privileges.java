@@ -5,7 +5,8 @@ public class Privileges {
 	private String nick;
 	
 	private int links;
-	private int filters; // used for caps & emoticons. 
+	private int capsFilter; // used for caps & emoticons. 
+	private int emoFilter;
 	private boolean premium;
 	private boolean subscriber;
 	private int gain;
@@ -15,8 +16,9 @@ public class Privileges {
 	
 	public Privileges(String n){
 		nick = n;
-		filters = 0;
-		links = 0;
+		setCapsFilter(0);
+		setLinks(0);
+		setEmoFilter(0);
 		//TODO get al the user privilges from the ini file and set the fields.
 		//filters: read from ini file how many times the user spammed to much caps or too much emoticons. if the user has bought filters, set it to -1;
 		//links: read from ini file how many times the users typed a link. if the user has bought links, set it to -1;
@@ -36,13 +38,6 @@ public class Privileges {
 		links = i;
 	}
 	
-	public int getFilters(){
-		return filters;		
-	}
-	
-	public void setFilters(int i){
-		filters = i;
-	}
 	
 	public boolean hasPremium(){
 		return premium;
@@ -67,6 +62,22 @@ public class Privileges {
 
 	public void setFaction(String f) {
 		faction = f;
+	}
+
+	public int getCapsFilter() {
+		return capsFilter;
+	}
+
+	public void setCapsFilter(int capsFilter) {
+		this.capsFilter = capsFilter;
+	}
+
+	public int getEmoFilter() {
+		return emoFilter;
+	}
+
+	public void setEmoFilter(int emoFilter) {
+		this.emoFilter = emoFilter;
 	}
 
 

@@ -43,7 +43,7 @@ public class ChatRules {
 	}
 
 	private int checkEmoticons(String nick, String s) {
-		int filters = ShadyBotty.database.getPrivileges(nick).getFilters();	
+		int filters = (ShadyBotty.database.getPrivileges(nick) != null) ? ShadyBotty.database.getPrivileges(nick).getEmoFilter() : 0;
 		if (filters == -1) return 0;
 		int emocounter = 0;
 		int total = 0;
@@ -60,7 +60,7 @@ public class ChatRules {
 		if ((emocounter > 4 && total < 15) || emocounter > 6){ 
 			//emo's just too annoying. pls keep low. no annoying methz
 
-			ShadyBotty.database.getPrivileges(nick).setFilters(filters + 1); //adds one point to the warningcounter
+			ShadyBotty.database.getPrivileges(nick).setEmoFilter(filters + 1); //adds one point to the warningcounter
 			if (filters == 0) return 2;
 			if (filters == 1) return 30;
 			if (filters == 2) return 60;
@@ -76,7 +76,7 @@ public class ChatRules {
 	}
 
 	private int checkLink(String nick, String message) {
-		int links = ShadyBotty.database.getPrivileges(nick).getLinks();
+		int links = (ShadyBotty.database.getPrivileges(nick) != null) ? ShadyBotty.database.getPrivileges(nick).getLinks() : 0;
 		if (links == -1) return 0;
 
 		for (String word : getWords(message)){
@@ -88,7 +88,7 @@ public class ChatRules {
 				isLink = true;
 			} else if (length > 5 && ((word.charAt(length - 4) == '.' && Character.isLetter(word.charAt(length - 3)) && Character.isLetter(word.charAt(length - 2)) && Character.isLetter(word.charAt(length - 1))) || (word.charAt(length - 3) == '.' && Character.isLetter(word.charAt(length - 2)) && Character.isLetter(word.charAt(length - 1))))) {
 					//the word is probably a link or emailaddress
-				ShadyBotty.database.getPrivileges(nick).setLinks(++links);
+				ShadyBotty.database.getPrivileges(nick).setLinks(links + 1);
 				isLink = true;
 			}
 			if (isLink){
@@ -104,14 +104,14 @@ public class ChatRules {
 	}
 
 	public int checkCaps(String nick, String message){
-		int filters = ShadyBotty.database.getPrivileges(nick).getFilters();
+		int filters = (ShadyBotty.database.getPrivileges(nick) != null) ? ShadyBotty.database.getPrivileges(nick).getCapsFilter() : 0;
 		if (filters == -1) return 0;
 		
 		String messageWithoutEmoticons = removeEmoticons(message);
 		
 		if (messageWithoutEmoticons.length() > 9 && (double)countUppercase(messageWithoutEmoticons)/(double)messageWithoutEmoticons.length() > 0.6){
 			//user spammed to many caps
-			ShadyBotty.database.getPrivileges(nick).setFilters(filters + 1);
+			ShadyBotty.database.getPrivileges(nick).setCapsFilter(filters + 1);
 			if (filters == 0) return 2;
 			if (filters == 1) return 30;
 			if (filters == 2) return 60;
