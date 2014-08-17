@@ -11,30 +11,27 @@ public class ChatRules {
 	}
 
 	//returns the amount of seconds the user should be timed out. If the result is -1, then no timeout should be performed.
-	public int checkMessage(String nick, String message){
+	public Pair checkMessage(String nick, String message){
 		
-		//TODO make botty send warning message when a user violates the chat rules.
-		
+		//TODO make botty send warning message when a user violates the chat rules.		
 		int result = 0;
-		if ((checkLink(nick, message) == -1)){
-			return -1;
-		} else {
+		String reason = "no reason";
+		if (checkLink(nick, message) != -1){
 			result += checkLink(nick, message);
+			reason = "link";
 		}
 		
 		if (checkEmoticons(nick, message) != -1) {
-			return -1;
-		} else {
 			result += checkEmoticons(nick, message);
+			reason = "emoticons";
 		}
 		
 		if (checkCaps(nick, message) != -1){
-			return -1;
-		} else {
 			result += checkCaps(nick, message);
+			reason = "caps";
 		}
 		
-		return result;
+		return new Pair(result, reason);
 	}
 
 	private int checkEmoticons(String nick, String s) {
@@ -127,6 +124,36 @@ public class ChatRules {
 			if (Character.isUpperCase(s.charAt(i))) result++;
 		}
 		return result;
+	}
+	
+	// pairclass for timeout+reason
+	
+	class Pair{
+		
+		private int timeoutLength;
+		private String reason;
+		
+		protected Pair(int tl, String r){
+			timeoutLength = tl;
+			reason = r;
+		}
+
+		public int getTimeoutLength() {
+			return timeoutLength;
+		}
+
+		public void setTimeoutLength(int tl) {
+			timeoutLength = tl;
+		}
+
+		public String getReason() {
+			return reason;
+		}
+
+		public void setReason(String r) {
+			reason = r;
+		}		
+		
 	}
 
 
