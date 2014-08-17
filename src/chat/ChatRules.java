@@ -15,20 +15,21 @@ public class ChatRules {
 		
 		//TODO make botty send warning message when a user violates the chat rules.		
 		int result = 0;
-		String reason = "no reason";
+		String reason = "";
 		if (checkLink(nick, message) != -1){
 			result += checkLink(nick, message);
-			reason = "link";
+			
+			reason += "Posted Link";
 		}
 		
 		if (checkEmoticons(nick, message) != -1) {
 			result += checkEmoticons(nick, message);
-			reason = "emoticons";
+			reason += (reason == "") ? "Too many Emoticons" : " , too many Emoticons";
 		}
 		
 		if (checkCaps(nick, message) != -1){
 			result += checkCaps(nick, message);
-			reason = "caps";
+			reason += (reason == "") ? "Too much Caps" : " , too much Caps";
 		}
 		
 		return new Pair(result, reason);
