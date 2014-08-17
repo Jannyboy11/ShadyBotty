@@ -143,7 +143,7 @@ public class ChatRules {
 		for (String word : getWords(s)){
 			for (String emo : emoticons){
 				if (!(word.contains(emo))){
-					result += word = " ";
+					result += (word + " ");
 				}
 			}
 		}
