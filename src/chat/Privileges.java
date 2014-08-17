@@ -12,7 +12,7 @@ public class Privileges {
 	private int gain;
 	private String faction;
 	
-	
+	private enum Status{VIEWER, REGULAR, PREMIUM, DEMIMOD, MOD};
 	
 	public Privileges(String n){
 		nick = n;
