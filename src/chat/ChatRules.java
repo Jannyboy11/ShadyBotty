@@ -142,11 +142,12 @@ public class ChatRules {
 		String result = "";
 		for (String word : getWords(s)){
 			for (String emo : emoticons){
-				if (!(emo.equals(word))){
+				if (!(word.contains(emo))){
 					result += word = " ";
 				}
 			}
 		}
+		System.out.println(result);
 		return result;
 	}
 }
