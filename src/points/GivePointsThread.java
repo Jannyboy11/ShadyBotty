@@ -19,24 +19,28 @@ public class GivePointsThread extends Thread {
 			for (int i=0; i<temp.size(); i++) {
 				String nick = temp.get(i);
 				ShadyBotty.points.addPoints(nick,(ShadyBotty.database.getPrivileges(nick).getGain() + 2) * 0.25);
-				if (ShadyBotty.database.getDifferenceSeconds(nick) < 600)
+				if (ShadyBotty.database.getDifferenceSeconds(nick) < 600) {
 					System.out.println(ShadyBotty.database.getDifferenceSeconds(nick) + "  " + nick);
 				ShadyBotty.points.addPoints(nick,(ShadyBotty.database.getPrivileges(nick).getGain() + 2));
+				}
 			}
 			try {
-				Thread.sleep(60000);
+				Thread.sleep(10000);
 			} catch (Exception e) {}
 		}
+		try {
+			Thread.sleep(5000);
+		} catch (Exception e) {}
 	}
 	
-	public static void setOnline() {
+	public void setOnline() {
 		Online = true;
 	}
 	
-	public static void setOffline() {
+	public void setOffline() {
 		Online = false;
 	}
-	public static boolean getStatus() {
+	public boolean getStatus() {
 		return Online;
 	}
 }

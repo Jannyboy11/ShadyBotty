@@ -30,7 +30,7 @@ public class ShadyBotty extends PircBot {
 		pointsThread = new GivePointsThread(this);
 		pointsThread.start();
 
-		streamThread = new CheckStreamThread(this);
+		streamThread = new CheckStreamThread(this,pointsThread);
 		streamThread.start();
 	}
 	
@@ -64,6 +64,8 @@ public class ShadyBotty extends PircBot {
 			String login, String hostname, String message) {
 
 		database.setLastMessage(sender, System.currentTimeMillis());
+		database.addCurrentUsers(sender);
+		database.addPrivileges(sender);
 		Pair temp;
 		System.out.println("before check");
 		temp = rules.checkMessage(sender, message);
@@ -90,6 +92,7 @@ public class ShadyBotty extends PircBot {
 		for (int i =0; i< users.length;i++){
 			database.addCurrentUsers(users[i].getNick());
 			database.addPrivileges(users[i].getNick());
+			
 		}
 
 	}

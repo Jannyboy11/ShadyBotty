@@ -6,9 +6,11 @@ import main.ShadyBotty;
 public class CheckStreamThread extends Thread {
 
 	ShadyBotty botty;
-	public CheckStreamThread(ShadyBotty bot) 
+	GivePointsThread pointsth;
+	public CheckStreamThread(ShadyBotty bot,GivePointsThread points) 
 	{
 		botty = bot;
+		pointsth = points;
 	}
 	public void run ()
 	{
@@ -16,17 +18,18 @@ public class CheckStreamThread extends Thread {
 			try {Thread.sleep(5000);} catch (Exception e) {}
 			System.out.println("shady is: " + (TwitchAPI.getJSONStreamShady() != null));
 			if (TwitchAPI.getJSONStreamShady() != null) {
-				if(!GivePointsThread.getStatus())
-					GivePointsThread.setOnline();
+				if(!pointsth.getStatus())
+					pointsth.setOnline();
+					
 			} else {
-				if(!GivePointsThread.getStatus()) continue;
+				if(!pointsth.getStatus()) continue;
 				try {Thread.sleep(2000);} catch (Exception e) {}
 				if (TwitchAPI.getJSONStreamShady() != null) continue;
 				try {Thread.sleep(2000);} catch (Exception e) {}
 				if (TwitchAPI.getJSONStreamShady() != null) continue;
 				try {Thread.sleep(2000);} catch (Exception e) {}
 				if (TwitchAPI.getJSONStreamShady() != null) continue;
-				GivePointsThread.setOffline();
+				pointsth.setOffline();
 				botty.sendToBunny("Shadyb00ny is now offline!");
 			}
 

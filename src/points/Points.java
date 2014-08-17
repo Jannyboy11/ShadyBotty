@@ -43,7 +43,6 @@ public class Points {
 		Wini ini;
 		try {
 			ini = new Wini(new File("currencies.ini"));
-
 			ini.put(nick, "points", getPoints(nick)+amount);
 			ini.store();
 		} catch (InvalidFileFormatException e) {
