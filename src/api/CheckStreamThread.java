@@ -4,7 +4,7 @@ import points.GivePointsThread;
 import main.ShadyBotty;
 
 public class CheckStreamThread extends Thread {
-	
+
 	ShadyBotty botty;
 	public CheckStreamThread(ShadyBotty bot) 
 	{
@@ -12,18 +12,24 @@ public class CheckStreamThread extends Thread {
 	}
 	public void run ()
 	{
-		if (TwitchAPI.getJSONStreamShady() != null) {
-			GivePointsThread.setOnline();
-		} else {
-			try {Thread.sleep(2000);} catch (Exception e) {}
-			if (TwitchAPI.getJSONStreamShady() != null) return;
-			try {Thread.sleep(2000);} catch (Exception e) {}
-			if (TwitchAPI.getJSONStreamShady() != null) return;
-			try {Thread.sleep(2000);} catch (Exception e) {}
-			if (TwitchAPI.getJSONStreamShady() != null) return;
-			GivePointsThread.setOffline();
-			botty.sendToBunny("Shadyb00ny is now offline!");
+		while (true) {
+			try {Thread.sleep(5000);} catch (Exception e) {}
+			System.out.println("shady is: " + (TwitchAPI.getJSONStreamShady() != null));
+			if (TwitchAPI.getJSONStreamShady() != null) {
+				if(!GivePointsThread.getStatus())
+					GivePointsThread.setOnline();
+			} else {
+				if(!GivePointsThread.getStatus()) continue;
+				try {Thread.sleep(2000);} catch (Exception e) {}
+				if (TwitchAPI.getJSONStreamShady() != null) continue;
+				try {Thread.sleep(2000);} catch (Exception e) {}
+				if (TwitchAPI.getJSONStreamShady() != null) continue;
+				try {Thread.sleep(2000);} catch (Exception e) {}
+				if (TwitchAPI.getJSONStreamShady() != null) continue;
+				GivePointsThread.setOffline();
+				botty.sendToBunny("Shadyb00ny is now offline!");
+			}
+
 		}
 	}
-	
 }

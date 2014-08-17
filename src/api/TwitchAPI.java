@@ -18,15 +18,15 @@ public class TwitchAPI {
 		try {
 			return Parser.readJsonFromUrl(API + SHADY);
 		} catch (JSONException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-		return new JSONObject();
+		return null;
 	}
 	
 	public static JSONObject getJSONStreamShady() {
 		JSONObject json = getJSONShady();
-		return json.getJSONObject("stream");
+		if (json != null)
+			return json.optJSONObject("stream");
+		return null;
 	}
 	
 

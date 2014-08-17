@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import main.*;
 
 public class GivePointsThread extends Thread {
-	private static boolean  Online = true;
+	private static boolean  Online = false;
 	ShadyBotty botty;
 	public GivePointsThread(ShadyBotty bot) 
 	{
@@ -35,5 +35,8 @@ public class GivePointsThread extends Thread {
 	
 	public static void setOffline() {
 		Online = false;
+	}
+	public static boolean getStatus() {
+		return Online;
 	}
 }
