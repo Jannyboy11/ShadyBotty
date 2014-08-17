@@ -13,21 +13,21 @@ public class ChatRules {
 	//returs the amount of seconds the user should be timed out. If the result is -1, then no timeout should be performed.
 	public int checkMessage(String nick, String message){
 		int result = 0;
-		if ((checkLink(message) == -1)){
+		if ((checkLink(nick, message) == -1)){
 			return -1;
 		} else {
-			result += checkLink(message);
+			result += checkLink(nick, message);
 		}
 
 		if (checkCaps(message) != -1){
-			return checkCaps(s);
-		} else if (checkEmoticons(s) != -1) {
-			return checkEmoticons(s);
+			return checkCaps(message);
+		} else if (checkEmoticons(nick, message) != -1) {
+			return checkEmoticons(nick, message);
 		}
 
 
 
-
+		return -1;
 	}
 
 	private int checkEmoticons(String nick, String s) {
@@ -57,13 +57,36 @@ public class ChatRules {
 		} else {
 			// not too many emoticons;
 			return -1;
-			
+
 		}
 	}
 
-	private int checkLink(String s) {
-		// TODO Auto-generated method stub
-		return 0;
+	private int checkLink(String nick, String message) {
+		int links = ShadyBotty.database.getPrivileges(nick).getLinks();
+		if (links == -1) return -1;
+		
+		for (String word : getWords(message)){
+			int length = word.length();
+			boolean isLink = false;
+			if (word.startsWith("www.") || word.startsWith("http://") || word.startsWith("https://")){
+				//the word is obviously a url
+				ShadyBotty.database.getPrivileges(nick).setLinks(++links);
+				isLink = true;
+			} else if (word.charAt(length - 4) == '.' || word.charAt(length - 3 ) == '.' || word.charAt(length - 5) == '.'){
+				//the word is probably a link or emailaddress
+				ShadyBotty.database.getPrivileges(nick).setLinks(++links);
+				isLink = true;
+			}
+			if (isLink){
+				if (links == 0) return 30;
+				if (links == 1) return 120;
+				if (links == 2) return 240;
+				if (links == 3) return 400;
+				return 600;
+			}
+		}
+		// all words weren't links
+		return -1;
 	}
 
 	public int checkCaps(String s){

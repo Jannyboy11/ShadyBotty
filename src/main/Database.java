@@ -27,7 +27,7 @@ public class Database {
 
 	public void addPrivileges(String nick) {
 		if (!privileges.containsKey(nick))
-		privileges.put(nick,new chat.Privileges(nick));
+		privileges.put(nick, new Privileges(nick));
 	}
 
 
