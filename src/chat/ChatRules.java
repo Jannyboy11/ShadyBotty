@@ -10,24 +10,31 @@ public class ChatRules {
 
 	}
 
-	//returs the amount of seconds the user should be timed out. If the result is -1, then no timeout should be performed.
+	//returns the amount of seconds the user should be timed out. If the result is -1, then no timeout should be performed.
 	public int checkMessage(String nick, String message){
+		
+		//TODO make botty send warning message when a user violates the chat rules.
+		
 		int result = 0;
 		if ((checkLink(nick, message) == -1)){
 			return -1;
 		} else {
 			result += checkLink(nick, message);
 		}
-
-		if (checkCaps(message) != -1){
-			return checkCaps(message);
-		} else if (checkEmoticons(nick, message) != -1) {
-			return checkEmoticons(nick, message);
+		
+		if (checkEmoticons(nick, message) != -1) {
+			return -1;
+		} else {
+			result += checkEmoticons(nick, message);
 		}
-
-
-
-		return -1;
+		
+		if (checkCaps(nick, message) != -1){
+			return -1;
+		} else {
+			result += checkCaps(nick, message);
+		}
+		
+		return result;
 	}
 
 	private int checkEmoticons(String nick, String s) {
@@ -56,7 +63,7 @@ public class ChatRules {
 			//TODO create a thread in the ShadyBotty.java that decreases the value of filters above 0 for all users every 10 minutes. also for links Kappa.
 		} else {
 			// not too many emoticons;
-			return -1;
+			return 0;
 
 		}
 	}
@@ -86,15 +93,40 @@ public class ChatRules {
 			}
 		}
 		// all words weren't links
-		return -1;
-	}
-
-	public int checkCaps(String s){
 		return 0;
 	}
 
+	public int checkCaps(String nick, String message){
+		int filters = ShadyBotty.database.getPrivileges(nick).getFilters();
+		if (filters == -1) return -1;
+		
+		if (countUppercase(message) - 5 > message.length() / 5){
+			//user spammed to many caps
+			ShadyBotty.database.getPrivileges(nick).setFilters(++filters);
+			if (filters == 0) return 5;
+			if (filters == 1) return 30;
+			if (filters == 2) return 60;
+			if (filters == 3) return 240;
+			if (filters == 4) return 400;
+			return 600;			
+		}
+		//not too much caps Kappa
+		return 0;		
+	}
+	
+	
+	//some useful utility methods, maybe create some utility class for these?
+	
 	public String[] getWords(String s){
 		return s.split(" ");
+	}
+	
+	public int countUppercase(String s){
+		int result = 0;
+		for (int i = 0; i < s.length(); i++){
+			if (Character.isUpperCase(s.charAt(i))) result++;
+		}
+		return result;
 	}
 
 
