@@ -96,6 +96,10 @@ public class ShadyBotty extends PircBot {
 	public void onLeave(String channel, String sender, String login, String hostname) {
 		database.delCurrentUsers(sender);
 	}
+	
+	public void timeout(String nick, int duration){
+		sendRawLine(".timeout " + nick + duration);
+	}
 
 
 
