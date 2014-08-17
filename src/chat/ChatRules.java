@@ -86,8 +86,8 @@ public class ChatRules {
 				//the word is obviously a url
 				ShadyBotty.database.getPrivileges(nick).setLinks(links + 1);
 				isLink = true;
-			} else if ((length > 5 && ((word.charAt(length - 4) == '.' && word.charAt(length - 3 ) != '.'  && word.charAt(length - 2 ) != '.'  && word.charAt(length - 1 ) != '.') || (word.charAt(length - 3 ) == '.' && word.charAt(length - 2 ) != '.'  && word.charAt(length - 1 ) != '.') || (word.charAt(length - 5) == '.' && word.charAt(length - 4) != '.' && word.charAt(length - 3 ) != '.'  && word.charAt(length - 2 ) != '.'  && word.charAt(length - 1 ) != '.')))){
-				//the word is probably a link or emailaddress
+			} else if (length > 5 && ((word.charAt(length - 4) == '.' && Character.isLetter(word.charAt(length - 3)) && Character.isLetter(word.charAt(length - 2)) && Character.isLetter(word.charAt(length - 1))) || (word.charAt(length - 3) == '.' && Character.isLetter(word.charAt(length - 2)) && Character.isLetter(word.charAt(length - 1))))) {
+					//the word is probably a link or emailaddress
 				ShadyBotty.database.getPrivileges(nick).setLinks(++links);
 				isLink = true;
 			}
