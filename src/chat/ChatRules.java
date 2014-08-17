@@ -22,23 +22,23 @@ public class ChatRules {
 
 			reason += "Posted Link";
 		}
-		
-System.out.println("checked links " + reason);
+
+		System.out.println("checked links " + reason);
 
 		if ((a = checkEmoticons(nick, message)) != 0) {
 			result += a;
-			reason += (reason == "") ? "Too many Emoticons" : " , too many Emoticons";
+			reason += (reason.equals("")) ? "Too many Emoticons" : " , too many Emoticons";
 		}
-		
+
 		System.out.println("checked emotes " + reason);
-		
+
 		if ((a = checkCaps(nick, message)) != 0){
 			result += a;
-			reason += (reason == "") ? "Too much Caps" : " , too much Caps";
+			reason += (reason.equals("")) ? "Too much Caps" : " , too much Caps";
 		}
-		
+
 		System.out.println("checked caps " + reason);
-		
+
 		return new Pair(result, reason);
 	}
 
@@ -106,7 +106,10 @@ System.out.println("checked links " + reason);
 	public int checkCaps(String nick, String message){
 		int filters = ShadyBotty.database.getPrivileges(nick).getFilters();
 		if (filters == -1) return 0;
-		if (message.length() > 9 && (double)countUppercase(message)/(double)message.length() > 0.6){
+		
+		String messageWithoutEmoticons = removeEmoticons(message);
+		
+		if (messageWithoutEmoticons.length() > 9 && (double)countUppercase(messageWithoutEmoticons)/(double)messageWithoutEmoticons.length() > 0.6){
 			//user spammed to many caps
 			ShadyBotty.database.getPrivileges(nick).setFilters(filters + 1);
 			if (filters == 0) return 2;
@@ -131,6 +134,18 @@ System.out.println("checked links " + reason);
 		int result = 0;
 		for (int i = 0; i < s.length(); i++){
 			if (Character.isUpperCase(s.charAt(i))) result++;
+		}
+		return result;
+	}
+	
+	public String removeEmoticons(String s){
+		String result = "";
+		for (String word : getWords(s)){
+			for (String emo : emoticons){
+				if (!(emo.equals(word))){
+					result += word = " ";
+				}
+			}
 		}
 		return result;
 	}
