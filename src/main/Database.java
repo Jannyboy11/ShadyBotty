@@ -31,6 +31,8 @@ public class Database {
 	}
 
 
+	
+	
 	public void setLastMessage(String user, Long time) { 
 		lastChat.put(user, time);
 	}
@@ -79,6 +81,10 @@ public class Database {
 	public ArrayList<String> getCurrentUsers() {
 		return currentUsers;
 	}
+	
+	
+	
+	
 	
 	public void addCurrentUsers(String nick) {
 		if (!currentUsers.contains(nick))
