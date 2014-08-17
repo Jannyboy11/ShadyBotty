@@ -56,6 +56,7 @@ System.out.println("checked links " + reason);
 				}
 			}
 		}
+		System.out.println(emocounter +"<emo total> " + total);
 		if ((emocounter > 4 && total < 10) || emocounter > 7){ 
 			//emo's just too annoying. pls keep low. no annoying methz
 
