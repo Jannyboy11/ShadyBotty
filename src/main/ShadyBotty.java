@@ -6,6 +6,8 @@ import java.io.FileReader;
 import org.jibble.pircbot.PircBot;
 import org.jibble.pircbot.User;
 
+import chat.ChatRules;
+import chat.Pair;
 import api.CheckStreamThread;
 import points.GivePointsThread;
 import points.Points;
@@ -15,6 +17,7 @@ public class ShadyBotty extends PircBot {
 	public static GivePointsThread pointsThread;
 	public static CheckStreamThread streamThread;
 	public static Points points;
+	public static ChatRules rules;
 	public void sendToBunny(String text) {
 		sendMessage("#shadybunny",text);
 	}
@@ -23,8 +26,10 @@ public class ShadyBotty extends PircBot {
 		this.setName("ShadyBotty");
 		database = new Database();
 		points = new Points();
+		rules = new ChatRules(this);
 		pointsThread = new GivePointsThread(this);
 		pointsThread.start();
+
 		streamThread = new CheckStreamThread(this);
 		streamThread.start();
 	}
@@ -59,8 +64,17 @@ public class ShadyBotty extends PircBot {
 			String login, String hostname, String message) {
 
 		database.setLastMessage(sender, System.currentTimeMillis());
-		
-		//CHECK IF USER VIOLATED CHATRULES(CAPS/SWEAR/EMOTES ETC.)
+		Pair temp;
+		System.out.println("before check");
+		temp = rules.checkMessage(sender, message);
+		if (temp.getTimeoutLength() > 0) {
+			System.out.println(temp.getTimeoutLength() + " time for timeout for " + sender);
+			sendToBunny("/timeout "+ sender+ " " + temp.getTimeoutLength());
+			sendToBunny(sender + " has been timed out for " 
+			+ temp.getTimeoutLength() + " seconds. Reason: "
+			+ temp.getReason());
+			return;
+		}
 		
 		//CHECK IF USER USED A  COMMAND
 		
