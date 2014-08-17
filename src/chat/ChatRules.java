@@ -57,7 +57,7 @@ public class ChatRules {
 			}
 		}
 		System.out.println(emocounter +"<emo total> " + total);
-		if ((emocounter > 4 && total < 10) || emocounter > 7){ 
+		if ((emocounter > 4 && total < 15) || emocounter > 6){ 
 			//emo's just too annoying. pls keep low. no annoying methz
 
 			ShadyBotty.database.getPrivileges(nick).setFilters(filters + 1); //adds one point to the warningcounter
