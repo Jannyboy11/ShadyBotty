@@ -59,7 +59,7 @@ System.out.println("checked links " + reason);
 		if ((emocounter > 4 && total < 10) || emocounter > 7){ 
 			//emo's just too annoying. pls keep low. no annoying methz
 
-			ShadyBotty.database.getPrivileges(nick).setFilters(++filters); //adds one point to the warningcounter
+			ShadyBotty.database.getPrivileges(nick).setFilters(filters + 1); //adds one point to the warningcounter
 			if (filters == 0) return 2;
 			if (filters == 1) return 30;
 			if (filters == 2) return 60;
@@ -83,7 +83,7 @@ System.out.println("checked links " + reason);
 			boolean isLink = false;
 			if (word.startsWith("www.") || word.startsWith("http://") || word.startsWith("https://")){
 				//the word is obviously a url
-				ShadyBotty.database.getPrivileges(nick).setLinks(++links);
+				ShadyBotty.database.getPrivileges(nick).setLinks(links + 1);
 				isLink = true;
 			} else if ((length > 5 && (word.charAt(length - 4) == '.' || word.charAt(length - 3 ) == '.' || word.charAt(length - 5) == '.'))){
 				//the word is probably a link or emailaddress
@@ -107,9 +107,7 @@ System.out.println("checked links " + reason);
 		if (filters == -1) return 0;
 		if (message.length() > 9 && (double)countUppercase(message)/(double)message.length() > 0.6){
 			//user spammed to many caps
-			System.out.println(nick + ShadyBotty.database.getPrivileges(nick).getFilters() + " 1 " + filters );
-			ShadyBotty.database.getPrivileges(nick).setFilters(++filters);
-			System.out.println(nick + ShadyBotty.database.getPrivileges(nick).getFilters() + " 2 " + filters );
+			ShadyBotty.database.getPrivileges(nick).setFilters(filters + 1);
 			if (filters == 0) return 2;
 			if (filters == 1) return 30;
 			if (filters == 2) return 60;
