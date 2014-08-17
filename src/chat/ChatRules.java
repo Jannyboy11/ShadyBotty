@@ -41,14 +41,13 @@ public class ChatRules {
 		for (String sub : getWords(s)){
 			total++;
 			for(String emo : emoticons){
-				if (emo.equals(sub)){
+				if (emo.contains(sub)){
 					emocounter++;
 				}
 			}
 		}
-		if (emocounter - 10 > total / 4){ //if the amount of emoticons minus 10 is greater then a quarter of the message, then the amount is too much.
-			// too many emoticons!
-			// TODO get how many times the player already typed too much emoticons, and base the timeout length on that value DONE;
+		if ((emocounter > 4 && total < 10) || emocounter > 7){ 
+			//emo's just too annoying. pls keep low. no annoying methz
 			int filters = ShadyBotty.database.getPrivileges(nick).getFilters();	
 			if (filters == -1) return -1;
 			ShadyBotty.database.getPrivileges(nick).setFilters(++filters); //adds one point to the warningcounter
@@ -83,11 +82,11 @@ public class ChatRules {
 				isLink = true;
 			}
 			if (isLink){
-				if (links == 0) return 30;
-				if (links == 1) return 120;
-				if (links == 2) return 240;
-				if (links == 3) return 400;
-				return 600;
+				if (links == 0) return 120;
+				if (links == 1) return 240;
+				if (links == 2) return 400;
+				if (links == 3) return 600;
+				return 1200;
 			}
 		}
 		// all words weren't links
@@ -98,10 +97,10 @@ public class ChatRules {
 		int filters = ShadyBotty.database.getPrivileges(nick).getFilters();
 		if (filters == -1) return -1;
 		
-		if (countUppercase(message) - 5 > message.length() / 5){
+		if (message.length() > 9 && countUppercase(message)/message.length() > 0.6){
 			//user spammed to many caps
 			ShadyBotty.database.getPrivileges(nick).setFilters(++filters);
-			if (filters == 0) return 5;
+			if (filters == 0) return 2;
 			if (filters == 1) return 30;
 			if (filters == 2) return 60;
 			if (filters == 3) return 240;
