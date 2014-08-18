@@ -16,7 +16,7 @@ public class Privileges {
 	
 	private String faction;
 	
-	private enum Status{VIEWER, REGULAR, PREMIUM, DEMIMOD, MOD};
+	public enum Status{VIEWER, REGULAR, PREMIUM, DEMIMOD, MOD};
 	private Status status;
 	public Privileges(String n){
 		nick = n;

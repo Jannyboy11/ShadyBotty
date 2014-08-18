@@ -1,5 +1,7 @@
 package chat;
 
+import chat.Privileges;
+import chat.Privileges.Status;
 import main.ShadyBotty;
 
 public class ChatRules {
@@ -15,28 +17,27 @@ public class ChatRules {
 		//TODO make botty send warning message when a user violates the chat rules.		
 		int result = 0;
 		String reason = "";
-		System.out.println("checking");
+		System.out.println("Before statuscheck" + ShadyBotty.database.getPrivileges(nick).getStatus().toString());
+		if(ShadyBotty.database.getPrivileges(nick).getStatus() == Status.VIEWER 
+				|| ShadyBotty.database.getPrivileges(nick).getStatus() == Status.REGULAR) {
 		if ((a = checkLink(nick, message)) != 0){
 			result += a;
 
 			reason += "Posted Link";
 		}
 
-		System.out.println("checked links " + reason);
 
 		if ((a = checkEmoticons(nick, message)) != 0) {
 			result += a;
 			reason += (reason.equals("")) ? "Too many Emoticons" : " , too many Emoticons";
 		}
 
-		System.out.println("checked emotes " + reason);
 
 		if ((a = checkCaps(nick, message)) != 0){
 			result += a;
 			reason += (reason.equals("")) ? "Too much Caps" : " , too much Caps";
 		}
-
-		System.out.println("checked caps " + reason);
+		}
 
 		return new Pair(result, reason);
 	}
