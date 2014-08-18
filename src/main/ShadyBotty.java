@@ -30,8 +30,11 @@ public class ShadyBotty extends PircBot {
 		pointsThread = new GivePointsThread(this);
 		pointsThread.start();
 
-		streamThread = new CheckStreamThread(this,pointsThread);
+		streamThread = new CheckStreamThread(this);
 		streamThread.start();
+	}
+	public GivePointsThread getPointsThread() {
+		return pointsThread;
 	}
 	public void newPointsThread(GivePointsThread thr) {
 		this.pointsThread = thr;
