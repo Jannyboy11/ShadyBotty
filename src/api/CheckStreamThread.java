@@ -20,7 +20,8 @@ public class CheckStreamThread extends Thread {
 			if (TwitchAPI.getJSONStreamShady() != null) {
 				if(!pointsth.getStatus())
 					pointsth.setOnline();
-					
+				GivePointsThread thr = new GivePointsThread(botty);
+				botty.newPointsThread(thr);
 			} else {
 				if(!pointsth.getStatus()) continue;
 				try {Thread.sleep(2000);} catch (Exception e) {}
