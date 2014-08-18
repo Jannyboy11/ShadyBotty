@@ -7,7 +7,6 @@ public class Privileges {
 	private int links;
 	private int capsFilter; // used for caps & emoticons. 
 	private int emoFilter;
-	private boolean premium;
 	private boolean subscriber;
 	private int gain;
 	private String faction;
@@ -39,9 +38,6 @@ public class Privileges {
 	}
 	
 	
-	public boolean hasPremium(){
-		return premium;
-	}
 	
 	public boolean isSubscriber(){
 		return subscriber;
