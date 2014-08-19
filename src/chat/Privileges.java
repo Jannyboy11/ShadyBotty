@@ -35,8 +35,7 @@ public class Privileges {
 			}
 			ini = new Wini(new File("currencies.ini"));
 			gain = ini.get(nick,"gain") == null ? 0 : new Integer(ini.get(nick,"gain"));
-			System.out.println("links: " + links + " filter: " + capsFilter + "  gain:  " + gain + "  from nick: " + nick);
-		} catch (IOException e) { 
+				} catch (IOException e) { 
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

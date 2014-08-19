@@ -16,10 +16,11 @@ public class CheckStreamThread extends Thread {
 			try {Thread.sleep(5000);} catch (Exception e) {}
 			System.out.println("shady is: " + (TwitchAPI.getJSONStreamShady() != null));
 			if (TwitchAPI.getJSONStreamShady() != null) {
-				if(!botty.getPointsThread().getStatus())
+				if(!botty.getPointsThread().getStatus()) {
 					botty.getPointsThread().setOnline();
-				GivePointsThread thr = new GivePointsThread(botty);
-				botty.newPointsThread(thr);
+					GivePointsThread thr = new GivePointsThread(botty);
+					botty.newPointsThread(thr);
+				}
 			} else {
 				if(!botty.getPointsThread().getStatus()) continue;
 				try {Thread.sleep(2000);} catch (Exception e) {}

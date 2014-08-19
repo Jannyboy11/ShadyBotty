@@ -17,26 +17,25 @@ public class ChatRules {
 		//TODO make botty send warning message when a user violates the chat rules.		
 		int result = 0;
 		String reason = "";
-		System.out.println("Before statuscheck" + ShadyBotty.database.getPrivileges(nick).getStatus().toString());
 		if(ShadyBotty.database.getPrivileges(nick).getStatus() == Status.VIEWER 
 				|| ShadyBotty.database.getPrivileges(nick).getStatus() == Status.REGULAR) {
-		if ((a = checkLink(nick, message)) != 0){
-			result += a;
+			if ((a = checkLink(nick, message)) != 0){
+				result += a;
 
-			reason += "Posted Link";
-		}
-
-
-		if ((a = checkEmoticons(nick, message)) != 0) {
-			result += a;
-			reason += (reason.equals("")) ? "Too many Emoticons" : " , too many Emoticons";
-		}
+				reason += "Posted Link";
+			}
 
 
-		if ((a = checkCaps(nick, message)) != 0){
-			result += a;
-			reason += (reason.equals("")) ? "Too much Caps" : " , too much Caps";
-		}
+			if ((a = checkEmoticons(nick, message)) != 0) {
+				result += a;
+				reason += (reason.equals("")) ? "Too many Emoticons" : " , too many Emoticons";
+			}
+
+
+			if ((a = checkCaps(nick, message)) != 0){
+				result += a;
+				reason += (reason.equals("")) ? "Too much Caps" : " , too much Caps";
+			}
 		}
 
 		return new Pair(result, reason);
@@ -51,12 +50,10 @@ public class ChatRules {
 			total++;
 			for(String emo : emoticons){
 				if (sub.contains(emo)){
-					System.out.println(emo + " " + sub);
 					emocounter++;
 				}
 			}
 		}
-		System.out.println(emocounter +"<emo total> " + total);
 		if ((emocounter > 4 && total < 15) || emocounter > 6){ 
 			//emo's just too annoying. pls keep low. no annoying methz
 
@@ -86,10 +83,15 @@ public class ChatRules {
 				//the word is obviously a url
 				ShadyBotty.database.getPrivileges(nick).setLinks(links + 1);
 				isLink = true;
-			} else if (length > 5 && ((word.charAt(length - 4) == '.' && Character.isLetter(word.charAt(length - 3)) && Character.isLetter(word.charAt(length - 2)) && Character.isLetter(word.charAt(length - 1))) || (word.charAt(length - 3) == '.' && Character.isLetter(word.charAt(length - 2)) && Character.isLetter(word.charAt(length - 1))))) {
-					//the word is probably a link or emailaddress
-				ShadyBotty.database.getPrivileges(nick).setLinks(links + 1);
-				isLink = true;
+			} else if (length > 5) {					
+				for (int i = 0; i < length-4; i++) {
+
+					if ((word.charAt(i) == '.' && Character.isLetter(word.charAt(i +1)) && Character.isLetter(word.charAt(i +2)) && Character.isLetter(word.charAt(i+3))) || (word.charAt(i+1) == '.' && Character.isLetter(word.charAt(i+2)) && Character.isLetter(word.charAt(i+3)))) {
+						//the word is probably a link or emailaddress
+						ShadyBotty.database.getPrivileges(nick).setLinks(links + 1);
+						isLink = true;
+					}
+				}
 			}
 			if (isLink){
 				if (links == 0) return 120;
@@ -106,9 +108,9 @@ public class ChatRules {
 	public int checkCaps(String nick, String message){
 		int filters = (ShadyBotty.database.getPrivileges(nick) != null) ? ShadyBotty.database.getPrivileges(nick).getCapsFilter() : 0;
 		if (filters == -1) return 0;
-		
+
 		String messageWithoutEmoticons = removeEmoticons(message);
-		
+
 		if (messageWithoutEmoticons.length() > 9 && (double)countUppercase(messageWithoutEmoticons)/(double)messageWithoutEmoticons.length() > 0.6){
 			//user spammed to many caps
 			ShadyBotty.database.getPrivileges(nick).setCapsFilter(filters + 1);
@@ -137,7 +139,7 @@ public class ChatRules {
 		}
 		return result;
 	}
-	
+
 	public String removeEmoticons(String s){
 		String result = "";
 		for (String word : getWords(s)){
