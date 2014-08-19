@@ -14,10 +14,9 @@ import points.Points;
 
 public class ShadyBotty extends PircBot {
 	public static Database database;
-	public static GivePointsThread pointsThread;
+	public GivePointsThread pointsThread;
 	public static CheckStreamThread streamThread;
 	public static Points points;
-	public static ChatRules rules;
 	public void sendToBunny(String text) {
 		sendMessage("#shadybunny",text);
 	}
@@ -26,7 +25,6 @@ public class ShadyBotty extends PircBot {
 		this.setName("ShadyBotty");
 		database = new Database();
 		points = new Points();
-		rules = new ChatRules(this);
 		pointsThread = new GivePointsThread(this);
 		pointsThread.start();
 
@@ -75,7 +73,7 @@ public class ShadyBotty extends PircBot {
 		database.addPrivileges(sender);
 		Pair temp;
 		System.out.println("before check");
-		temp = rules.checkMessage(sender, message);
+		temp = ChatRules.checkMessage(sender, message);
 		if (temp.getTimeoutLength() > 0) {
 			System.out.println(temp.getTimeoutLength() + " time for timeout for " + sender);
 			sendToBunny("/timeout "+ sender+ " " + temp.getTimeoutLength());

@@ -12,7 +12,7 @@ public class ChatRules {
 	}
 
 	//returns the amount of seconds the user should be timed out. If the result is -1, then no timeout should be performed.
-	public Pair checkMessage(String nick, String message){
+	public static Pair checkMessage(String nick, String message){
 		int a;
 		//TODO make botty send warning message when a user violates the chat rules.		
 		int result = 0;
@@ -41,7 +41,7 @@ public class ChatRules {
 		return new Pair(result, reason);
 	}
 
-	private int checkEmoticons(String nick, String s) {
+	private static int checkEmoticons(String nick, String s) {
 		int filters = (ShadyBotty.database.getPrivileges(nick) != null) ? ShadyBotty.database.getPrivileges(nick).getEmoFilter() : 0;
 		if (filters == -1) return 0;
 		int emocounter = 0;
@@ -72,7 +72,7 @@ public class ChatRules {
 		}
 	}
 
-	private int checkLink(String nick, String message) {
+	private static int checkLink(String nick, String message) {
 		int links = (ShadyBotty.database.getPrivileges(nick) != null) ? ShadyBotty.database.getPrivileges(nick).getLinks() : 0;
 		if (links == -1) return 0;
 
@@ -105,7 +105,7 @@ public class ChatRules {
 		return 0;
 	}
 
-	public int checkCaps(String nick, String message){
+	public static int checkCaps(String nick, String message){
 		int filters = (ShadyBotty.database.getPrivileges(nick) != null) ? ShadyBotty.database.getPrivileges(nick).getCapsFilter() : 0;
 		if (filters == -1) return 0;
 
@@ -128,7 +128,7 @@ public class ChatRules {
 
 	//some useful utility methods, maybe create some utility class for these?
 
-	public String[] getWords(String s){
+	public static String[] getWords(String s){
 		return s.split(" ");
 	}
 
