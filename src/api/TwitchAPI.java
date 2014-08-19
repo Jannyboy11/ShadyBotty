@@ -32,7 +32,7 @@ public class TwitchAPI {
 	public static int getViewersShady() {
 		JSONObject json = getJSONStreamShady();
 		if (json != null)
-			return json.optInt("viewer");
+			return json.optInt("viewers");
 		return 0;
 	}
 	
