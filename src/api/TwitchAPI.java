@@ -29,5 +29,12 @@ public class TwitchAPI {
 		return null;
 	}
 	
+	public static int getViewersShady() {
+		JSONObject json = getJSONStreamShady();
+		if (json != null)
+			return json.optInt("viewer");
+		return 0;
+	}
+	
 
 }
