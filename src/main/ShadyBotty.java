@@ -6,6 +6,8 @@ import java.io.FileReader;
 import org.jibble.pircbot.PircBot;
 import org.jibble.pircbot.User;
 
+import commands.Shop;
+
 import chat.ChatRules;
 import chat.Pair;
 import api.CheckStreamThread;
@@ -82,7 +84,8 @@ public class ShadyBotty extends PircBot {
 			+ temp.getReason());
 			return;
 		}
-		
+		if (Shop.isValidShopCommand(message,sender))
+			return;
 		//CHECK IF USER USED A  COMMAND
 		
 		// CHECK IF HE TRIGGERED AN AUTOREPLY

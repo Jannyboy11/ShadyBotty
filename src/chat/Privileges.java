@@ -8,6 +8,7 @@ public class Privileges {
 	
 	private String nick;
 	
+	private int cooldown;
 	private int links;
 	private int capsFilter; // used for caps & emoticons. 
 	private int emoFilter;
@@ -24,6 +25,7 @@ public class Privileges {
 		try {
 			ini = new Wini(new File("users.ini"));
 			links = ini.get(nick,"Link") == null ? 0 : -1;
+			cooldown = ini.get(nick,"cooldown") == null ? 0 : -1;
 			capsFilter = ini.get(nick,"Filter") == null ? 0 : -1;
 			emoFilter = ini.get(nick,"Filter") == null ? 0 : -1;
 			faction = ini.get(nick,"faction") == null ? "null" : ini.get(nick,"faction");
@@ -48,6 +50,7 @@ public class Privileges {
 		
 		
 	}
+
 	
 	public int getLinks(){
 		return links;
@@ -103,6 +106,16 @@ public class Privileges {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
+
+	public int getCooldown() {
+		return cooldown;
+	}
+
+	public void setCooldown(int cooldown) {
+		this.cooldown = cooldown;
+	}
+	
+
 
 
 }

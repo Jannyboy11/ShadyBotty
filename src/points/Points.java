@@ -10,7 +10,7 @@ public class Points {
 	
 	}
 	
-	public double getPoints(String nick) {
+	public static double getPoints(String nick) {
 		double points;
 		Wini ini;
 		try {
@@ -56,7 +56,7 @@ public class Points {
 	}
 	
 	
-	public void delPoints(String nick, double amount) {
+	public static void delPoints(String nick, double amount) {
 		Wini ini;
 		try {
 			ini = new Wini(new File("currencies.ini"));
@@ -71,10 +71,16 @@ public class Points {
 		}
 	}
 	
-	public void buyItemWithPoints(String nick, double amount) {
+	public static void buyItemWithPoints(String nick, double amount) {
 		if (ShadyBotty.database.getPrivileges(nick).getFaction() == "jb940")
 			amount = amount*0.9;
 		delPoints(nick, amount);
+	}
+	
+	public static double getCostItem(String nick, double amount) {
+		if (ShadyBotty.database.getPrivileges(nick).getFaction() == "jb940")
+			amount = amount*0.9;
+		return amount;
 	}
 
 }
