@@ -132,7 +132,7 @@ public class ChatRules {
 		return s.split(" ");
 	}
 
-	public int countUppercase(String s){
+	public static int countUppercase(String s){
 		int result = 0;
 		for (int i = 0; i < s.length(); i++){
 			if (Character.isUpperCase(s.charAt(i))) result++;
@@ -140,7 +140,7 @@ public class ChatRules {
 		return result;
 	}
 
-	public String removeEmoticons(String s){
+	public static String removeEmoticons(String s){
 		String result = "";
 		for (String word : getWords(s)){
 			boolean in = false;
