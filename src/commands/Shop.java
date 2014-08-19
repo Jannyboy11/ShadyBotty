@@ -72,18 +72,29 @@ public class Shop {
 
 	private static boolean getBuyCommand(String msg, String nick) {
 		if (msg.equals("cooldown") && shopAvailable() && Points.getPoints(nick) > Points.getCostItem(nick,new Double(1800))) {
+			if (ShadyBotty.database.getPrivileges(nick).getCooldown() == -1){
+				ShadyBottyMain.bot.sendToBunny("you already have this item.");
+				setLatestShop(System.currentTimeMillis());
+ 				return true;
+			}
 			ShadyBottyMain.bot.sendToBunny("Pls No abuserino spammerino! " + nick + " has bought cooldown for " + Points.getCostItem(nick,new Double(1800)));
 			Points.buyItemWithPoints(nick, new Double(1800));
 			setLatestShop(System.currentTimeMillis());	
 			writePrivileges(nick,msg);
 			return true;
-		} else if (msg.equals("link") && shopAvailable()) {
+		} else if (msg.equals("link") && shopAvailable() && Points.getPoints(nick) > Points.getCostItem(nick,new Double(500))) {
 			ShadyBottyMain.bot.sendToBunny(nick +" can quickly post a link! paid " + Points.getCostItem(nick,new Double(100)) + " points.");
 			Points.buyItemWithPoints(nick, new Double(100));
 			setLatestShop(System.currentTimeMillis());			
 			return true;
-		} else if (msg.equals("regular") && shopAvailable()) {
-			ShadyBottyMain.bot.sendToBunny("Regular let's you lose less points when swearing and gives you access to the cool shop and factions! JUST THE TIP Kappa Cost: " + Points.getCostItem(nick,new Double(1600)) + " for you.");
+		} else if (msg.equals("regular") && shopAvailable() && Points.getPoints(nick) > Points.getCostItem(nick,new Double(1800))) {
+			if (ShadyBotty.database.getPrivileges(nick).getStatus() != Status.VIEWER){
+				ShadyBottyMain.bot.sendToBunny("you already have this item.");
+				setLatestShop(System.currentTimeMillis());
+ 				return true;
+			}
+			ShadyBottyMain.bot.sendToBunny(nick + " is now a regular WOOOOH! Kappa " + Points.getCostItem(nick,new Double(1600)) + " points have been removed");
+			Points.buyItemWithPoints(nick, new Double(1600));
 			setLatestShop(System.currentTimeMillis());
 			writePrivileges(nick,msg);
 			return true;
@@ -104,7 +115,6 @@ public class Shop {
 		if (msg.equals("cooldown") && shopAvailable()) {
 			ShadyBottyMain.bot.sendToBunny("Cooldown let's you ignore botdelays, so he answers immediately for most commands! reduces duration of long delays. cost: " + Points.getCostItem(nick,new Double(1800)) + " for you.");
 			setLatestShop(System.currentTimeMillis());	
-			writePrivileges(nick,"cooldown");
 			return true;
 		} else if (msg.equals("link") && shopAvailable()) {
 			ShadyBottyMain.bot.sendToBunny("Link allows you to post a single link within 60 seconds! Costs " + Points.getCostItem(nick,new Double(100)) + " for you  and requires 450 points minimum.");
