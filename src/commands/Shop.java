@@ -11,11 +11,12 @@ import chat.ChatRules;
 import chat.Privileges.Status;
 public class Shop {
 	private static long latestShop;
+	private static ShadyBotty bot;
 
 
-
-	public Shop() {
+	public Shop(ShadyBotty bot) {
 		setLatestShop(0);
+		Shop.bot = bot;
 	}
 
 	public static long getLatestShop() {
@@ -30,7 +31,7 @@ public class Shop {
 
 	public static boolean shopAvailable() {
 		Long call =  System.currentTimeMillis();
-		if (call - getLatestShop() < 5000)
+		if (call - getLatestShop() > 5000)
 			return true;
 		return false;
 	}
@@ -38,24 +39,24 @@ public class Shop {
 	public static boolean isValidShopCommand(String message, String nick) {
 		String[] msg = ChatRules.getWords(message.toLowerCase());
 		if (msg.length == 1 && msg[0].equals("!shop") && shopAvailable())  {
-			ShadyBottyMain.bot.sendToBunny("Dear " +nick+", The current items in the shop are: cooldown, link, regular and gain.");
+			bot.sendToBunny("Dear " +nick+", The current items in the shop are: cooldown, link, regular and gain.");
 			setLatestShop(System.currentTimeMillis());
 			return true;
 		}
 		if (msg.length != 3)
 			return false;
-
+System.out.println("correct length shop");
 		if (msg[0].equals("!shop") && msg[1].equals("info"))
-			return getInfoCommand(msg[3],nick);
+			return getInfoCommand(msg[2],nick);
 
 		else if (msg[0].equals("!shop") && msg[1].equals("buy"))
-			return getBuyCommand(msg[3],nick);
+			return getBuyCommand(msg[2],nick);
 
 		else if (msg[0].equals("!regshop") && msg[1].equals("info"))
-			return getInfoRegCommand(msg[3],nick);
+			return getInfoRegCommand(msg[2],nick);
 
 		else if (msg[0].equals("!regshop") && msg[1].equals("buy"))
-			return getBuyRegCommand(msg[3],nick);
+			return getBuyRegCommand(msg[2],nick);
 
 		return false;
 	}
@@ -71,35 +72,36 @@ public class Shop {
 	}
 
 	private static boolean getBuyCommand(String msg, String nick) {
+		System.out.println("in buy cmd");
 		if (msg.equals("cooldown") && shopAvailable() && Points.getPoints(nick) > Points.getCostItem(nick,new Double(1800))) {
 			if (ShadyBotty.database.getPrivileges(nick).getCooldown() == -1){
-				ShadyBottyMain.bot.sendToBunny("you already have this item.");
+				bot.sendToBunny("you already have this item.");
 				setLatestShop(System.currentTimeMillis());
  				return true;
 			}
-			ShadyBottyMain.bot.sendToBunny("Pls No abuserino spammerino! " + nick + " has bought cooldown for " + Points.getCostItem(nick,new Double(1800)));
+			bot.sendToBunny("Pls No abuserino spammerino! " + nick + " has bought cooldown for " + Points.getCostItem(nick,new Double(1800)));
 			Points.buyItemWithPoints(nick, new Double(1800));
 			setLatestShop(System.currentTimeMillis());	
 			writePrivileges(nick,msg);
 			return true;
 		} else if (msg.equals("link") && shopAvailable() && Points.getPoints(nick) > Points.getCostItem(nick,new Double(500))) {
-			ShadyBottyMain.bot.sendToBunny(nick +" can quickly post a link! paid " + Points.getCostItem(nick,new Double(100)) + " points.");
+			bot.sendToBunny(nick +" can quickly post a link! paid " + Points.getCostItem(nick,new Double(100)) + " points.");
 			Points.buyItemWithPoints(nick, new Double(100));
 			setLatestShop(System.currentTimeMillis());			
 			return true;
 		} else if (msg.equals("regular") && shopAvailable() && Points.getPoints(nick) > Points.getCostItem(nick,new Double(1800))) {
 			if (ShadyBotty.database.getPrivileges(nick).getStatus() != Status.VIEWER){
-				ShadyBottyMain.bot.sendToBunny("you already have this item.");
+				bot.sendToBunny("you already have this item.");
 				setLatestShop(System.currentTimeMillis());
  				return true;
 			}
-			ShadyBottyMain.bot.sendToBunny(nick + " is now a regular WOOOOH! Kappa " + Points.getCostItem(nick,new Double(1600)) + " points have been removed");
+			bot.sendToBunny(nick + " is now a regular WOOOOH! Kappa " + Points.getCostItem(nick,new Double(1600)) + " points have been removed");
 			Points.buyItemWithPoints(nick, new Double(1600));
 			setLatestShop(System.currentTimeMillis());
 			writePrivileges(nick,msg);
 			return true;
 		} else if (msg.equals("gain") && shopAvailable()) {
-			ShadyBottyMain.bot.sendToBunny(nick + "has bought level "
+			bot.sendToBunny(nick + "has bought level "
 		+ ShadyBotty.database.getPrivileges(nick).getGain()+1
 		+ " gain for " + 
 		Points.getCostItem(nick,new Double((ShadyBotty.database.getPrivileges(nick).getGain()+1)*1500)));
@@ -113,19 +115,19 @@ public class Shop {
 
 	private static boolean getInfoCommand(String msg, String nick) {
 		if (msg.equals("cooldown") && shopAvailable()) {
-			ShadyBottyMain.bot.sendToBunny("Cooldown let's you ignore botdelays, so he answers immediately for most commands! reduces duration of long delays. cost: " + Points.getCostItem(nick,new Double(1800)) + " for you.");
+			bot.sendToBunny("Cooldown let's you ignore botdelays, so he answers immediately for most commands! reduces duration of long delays. cost: " + Points.getCostItem(nick,new Double(1800)) + " for you.");
 			setLatestShop(System.currentTimeMillis());	
 			return true;
 		} else if (msg.equals("link") && shopAvailable()) {
-			ShadyBottyMain.bot.sendToBunny("Link allows you to post a single link within 60 seconds! Costs " + Points.getCostItem(nick,new Double(100)) + " for you  and requires 450 points minimum.");
+			bot.sendToBunny("Link allows you to post a single link within 60 seconds! Costs " + Points.getCostItem(nick,new Double(100)) + " for you  and requires 450 points minimum.");
 			setLatestShop(System.currentTimeMillis());			
 			return true;
 		} else if (msg.equals("regular") && shopAvailable()) {
-			ShadyBottyMain.bot.sendToBunny("Regular let's you lose less points when swearing and gives you access to the cool shop and factions! JUST THE TIP Kappa Cost: " + Points.getCostItem(nick,new Double(1600)) + " for you.");
+			bot.sendToBunny("Regular let's you lose less points when swearing and gives you access to the cool shop and factions! JUST THE TIP Kappa Cost: " + Points.getCostItem(nick,new Double(1600)) + " for you.");
 			setLatestShop(System.currentTimeMillis());			
 			return true;
 		} else if (msg.equals("gain") && shopAvailable()) {
-			ShadyBottyMain.bot.sendToBunny("PRICES VARY ON LEVEL. current price for " + nick + " is: "
+			bot.sendToBunny("PRICES VARY ON LEVEL. current price for " + nick + " is: "
 					+ Points.getCostItem(nick,new Double((ShadyBotty.database.getPrivileges(nick).getGain()+1)*1500))
 					+ " for level " + (ShadyBotty.database.getPrivileges(nick).getGain()+1));
 			setLatestShop(System.currentTimeMillis());			

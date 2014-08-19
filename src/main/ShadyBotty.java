@@ -19,6 +19,7 @@ public class ShadyBotty extends PircBot {
 	public GivePointsThread pointsThread;
 	public static CheckStreamThread streamThread;
 	public static Points points;
+	public static Shop shop;
 	public void sendToBunny(String text) {
 		sendMessage("#shadybunny",text);
 	}
@@ -29,7 +30,7 @@ public class ShadyBotty extends PircBot {
 		points = new Points();
 		pointsThread = new GivePointsThread(this);
 		pointsThread.start();
-
+		shop = new Shop(this);
 		streamThread = new CheckStreamThread(this);
 		streamThread.start();
 	}
