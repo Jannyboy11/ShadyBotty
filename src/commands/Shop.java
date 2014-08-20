@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import org.ini4j.Wini;
 
+import points.Chips;
 import points.Points;
 import main.ShadyBotty;
 import chat.ChatRules;
@@ -70,6 +71,56 @@ public class Shop {
 
 	private static boolean getBuyRegCommand(String msg, String nick) {
 		String nickn = StandardCmds.getNick(nick);
+		if (msg.equals("chips") && shopAvailable() && Points.getPoints(nick) > Points.getCostItem(nick,new Double(500))) {
+			bot.sendToBunny("You gamble addict Kappa. "+ nickn + " has bought 250 chips for: " + Points.getCostItem(nick,new Double(500)));
+			Points.buyItemWithPoints(nick, new Double(500));
+			Chips.addChips(nick, 250);
+			setLatestShop(System.currentTimeMillis());	
+			return true;
+		}
+		else if (msg.equals("points") && shopAvailable() && Chips.getChips(nick) >= 420) {
+			bot.sendToBunny(nickn + "has just bought 800 points with 420 chips. such points Kappa");
+			Chips.delChips(nick, 420);
+			Points.addPoints(nick,new Double(800));
+			setLatestShop(System.currentTimeMillis());	
+			return true;
+		} else if (msg.equals("links") && shopAvailable()  && Points.getPoints(nick) > Points.getCostItem(nick,new Double(650))) {
+			if (ShadyBotty.database.getPrivileges(nick).getLinks() == -1){
+				bot.sendToBunny("you already have this item " + nickn + ".");
+				setLatestShop(System.currentTimeMillis());
+				return true;
+			}
+			bot.sendToBunny(nickn + " can now permanently post links for just " + Math.round(Points.getCostItem(nick,new Double(650))) + " points.  No ab00se pls");
+			Points.buyItemWithPoints(nick, new Double(650));
+			setLatestShop(System.currentTimeMillis());		
+			writePrivileges(nick,msg,"-1");
+			return true;
+		} else if (msg.equals("filter") && shopAvailable()   && Points.getPoints(nick) > Points.getCostItem(nick,new Double(600))) {
+			if (ShadyBotty.database.getPrivileges(nick).getEmoFilter() == -1){
+				bot.sendToBunny("you already have this item " + nickn + ".");
+				setLatestShop(System.currentTimeMillis());
+				return true;
+			}
+			bot.sendToBunny("Pls not too much Capserino " +nickn+ " Kappa You have bought filter for " + Math.round(Points.getCostItem(nick,new Double(600))) + " points " );
+			Points.buyItemWithPoints(nick, new Double(600));
+			setLatestShop(System.currentTimeMillis());			
+			return true;
+		} else if (msg.equals("premium") && shopAvailable()   && Points.getPoints(nick) > Points.getCostItem(nick,new Double(5000))) {
+			if (ShadyBotty.database.getPrivileges(nick).getStatus() != Status.REGULAR){
+				bot.sendToBunny("you already have this item or are a moderino :3 " + nickn + ".");
+				setLatestShop(System.currentTimeMillis());
+				return true;
+			}
+			bot.sendToBunny("WOOOH. "+ nickn + " IS NOW A PREMIUM. SUCCES! commands: !nick NAME !challenge NICK !stabrandom. " + Math.round(Points.getCostItem(nick,new Double(5000))) + " points substracted.");
+			Points.buyItemWithPoints(nick, new Double(5000));
+			setLatestShop(System.currentTimeMillis());			
+			return true;
+		}
+		return false;
+	}
+
+	private static boolean getInfoRegCommand(String msg, String nick) {
+		String nickn = StandardCmds.getNick(nick);
 		if (msg.equals("chips") && shopAvailable()) {
 			bot.sendToBunny("Chips are used to gamble and make PROFITZ :3 costs" + Points.getCostItem(nick,new Double(500)) + " for 250 chips, for " + nickn);
 			setLatestShop(System.currentTimeMillis());	
@@ -85,19 +136,16 @@ public class Shop {
 			return true;
 		} else if (msg.equals("filter") && shopAvailable()) {
 			bot.sendToBunny("Filter will make caps/emote filters ignore you and have a higher limit for characters. Costs:  " + Math.round(Points.getCostItem(nick,new Double(600))) + " for  " + nickn);
-			setLatestShop(System.currentTimeMillis());			
+			setLatestShop(System.currentTimeMillis());	
+			writePrivileges(nick,msg,"-1");
 			return true;
 		} else if (msg.equals("premium") && shopAvailable()) {
 			bot.sendToBunny("The Highest of Highest. Premium: access to a custom nick (!nick NAME), !challenge someone to a duel and !stabrandom people! cost for " + nickn + " is: "
 					+ Math.round(Points.getCostItem(nick,new Double(5000))));
-			setLatestShop(System.currentTimeMillis());			
+			setLatestShop(System.currentTimeMillis());	
+			writePrivileges(nick,"Status",msg);
 			return true;
 		}
-		return false;
-	}
-
-	private static boolean getInfoRegCommand(String string, String nick) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -131,7 +179,7 @@ public class Shop {
 			setLatestShop(System.currentTimeMillis());
 			writePrivileges(nick,"Status",msg);
 			return true;
-		} else if (msg.equals("gain") && shopAvailable()) {
+		} else if (msg.equals("gain") && shopAvailable() && Points.getPoints(nick) >= (ShadyBotty.database.getPrivileges(nick).getGain()+1)*1500) {
 			bot.sendToBunny(nickn + "has bought level "
 					+ ShadyBotty.database.getPrivileges(nick).getGain()+1
 					+ " gain for " + 

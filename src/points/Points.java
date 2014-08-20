@@ -39,7 +39,7 @@ public class Points {
 		}
 	}
 	
-	public void addPoints(String nick, double amount) {
+	public static void addPoints(String nick, double amount) {
 		Wini ini;
 		try {
 			ini = new Wini(new File("currencies.ini"));

@@ -139,7 +139,7 @@ public class StandardCmds {
 	}
 
 	public static void performGamble(String nick, double random, int stake){
-		Chips.subtractChips(nick, stake);
+		Chips.delChips(nick, stake);
 		if (random < 0.01){
 			Chips.addChips(nick, stake * 10);
 			botty.sendToBunny("Gamble rolls... and " + getNick(nick) + " has won the JACKPOT!!! " + getNick(nick) + " has won " + stake * 10 + "chips!");
