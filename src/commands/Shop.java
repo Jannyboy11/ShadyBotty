@@ -84,13 +84,13 @@ System.out.println("correct length shop");
 				setLatestShop(System.currentTimeMillis());
  				return true;
 			}
-			bot.sendToBunny("Pls No abuserino spammerino! " + nick + " has bought cooldown for " + Points.getCostItem(nick,new Double(1800)));
+			bot.sendToBunny("Pls No abuserino spammerino! " + nick + " has bought cooldown for " + Math.round(Points.getCostItem(nick,new Double(1800))));
 			Points.buyItemWithPoints(nick, new Double(1800));
 			setLatestShop(System.currentTimeMillis());	
 			writePrivileges(nick,msg,"-1");
 			return true;
 		} else if (msg.equals("link") && shopAvailable() && Points.getPoints(nick) > Points.getCostItem(nick,new Double(500))) {
-			bot.sendToBunny(nick +" can quickly post a link! paid " + Points.getCostItem(nick,new Double(100)) + " points.");
+			bot.sendToBunny(nick +" can quickly post a link! paid " + Math.round(Points.getCostItem(nick,new Double(100))) + " points.");
 			Points.buyItemWithPoints(nick, new Double(100));
 			setLatestShop(System.currentTimeMillis());			
 			return true;
@@ -100,7 +100,7 @@ System.out.println("correct length shop");
 				setLatestShop(System.currentTimeMillis());
  				return true;
 			}
-			bot.sendToBunny(nick + " is now a regular WOOOOH! Kappa " + Points.getCostItem(nick,new Double(1600)) + " points have been removed");
+			bot.sendToBunny(nick + " is now a regular WOOOOH! Kappa " + Math.round(Points.getCostItem(nick,new Double(1600))) + " points have been removed");
 			Points.buyItemWithPoints(nick, new Double(1600));
 			setLatestShop(System.currentTimeMillis());
 			writePrivileges(nick,"status",msg);
@@ -109,7 +109,7 @@ System.out.println("correct length shop");
 			bot.sendToBunny(nick + "has bought level "
 		+ ShadyBotty.database.getPrivileges(nick).getGain()+1
 		+ " gain for " + 
-		Points.getCostItem(nick,new Double((ShadyBotty.database.getPrivileges(nick).getGain()+1)*1500)));
+		Math.round(Points.getCostItem(nick,new Double((ShadyBotty.database.getPrivileges(nick).getGain()+1)*1500))));
 			Points.buyItemWithPoints(nick, new Double((ShadyBotty.database.getPrivileges(nick).getGain()+1)*1500));
 			setLatestShop(System.currentTimeMillis());
 			writePrivileges(nick,msg,"" +ShadyBotty.database.getPrivileges(nick).getGain()+1);
@@ -124,16 +124,16 @@ System.out.println("correct length shop");
 			setLatestShop(System.currentTimeMillis());	
 			return true;
 		} else if (msg.equals("link") && shopAvailable()) {
-			bot.sendToBunny("Link allows you to post a single link within 60 seconds! Costs " + Points.getCostItem(nick,new Double(100)) + " for you  and requires 450 points minimum.");
+			bot.sendToBunny("Link allows you to post a single link within 60 seconds! Costs " + Math.round(Points.getCostItem(nick,new Double(100))) + " for you  and requires 450 points minimum.");
 			setLatestShop(System.currentTimeMillis());			
 			return true;
 		} else if (msg.equals("regular") && shopAvailable()) {
-			bot.sendToBunny("Regular let's you lose less points when swearing and gives you access to the cool shop and factions! JUST THE TIP Kappa Cost: " + Points.getCostItem(nick,new Double(1600)) + " for you.");
+			bot.sendToBunny("Regular let's you lose less points when swearing and gives you access to the cool shop and factions! JUST THE TIP Kappa Cost: " + Math.round(Points.getCostItem(nick,new Double(1600))) + " for you.");
 			setLatestShop(System.currentTimeMillis());			
 			return true;
 		} else if (msg.equals("gain") && shopAvailable()) {
 			bot.sendToBunny("PRICES VARY ON CURRENT GAIN. get more points/min! current price for " + nick + " is: "
-					+ Points.getCostItem(nick,new Double((ShadyBotty.database.getPrivileges(nick).getGain()+1)*1500))
+					+ Math.round(Points.getCostItem(nick,new Double((ShadyBotty.database.getPrivileges(nick).getGain()+1)*1500)))
 					+ " for level " + (ShadyBotty.database.getPrivileges(nick).getGain()+1));
 			setLatestShop(System.currentTimeMillis());			
 			return true;
