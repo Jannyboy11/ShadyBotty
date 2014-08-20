@@ -57,7 +57,7 @@ public class ChatRules {
 		if ((emocounter > 4 && total < 15) || emocounter > 6){ 
 			//emo's just too annoying. pls keep low. no annoying methz
 
-			ShadyBotty.database.getPrivileges(nick).setEmoFilter(filters + 1); //adds one point to the warningcounter
+			ShadyBotty.database.getPrivileges(nick).setEmoFilter(""+ (filters + 1)); //adds one point to the warningcounter
 			if (filters == 0) return 2;
 			if (filters == 1) return 30;
 			if (filters == 2) return 60;
@@ -81,14 +81,14 @@ public class ChatRules {
 			boolean isLink = false;
 			if (word.startsWith("www.") || word.startsWith("http://") || word.startsWith("https://")){
 				//the word is obviously a url
-				ShadyBotty.database.getPrivileges(nick).setLinks(links + 1);
+				ShadyBotty.database.getPrivileges(nick).setLinks("" +links + 1);
 				isLink = true;
 			} else if (length > 5) {					
 				for (int i = 0; i < length-4; i++) {
 
 					if ((word.charAt(i) == '.' && Character.isLetter(word.charAt(i +1)) && Character.isLetter(word.charAt(i +2)) && Character.isLetter(word.charAt(i+3))) || (word.charAt(i+1) == '.' && Character.isLetter(word.charAt(i+2)) && Character.isLetter(word.charAt(i+3)))) {
 						//the word is probably a link or emailaddress
-						ShadyBotty.database.getPrivileges(nick).setLinks(links + 1);
+						ShadyBotty.database.getPrivileges(nick).setLinks("" +links + 1);
 						isLink = true;
 					}
 				}
@@ -113,7 +113,7 @@ public class ChatRules {
 
 		if (messageWithoutEmoticons.length() > 9 && (double)countUppercase(messageWithoutEmoticons)/(double)messageWithoutEmoticons.length() > 0.6){
 			//user spammed to many caps
-			ShadyBotty.database.getPrivileges(nick).setCapsFilter(filters + 1);
+			ShadyBotty.database.getPrivileges(nick).setCapsFilter("" +filters + 1);
 			if (filters == 0) return 2;
 			if (filters == 1) return 30;
 			if (filters == 2) return 60;
