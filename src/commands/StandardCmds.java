@@ -167,17 +167,11 @@ public class StandardCmds {
 		return false;
 	}
 	
-	public static boolean changeNick(String nick){
-		//TODO
-		return false;
-	}
-	
-	
 	private static String getNick(String realname) {
 		return ShadyBotty.database.getPrivileges(realname).getNick();
 	}
 	
-	private static void setNick(String realname, String nick){
+	private static void changeNick(String realname, String nick){
 		ShadyBotty.database.getPrivileges(realname).setNick(nick);
 	}
 
