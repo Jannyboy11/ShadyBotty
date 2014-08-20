@@ -19,13 +19,23 @@ public class StandardCmds {
 	private static long latestGambleRequest;
 	private static HashMap<String, Long> latestGambleRequestByUser;
 
+	//used for suicide request
+	private static long latestSuicideRequest;
+	private static HashMap<String, Long> latestSuicideRequestByUser;
+	
+	//used for roulette request
+	private static long latestRouletteRequest;
+	private static HashMap<String, Long> latestRouletteRequestByUser;
+
 
 
 	public StandardCmds(ShadyBotty bot){
 		botty = bot;
 		setLatestPointsRequest(System.currentTimeMillis());
+		setLatestGambleRequest(System.currentTimeMillis());
+		setLatestSuicideRequest(System.currentTimeMillis());
+		setLatestRouletteRequest(System.currentTimeMillis());
 	}
-
 
 	public static boolean isValidStandardCmd(String msg, String nick) {
 		String[] words = chat.ChatRules.getWords(msg);
@@ -42,25 +52,23 @@ public class StandardCmds {
 				gamble(nick, Double.parseDouble(words[1]));
 			return true;
 		}
-
-
-
 		return false;
 	}
 
-
-
-
-
-
-
-
-
-
-
-
 	public void setLatestPointsRequest(long value){
 		latestPointsRequest = value;
+	}
+
+	private static void setLatestGambleRequest(long value){
+		latestGambleRequest = value;
+	}
+
+	private static void setLatestSuicideRequest(long value){
+		latestSuicideRequest = value;
+	}
+
+	private void setLatestRouletteRequest(long value) {
+		latestRouletteRequest = value;
 	}
 
 	public static boolean canRequestPoints(String nick){
@@ -134,37 +142,81 @@ public class StandardCmds {
 		Chips.subtractChips(nick, stake);
 		if (random < 0.01){
 			Chips.addChips(nick, stake * 10);
-			botty.sendToBunny(nick + "Gamble rols... and " + getNick(nick) + " has won the JACKPOT!!! " + nick + " has gained " + stake * 10 + "chips!");
+			botty.sendToBunny("Gamble rolls... and " + getNick(nick) + " has won the JACKPOT!!! " + getNick(nick) + " has won " + stake * 10 + "chips!");
 			return;
 		}
 		if (random < 0.05){
 			Chips.addChips(nick, stake * 4);
-			botty.sendToBunny(nick + " has QUADRUPLED his chips " + nick + " has gained " + stake * 10 + "chips!");
+			botty.sendToBunny("Gamble rolls... and QUADRUPLES your chips! " + getNick(nick) + " has won " + stake * 4 + "chips!");
 			return;
 		}
 		if (random < 0.15){
 			Chips.addChips(nick, stake * 2);
+			botty.sendToBunny("Gamble rolls... and doubles your chips! " + getNick(nick) + " has won" + stake * 2 + " chips!");
 			return;
 		}
 		if (random < 0.25){
 			Chips.addChips(nick, stake);
+			botty.sendToBunny("Gamble rolls... and you get your chips back! " + getNick(nick) + " has retained his " + stake + " chips.");
 			return;
 		}
-
 	}
 
-
-
-
-
-	public static boolean suicide(String nick){
-		//TODO
+	public static boolean canSuicide(String nick){
+		long call = System.currentTimeMillis();
+		Long latestrequest = new Long(0);
+		if (latestSuicideRequestByUser.containsKey(nick)) {
+			latestrequest = latestSuicideRequestByUser.get(nick);
+		}
+		if (call - latestrequest > 60000 && call - latestSuicideRequest > 5000){				
+			latestSuicideRequestByUser.put(nick, call);
+			latestSuicideRequest = call;
+			return true;
+		}
 		return false;
 	}
 
-	public static boolean roulette(String nick){
-		//TODO
-		return false;
+	public static void suicide(String nick){
+		if (!canSuicide(nick)) return;
+		if (ShadyBotty.database.getPrivileges(nick).getStatus() == Status.VIEWER){
+			botty.sendToBunny(nick + " is down! RIP in peace Kappa");
+			botty.sendToBunny(".timeout " + nick + "180");
+		} else if (ShadyBotty.database.getPrivileges(nick).getStatus() == Status.MOD){
+			botty.sendToBunny("You're a mod. Genius Kappa");
+		} else {
+			botty.sendToBunny("You're a regular, pls we need you here! :(");
+		}
+		return;
+	}
+	
+	public static boolean canRoulette(String nick){
+			long call = System.currentTimeMillis();
+			Long latestrequest = new Long(0);
+			if (latestRouletteRequestByUser.containsKey(nick)) {
+				latestrequest = latestRouletteRequestByUser.get(nick);
+			}
+			if (call - latestrequest > 60000 && call - latestRouletteRequest > 5000){				
+				latestRouletteRequestByUser.put(nick, call);
+				latestRouletteRequest = call;
+				return true;
+			}
+			return false;
+	}
+
+	public static void roulette(String nick){
+		if (!canRoulette(nick)) return;
+		Status status = ShadyBotty.database.getPrivileges(nick).getStatus();
+		if (Math.random() < 0.5){
+			if (status == Status.VIEWER){
+				botty.sendToBunny(nick + " is down! RIP in peace Kappa");
+			} else if (status == Status.DEMIMOD || status == Status.MOD){
+				botty.sendToBunny(getNick(nick) + ", you're such a cheater with your mod armor!");
+			} else {
+				botty.sendToBunny("/me cathes bullet for " + getNick(nick) + "!");
+			}
+		} else {
+			botty.sendToBunny(getNick(nick) + " survived roulette! Is that a God? Kappa");
+		}
 	}
 
 	public static boolean challenge(String nick){
@@ -197,7 +249,10 @@ public class StandardCmds {
 		return false;
 	}
 
-
+	public static boolean dailyBonus(String nick){
+		//TODO
+		return false;
+	}
 
 
 
@@ -220,5 +275,7 @@ public class StandardCmds {
 		// only got here if we didn't return false
 		return true;
 	}
+
+
 
 }
