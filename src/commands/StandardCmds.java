@@ -52,12 +52,12 @@ public class StandardCmds {
 
 	public static boolean requestPoints(String nick){		
 		if (canRequestPoints(nick)){
-			String toSend = nick + " has " + Points.getPoints(nick);
+			String toSend = getNick(nick) + " has " + Points.getPoints(nick);
 			if (Chips.getChips(nick) != 0)
 				toSend += " and " + Chips.getChips(nick);
 			toSend += ".";
 			if (ShadyBotty.database.getPrivileges(nick).getFaction().equalsIgnoreCase("jb940")) {
-				toSend += " " + nick + " also has 1 GodPoint! Kappa/";	
+				toSend += " " + getNick(nick) + " also has 1 GodPoint! Kappa/";	
 
 				botty.sendToBunny(toSend);
 

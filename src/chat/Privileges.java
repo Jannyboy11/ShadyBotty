@@ -14,6 +14,7 @@ public class Privileges {
 	private int emoFilter;
 	private boolean subscriber;
 	private int gain;
+	private String nickname;
 	
 	private String faction;
 	
@@ -29,6 +30,9 @@ public class Privileges {
 			capsFilter = ini.get(nick,"Filter") == null ? 0 : -1;
 			emoFilter = ini.get(nick,"Filter") == null ? 0 : -1;
 			faction = ini.get(nick,"faction") == null ? "null" : ini.get(nick,"faction");
+			//TODO read the nickname from the users.ini;
+			nickname = ini.get(nick,"nick") == null ? nick : ini.get(nick,"nick");
+			//DONE?
 			if (ini.get(nick,"status") == null) {
 			status = Status.VIEWER;
 			ini.add(nick,"status","viewer");
@@ -115,6 +119,15 @@ public class Privileges {
 	public void setCooldown(String cooldown) {
 		System.out.println(cooldown + "<string .. Int in priv>" + this.cooldown);
 		this.cooldown = Integer.parseInt(cooldown);
+	}
+
+
+	public String getNick() {
+		return nickname;
+	}
+	
+	public void setNick(String nn){
+		nickname = nn;
 	}
 	
 
