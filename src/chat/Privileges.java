@@ -15,6 +15,7 @@ public class Privileges {
 	private boolean subscriber;
 	private int gain;
 	private String nickname;
+	private boolean templink;
 	
 	private String faction;
 	
@@ -24,8 +25,9 @@ public class Privileges {
 		nick = n;
 		Wini ini;
 		try {
+			templink = false;
 			ini = new Wini(new File("users.ini"));
-			links = ini.get(nick,"Link") == null ? 0 : -1;
+			links = ini.get(nick,"Links") == null ? 0 : -1;
 			cooldown = ini.get(nick,"Cooldown") == null ? 0 : -1;
 			capsFilter = ini.get(nick,"Filter") == null ? 0 : -1;
 			emoFilter = ini.get(nick,"Filter") == null ? 0 : -1;
@@ -128,6 +130,16 @@ public class Privileges {
 	
 	public void setNick(String nn){
 		nickname = nn;
+	}
+
+
+	public boolean isTemplink() {
+		return templink;
+	}
+
+
+	public void setTemplink(boolean remplink) {
+		this.templink = remplink;
 	}
 	
 

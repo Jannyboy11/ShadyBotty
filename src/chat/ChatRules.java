@@ -1,5 +1,7 @@
 package chat;
 
+import java.util.HashMap;
+
 import chat.Privileges;
 import chat.Privileges.Status;
 import main.ShadyBotty;
@@ -73,7 +75,7 @@ public class ChatRules {
 	}
 
 	private static int checkLink(String nick, String message) {
-		int links = (ShadyBotty.database.getPrivileges(nick) != null) ? ShadyBotty.database.getPrivileges(nick).getLinks() : 0;
+		int links = (ShadyBotty.database.getPrivileges(nick).getLinks());
 		if (links == -1) return 0;
 
 		for (String word : getWords(message)){

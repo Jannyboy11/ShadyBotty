@@ -46,10 +46,13 @@ public class Shop {
 			bot.sendToBunny("Dear " +StandardCmds.getNick(nick)+", The current items in the shop are: cooldown, link, regular and gain.");
 			setLatestShop(System.currentTimeMillis());
 			return true;
+		} else if (msg.length == 1 && msg[0].equals("!regshop") && shopAvailable() && ShadyBotty.database.getPrivileges(nick).getStatus() != Status.VIEWER)  {
+			bot.sendToBunny("Dear " +StandardCmds.getNick(nick)+", The items in the regularshop are: Chips, Points, Links, Filter, Premium");
+			setLatestShop(System.currentTimeMillis());
+			return true;
 		}
 		if (msg.length != 3)
 			return false;
-		System.out.println("correct length shop");
 		if (msg[0].equals("!shop") && msg[1].equals("info"))
 			return getInfoCommand(msg[2],nick);
 
@@ -65,8 +68,31 @@ public class Shop {
 		return false;
 	}
 
-	private static boolean getBuyRegCommand(String string, String nick) {
-
+	private static boolean getBuyRegCommand(String msg, String nick) {
+		String nickn = StandardCmds.getNick(nick);
+		if (msg.equals("chips") && shopAvailable()) {
+			bot.sendToBunny("Chips are used to gamble and make PROFITZ :3 costs" + Points.getCostItem(nick,new Double(500)) + " for 250 chips, for " + nickn);
+			setLatestShop(System.currentTimeMillis());	
+			return true;
+		}
+		else if (msg.equals("points") && shopAvailable()) {
+			bot.sendToBunny("Buy Points to buy other stuff Kappa Costs 420 (BLAZE IT) chips for 800 points.");
+			setLatestShop(System.currentTimeMillis());	
+			return true;
+		} else if (msg.equals("links") && shopAvailable()) {
+			bot.sendToBunny("Links permanently allows you to post links. Costs " + Math.round(Points.getCostItem(nick,new Double(650))) + " points for " + nickn);
+			setLatestShop(System.currentTimeMillis());			
+			return true;
+		} else if (msg.equals("filter") && shopAvailable()) {
+			bot.sendToBunny("Filter will make caps/emote filters ignore you and have a higher limit for characters. Costs:  " + Math.round(Points.getCostItem(nick,new Double(600))) + " for  " + nickn);
+			setLatestShop(System.currentTimeMillis());			
+			return true;
+		} else if (msg.equals("premium") && shopAvailable()) {
+			bot.sendToBunny("The Highest of Highest. Premium: access to a custom nick (!nick NAME), !challenge someone to a duel and !stabrandom people! cost for " + nickn + " is: "
+					+ Math.round(Points.getCostItem(nick,new Double(5000))));
+			setLatestShop(System.currentTimeMillis());			
+			return true;
+		}
 		return false;
 	}
 
@@ -82,7 +108,7 @@ public class Shop {
 			if (ShadyBotty.database.getPrivileges(nick).getCooldown() == -1){
 				bot.sendToBunny("you already have this item " + nickn + ".");
 				setLatestShop(System.currentTimeMillis());
- 				return true;
+				return true;
 			}
 			bot.sendToBunny("Pls No abuserino spammerino! " + nickn + " has bought cooldown for " + Math.round(Points.getCostItem(nick,new Double(1800))));
 			Points.buyItemWithPoints(nick, new Double(1800));
@@ -98,18 +124,18 @@ public class Shop {
 			if (ShadyBotty.database.getPrivileges(nick).getStatus() != Status.VIEWER){
 				bot.sendToBunny("you already have this item " + nickn + ".");
 				setLatestShop(System.currentTimeMillis());
- 				return true;
+				return true;
 			}
 			bot.sendToBunny(nickn + " is now a regular WOOOOH! Kappa " + Math.round(Points.getCostItem(nick,new Double(1600))) + " points have been removed");
 			Points.buyItemWithPoints(nick, new Double(1600));
 			setLatestShop(System.currentTimeMillis());
-			writePrivileges(nick,"status",msg);
+			writePrivileges(nick,"Status",msg);
 			return true;
 		} else if (msg.equals("gain") && shopAvailable()) {
 			bot.sendToBunny(nickn + "has bought level "
-		+ ShadyBotty.database.getPrivileges(nick).getGain()+1
-		+ " gain for " + 
-		Math.round(Points.getCostItem(nick,new Double((ShadyBotty.database.getPrivileges(nick).getGain()+1)*1500))));
+					+ ShadyBotty.database.getPrivileges(nick).getGain()+1
+					+ " gain for " + 
+					Math.round(Points.getCostItem(nick,new Double((ShadyBotty.database.getPrivileges(nick).getGain()+1)*1500))));
 			Points.buyItemWithPoints(nick, new Double((ShadyBotty.database.getPrivileges(nick).getGain()+1)*1500));
 			setLatestShop(System.currentTimeMillis());
 			writePrivileges(nick,msg,"" +ShadyBotty.database.getPrivileges(nick).getGain()+1);
@@ -147,24 +173,24 @@ public class Shop {
 	public static void writePrivileges(String nick, String item, String value) {
 		Method method = null;
 		Method filter = null;
-		 argType = value.getClass();
+		argType = value.getClass();
 		chat.Privileges a = ShadyBotty.database.getPrivileges(nick);
-		 item = item.substring(0, 1).toUpperCase() + item.substring(1);
-		 
+		item = item.substring(0, 1).toUpperCase() + item.substring(1);
+
 		try {
 			if(item.equals("Filter")) {
-		  method = a.getClass().getDeclaredMethod("setEmoFilter", argType);
-		  filter = a.getClass().getDeclaredMethod("setCapsFilter", argType);
+				method = a.getClass().getDeclaredMethod("setEmoFilter", argType);
+				filter = a.getClass().getDeclaredMethod("setCapsFilter", argType);
 			} else {
-			method = a.getClass().getDeclaredMethod("set" + item, argType);
+				method = a.getClass().getDeclaredMethod("set" + item, argType);
 			}
 			method.invoke(ShadyBotty.database.getPrivileges(nick), value);
 			if (filter != null)
 				filter.invoke(ShadyBotty.database.getPrivileges(nick), value);
 		} catch (SecurityException e) {
-		 System.out.println("security");
+			System.out.println("security");
 		} catch (NoSuchMethodException e) {
-		 System.out.println("nosuchmethod");
+			System.out.println("nosuchmethod");
 		}catch (IllegalAccessException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -178,11 +204,11 @@ public class Shop {
 
 		Wini ini;
 		try {
-			
+
 			ini = new Wini(new File("users.ini"));
 			ini.put(nick,item,value);
 			ini.store();
-		
+
 		} catch (IOException e) { 
 			// TODO Auto-generated catch block
 			e.printStackTrace();

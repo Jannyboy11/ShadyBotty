@@ -168,7 +168,7 @@ public class StandardCmds {
 		if (latestSuicideRequestByUser.containsKey(nick)) {
 			latestrequest = latestSuicideRequestByUser.get(nick);
 		}
-		if (call - latestrequest > 60000 && call - latestSuicideRequest > 5000){				
+		if (call - latestrequest > 90000 && call - latestSuicideRequest > 15000){				
 			latestSuicideRequestByUser.put(nick, call);
 			latestSuicideRequest = call;
 			return true;
@@ -179,7 +179,7 @@ public class StandardCmds {
 	public static void suicide(String nick){
 		if (!canSuicide(nick)) return;
 		if (ShadyBotty.database.getPrivileges(nick).getStatus() == Status.VIEWER){
-			botty.sendToBunny(nick + " is down! RIP in peace Kappa");
+			botty.sendToBunny(getNick(nick) + " is down! RIP in peace Kappa");
 			botty.sendToBunny(".timeout " + nick + "180");
 		} else if (ShadyBotty.database.getPrivileges(nick).getStatus() == Status.MOD){
 			botty.sendToBunny("You're a mod. Genius Kappa");
@@ -195,7 +195,7 @@ public class StandardCmds {
 			if (latestRouletteRequestByUser.containsKey(nick)) {
 				latestrequest = latestRouletteRequestByUser.get(nick);
 			}
-			if (call - latestrequest > 60000 && call - latestRouletteRequest > 5000){				
+			if (call - latestrequest > 240000 && call - latestRouletteRequest > 15000){				
 				latestRouletteRequestByUser.put(nick, call);
 				latestRouletteRequest = call;
 				return true;
@@ -208,7 +208,7 @@ public class StandardCmds {
 		Status status = ShadyBotty.database.getPrivileges(nick).getStatus();
 		if (Math.random() < 0.5){
 			if (status == Status.VIEWER){
-				botty.sendToBunny(nick + " is down! RIP in peace Kappa");
+				botty.sendToBunny(getNick(nick) + " is down! RIP in peace Kappa");
 				botty.sendToBunny(".timeout " + nick + "180");
 			} else if (status == Status.DEMIMOD || status == Status.MOD){
 				botty.sendToBunny(getNick(nick) + ", you're such a cheater with your mod armor!");
