@@ -56,8 +56,9 @@ public class Privileges {
 		return links;
 	}
 	
-	public void setLinks(int i){
-		links = i;
+	public void setLinks(String i){
+		
+		links = Integer.getInteger(i);
 	}
 	
 	
@@ -70,8 +71,8 @@ public class Privileges {
 		return gain;
 	}
 
-	public void setGain(int gain) {
-		this.gain = gain;
+	public void setGain(String gain) {
+		this.gain = Integer.getInteger(gain);
 		//TODO: WRITEINI
 	}
 
@@ -87,16 +88,16 @@ public class Privileges {
 		return capsFilter;
 	}
 
-	public void setCapsFilter(int capsFilter) {
-		this.capsFilter = capsFilter;
+	public void setCapsFilter(String capsFilter) {
+		this.capsFilter = Integer.getInteger(capsFilter);
 	}
 
 	public int getEmoFilter() {
 		return emoFilter;
 	}
 
-	public void setEmoFilter(int emoFilter) {
-		this.emoFilter = emoFilter;
+	public void setEmoFilter(String emoFilter) {
+		this.emoFilter = Integer.getInteger(emoFilter);
 	}
 
 	public Status getStatus() {
@@ -111,8 +112,8 @@ public class Privileges {
 		return cooldown;
 	}
 
-	public void setCooldown(int cooldown) {
-		this.cooldown = cooldown;
+	public void setCooldown(String cooldown) {
+		this.cooldown = Integer.getInteger(cooldown);
 	}
 	
 

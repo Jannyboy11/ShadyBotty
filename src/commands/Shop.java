@@ -1,5 +1,7 @@
 package commands;
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.io.IOException;
 
 import org.ini4j.Wini;
@@ -8,10 +10,12 @@ import points.Points;
 import main.ShadyBotty;
 import main.ShadyBottyMain;
 import chat.ChatRules;
+import chat.Privileges;
 import chat.Privileges.Status;
 public class Shop {
 	private static long latestShop;
 	private static ShadyBotty bot;
+	private static Privileges obj;
 
 
 	public Shop(ShadyBotty bot) {
@@ -82,7 +86,7 @@ System.out.println("correct length shop");
 			bot.sendToBunny("Pls No abuserino spammerino! " + nick + " has bought cooldown for " + Points.getCostItem(nick,new Double(1800)));
 			Points.buyItemWithPoints(nick, new Double(1800));
 			setLatestShop(System.currentTimeMillis());	
-			writePrivileges(nick,msg);
+			writePrivileges(nick,msg,"-1");
 			return true;
 		} else if (msg.equals("link") && shopAvailable() && Points.getPoints(nick) > Points.getCostItem(nick,new Double(500))) {
 			bot.sendToBunny(nick +" can quickly post a link! paid " + Points.getCostItem(nick,new Double(100)) + " points.");
@@ -98,7 +102,7 @@ System.out.println("correct length shop");
 			bot.sendToBunny(nick + " is now a regular WOOOOH! Kappa " + Points.getCostItem(nick,new Double(1600)) + " points have been removed");
 			Points.buyItemWithPoints(nick, new Double(1600));
 			setLatestShop(System.currentTimeMillis());
-			writePrivileges(nick,msg);
+			writePrivileges(nick,"status",msg);
 			return true;
 		} else if (msg.equals("gain") && shopAvailable()) {
 			bot.sendToBunny(nick + "has bought level "
@@ -107,7 +111,7 @@ System.out.println("correct length shop");
 		Points.getCostItem(nick,new Double((ShadyBotty.database.getPrivileges(nick).getGain()+1)*1500)));
 			Points.buyItemWithPoints(nick, new Double((ShadyBotty.database.getPrivileges(nick).getGain()+1)*1500));
 			setLatestShop(System.currentTimeMillis());
-			writePrivileges(nick,msg);
+			writePrivileges(nick,msg,"" +ShadyBotty.database.getPrivileges(nick).getGain()+1);
 			return true;
 		}
 		return false;
@@ -138,45 +142,44 @@ System.out.println("correct length shop");
 
 
 
-	public static void writePrivileges(String nick, String item) {
+	public static void writePrivileges(String nick, String item, String value) {
+		Method method = null;
+		Method filter = null;
+		obj = null;
+		try {
+			if(item.equals("Filter")) {
+		  method = obj.getClass().getMethod("setEmoFilter", String.class);
+		  filter = obj.getClass().getMethod("setCapsFilter", String.class);
+			} else {
+			method = obj.getClass().getMethod("set" + item, String.class);
+			}
+		} catch (SecurityException e) {
+		 System.out.println("security");
+		} catch (NoSuchMethodException e) {
+		 System.out.println("nosuchmethod");
+		}
+		try {
+			method.invoke(ShadyBotty.database.getPrivileges(nick), value);
+			if (filter != null)
+				filter.invoke(ShadyBotty.database.getPrivileges(nick), value);
+		} catch (IllegalAccessException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IllegalArgumentException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (InvocationTargetException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
 		Wini ini;
 		try {
 			
 			ini = new Wini(new File("users.ini"));
-			
-			
-			/*
-			 * FLIPPING UGLY, I KNOW, GEEN IDEE HOE DIT SNELLER KAN, IK WOU DAT JE 
-			 * iets kon doen zoals getPrivileges(nick).set + item + (-1);
-			 * ofzo zodat je niet de string hoefde te parsen xD
-			 * maar liever al het lelijke in 1 functie :P
-			 */
-			if(item.equals("Filter")) {
-				ShadyBotty.database.getPrivileges(nick).setEmoFilter(-1);
-				ShadyBotty.database.getPrivileges(nick).setCapsFilter(-1);
-				ini.put(nick,item,-1);
-			} else if(item.equals("cooldown")) {
-				ShadyBotty.database.getPrivileges(nick).setCooldown(-1);
-				ini.put(nick,item,-1);
-			} else if(item.equals("regular")) {
-				ShadyBotty.database.getPrivileges(nick).setStatus(Status.REGULAR);
-				ini.put(nick,"status",item);
-			} else if(item.equals("gain")) {
-				ShadyBotty.database.getPrivileges(nick).setGain(ShadyBotty.database.getPrivileges(nick).getGain() + 1);
-				ini.put(nick,item,ini.get(nick,item) +1);
-			} else if(item.equals("jb940")) {
-				ShadyBotty.database.getPrivileges(nick).setFaction("jb940");
-				ini.put(nick,"faction",item);
-			} else if(item.equals("phantom")) {
-				ShadyBotty.database.getPrivileges(nick).setFaction("phantom");
-				ini.put(nick,"faction",item);
-			} else if(item.equals("kevin")) {
-				ShadyBotty.database.getPrivileges(nick).setFaction("kevin");
-				ini.put(nick,"faction",item);
-			} else if(item.equals("links")) {
-				ShadyBotty.database.getPrivileges(nick).setLinks(-1);
-				ini.put(nick,item,-1);
-			}
+			ini.put(nick,item,value);
+			ini.store();
+		
 		} catch (IOException e) { 
 			// TODO Auto-generated catch block
 			e.printStackTrace();
