@@ -25,7 +25,7 @@ public class Privileges {
 		try {
 			ini = new Wini(new File("users.ini"));
 			links = ini.get(nick,"Link") == null ? 0 : -1;
-			cooldown = ini.get(nick,"cooldown") == null ? 0 : -1;
+			cooldown = ini.get(nick,"Cooldown") == null ? 0 : -1;
 			capsFilter = ini.get(nick,"Filter") == null ? 0 : -1;
 			emoFilter = ini.get(nick,"Filter") == null ? 0 : -1;
 			faction = ini.get(nick,"faction") == null ? "null" : ini.get(nick,"faction");

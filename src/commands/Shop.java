@@ -87,7 +87,7 @@ System.out.println("correct length shop");
 			bot.sendToBunny("Pls No abuserino spammerino! " + nick + " has bought cooldown for " + Points.getCostItem(nick,new Double(1800)));
 			Points.buyItemWithPoints(nick, new Double(1800));
 			setLatestShop(System.currentTimeMillis());	
-			writePrivileges(nick,msg,"1");
+			writePrivileges(nick,msg,"-1");
 			return true;
 		} else if (msg.equals("link") && shopAvailable() && Points.getPoints(nick) > Points.getCostItem(nick,new Double(500))) {
 			bot.sendToBunny(nick +" can quickly post a link! paid " + Points.getCostItem(nick,new Double(100)) + " points.");
@@ -146,35 +146,25 @@ System.out.println("correct length shop");
 	public static void writePrivileges(String nick, String item, String value) {
 		Method method = null;
 		Method filter = null;
-		obj = null;
-		//Class<?> c = null;
 		 argType = value.getClass();
-		 chat.Privileges a = new chat.Privileges("lol992299");
+		chat.Privileges a = ShadyBotty.database.getPrivileges(nick);
 		 item = item.substring(0, 1).toUpperCase() + item.substring(1);
+		 
 		try {
-			// c = Class.forName("chat.Privileges");
-			 
-			System.out.println(a.getClass().getName() + "  " + argType.getName());
 			if(item.equals("Filter")) {
 		  method = a.getClass().getDeclaredMethod("setEmoFilter", argType);
-		  method.setAccessible(true);
 		  filter = a.getClass().getDeclaredMethod("setCapsFilter", argType);
 			} else {
-				System.out.println("set" + item);
 			method = a.getClass().getDeclaredMethod("set" + item, argType);
-			System.out.println(method.getName());
 			}
+			method.invoke(ShadyBotty.database.getPrivileges(nick), value);
+			if (filter != null)
+				filter.invoke(ShadyBotty.database.getPrivileges(nick), value);
 		} catch (SecurityException e) {
 		 System.out.println("security");
 		} catch (NoSuchMethodException e) {
 		 System.out.println("nosuchmethod");
-		}
-
-		try {
-			method.invoke(ShadyBotty.database.getPrivileges(nick), value);
-			if (filter != null)
-				filter.invoke(ShadyBotty.database.getPrivileges(nick), value);
-		} catch (IllegalAccessException e1) {
+		}catch (IllegalAccessException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (IllegalArgumentException e1) {
@@ -182,7 +172,6 @@ System.out.println("correct length shop");
 			e1.printStackTrace();
 		} catch (InvocationTargetException e1) {
 			// TODO Auto-generated catch block
-			System.out.println(e1.getTargetException() + " oaky");
 			e1.printStackTrace();
 		}
 
