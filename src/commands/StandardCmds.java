@@ -66,8 +66,8 @@ public class StandardCmds {
 		}
 		return false;
 	}
-	
-	public static boolean canGamble(String nick){
+
+	public static boolean canGamble(String nick, int amount){
 		boolean result = false;
 		long call =  System.currentTimeMillis();
 		if (latestGambleRequestByUser.containsKey(nick)){
@@ -79,16 +79,18 @@ public class StandardCmds {
 			}
 		}
 		if (result){
-			latestGambleRequestByUser.put(nick, call);
-			latestGambleRequest = call;
+			if (Chips.getChips(nick) > amount){ 
+				latestGambleRequestByUser.put(nick, call);
+				latestGambleRequest = call;
+			} else {
+				return false;
+			}
 		}
-		return result;
-		
-		
+			return result;
 	}
 
 	public static boolean gamble(String nick, int amount){
-		if (!canGamble(nick)){
+		if (!canGamble(nick, amount)){
 			return false;
 		}
 		if (Chips.getChips(nick) != 0){
@@ -101,16 +103,17 @@ public class StandardCmds {
 		}
 		return false;
 	}
-	
+
 	public static void performGamble(String nick, double random, int stake){
 		Chips.subtractChips(nick, stake);
 		if (random < 0.01){
 			Chips.addChips(nick, stake * 10);
-			botty.sendToBunny(nick + " has won the JACKPOT!!! ");
+			botty.sendToBunny(nick + "Gamble rols... and " + getNick(nick) + " has won the JACKPOT!!! " + nick + " has gained " + stake * 10 + "chips!");
 			return;
 		}
 		if (random < 0.05){
 			Chips.addChips(nick, stake * 4);
+			botty.sendToBunny(nick + " has QUADRUPLED his chips " + nick + " has gained " + stake * 10 + "chips!");
 			return;
 		}
 		if (random < 0.15){
@@ -119,9 +122,13 @@ public class StandardCmds {
 		}
 		if (random < 0.25){
 			Chips.addChips(nick, stake);
-			return
+			return;
 		}
-		
+
+	}
+
+	private static String getNick(String realname) {
+		return ShadyBotty.database.getPrivileges(realname).getNick();
 	}
 
 	public static boolean suicide(String nick){
@@ -148,13 +155,23 @@ public class StandardCmds {
 		//TODO
 		return false;
 	}
-	
+
 	public static boolean createLottery(String nick){
 		//TODO
 		return false;
 	}
-	
+
 	public static boolean enterLottery(String nick){
+		//TODO
+		return false;
+	}
+	
+	public static boolean stabRandom(String nick){
+		//TODO
+		return false;
+	}
+	
+	public static boolean changeNick(String nick){
 		//TODO
 		return false;
 	}
