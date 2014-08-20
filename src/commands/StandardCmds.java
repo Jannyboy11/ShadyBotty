@@ -209,6 +209,7 @@ public class StandardCmds {
 		if (Math.random() < 0.5){
 			if (status == Status.VIEWER){
 				botty.sendToBunny(nick + " is down! RIP in peace Kappa");
+				botty.sendToBunny(".timeout " + nick + "180");
 			} else if (status == Status.DEMIMOD || status == Status.MOD){
 				botty.sendToBunny(getNick(nick) + ", you're such a cheater with your mod armor!");
 			} else {
