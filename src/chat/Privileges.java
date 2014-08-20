@@ -58,7 +58,7 @@ public class Privileges {
 	
 	public void setLinks(String i){
 		
-		links = Integer.getInteger(i);
+		links = Integer.parseInt(i);
 	}
 	
 	
@@ -72,7 +72,7 @@ public class Privileges {
 	}
 
 	public void setGain(String gain) {
-		this.gain = Integer.getInteger(gain);
+		this.gain = Integer.parseInt(gain);
 		//TODO: WRITEINI
 	}
 
@@ -89,7 +89,7 @@ public class Privileges {
 	}
 
 	public void setCapsFilter(String capsFilter) {
-		this.capsFilter = Integer.getInteger(capsFilter);
+		this.capsFilter = Integer.parseInt(capsFilter);
 	}
 
 	public int getEmoFilter() {
@@ -97,7 +97,7 @@ public class Privileges {
 	}
 
 	public void setEmoFilter(String emoFilter) {
-		this.emoFilter = Integer.getInteger(emoFilter);
+		this.emoFilter = Integer.parseInt(emoFilter);
 	}
 
 	public Status getStatus() {
@@ -113,7 +113,8 @@ public class Privileges {
 	}
 
 	public void setCooldown(String cooldown) {
-		this.cooldown = Integer.getInteger(cooldown);
+		System.out.println(cooldown + "<string .. Int in priv>" + this.cooldown);
+		this.cooldown = Integer.parseInt(cooldown);
 	}
 	
 
