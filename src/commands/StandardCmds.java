@@ -2,6 +2,7 @@ package commands;
 
 import java.util.HashMap;
 
+import chat.Privileges.Status;
 import points.Chips;
 import points.Points;
 import main.ShadyBotty;
@@ -25,83 +26,99 @@ public class StandardCmds {
 		setLatestPointsRequest(System.currentTimeMillis());
 	}
 
-	public void setLatestPointsRequest(long value){
-		latestPointsRequest = value;
-	}
 
-	public static boolean canRequestPoints(String nick){
-		if (ShadyBotty.database.getPrivileges(nick).getCooldown() == -1){
-			return true;
-		}
-		boolean result = false;
-		long call =  System.currentTimeMillis();
-		if (latestPointsRequestByUser.containsKey(nick)){
-			Long latestrequest = latestPointsRequestByUser.get(nick);
-			if (call - latestrequest > 60000){				
-				result = true;
-			} else if (call - latestPointsRequest > 5000){
-				result = true;			
-			}
-		}
-		if (result){
-			latestPointsRequestByUser.put(nick, call);
-			latestPointsRequest = call;
-		}
-		return result;
-	}
-
-	public static boolean requestPoints(String nick){		
-		if (canRequestPoints(nick)){
-			String toSend = getNick(nick) + " has " + Points.getPoints(nick);
-			if (Chips.getChips(nick) != 0)
-				toSend += " and " + Chips.getChips(nick);
-			toSend += ".";
-			if (ShadyBotty.database.getPrivileges(nick).getFaction().equalsIgnoreCase("jb940")) {
-				toSend += " " + getNick(nick) + " also has 1 GodPoint! Kappa/";	
-
-				botty.sendToBunny(toSend);
-
-			}
+	public static boolean isValidStandardCmd(String msg, String nick) {
+		String[] words = chat.ChatRules.getWords(msg);
+		if (words[0].equalsIgnoreCase("!points")) {
+			if ((ShadyBotty.database.getPrivileges(nick).getStatus() == Status.MOD 
+					|| ShadyBotty.database.getPrivileges(nick).getStatus() == Status.DEMIMOD) && words.length == 2) 
+				requestPoints(words[1]);
+			else
+				requestPoints(nick);
 			return true;
 		}
 		return false;
 	}
 
+
+
+
+
+
+
+
+
+
+
+
+	public void setLatestPointsRequest(long value){
+		latestPointsRequest = value;
+	}
+
+	public static boolean canRequestPoints(String nick){
+		long call =  System.currentTimeMillis();
+		if (ShadyBotty.database.getPrivileges(nick).getCooldown() == -1){
+			latestPointsRequest = call;
+			return true;
+		};
+
+		Long latestrequest = new Long(0);
+		if (latestPointsRequestByUser.containsKey(nick))
+			latestrequest = latestPointsRequestByUser.get(nick);
+		if (call - latestrequest > 60000 && call - latestPointsRequest > 5000){				
+			latestPointsRequestByUser.put(nick, call);
+			latestPointsRequest = call;
+			return true;
+		} else return false;
+	}
+
+	public static void requestPoints(String nick){		
+		if (canRequestPoints(nick)){
+			String toSend = getNick(nick) + " has " + Math.round(Points.getPoints(nick)*10)/10 + " points ";
+			if (Chips.getChips(nick) != 0)
+				toSend += " and " + Chips.getChips(nick);
+			toSend+= ". ";
+			if (ShadyBotty.database.getPrivileges(nick).getFaction().equalsIgnoreCase("jb940")) 
+				toSend += getNick(nick) + " also has 1 GodPoint! Kappa/";	
+			System.out.println(toSend);
+			botty.sendToBunny(toSend);
+
+		}
+	}
+
+
+
+
+
 	public static boolean canGamble(String nick, int amount){
 		boolean result = false;
+		Long latestrequest = new Long(0);
 		long call =  System.currentTimeMillis();
-		if (latestGambleRequestByUser.containsKey(nick)){
-			Long latestrequest = latestGambleRequestByUser.get(nick);
-			if (call - latestrequest > 60000){				
-				result = true;
-			} else if (call - latestGambleRequest > 5000){
-				result = true;			
-			}
-		}
+		if (latestGambleRequestByUser.containsKey(nick))
+			latestrequest = latestGambleRequestByUser.get(nick);
+		if (call - latestrequest > 60000 && call - latestGambleRequest > 5000)			
+			result = true;
+
+
 		if (result){
-			if (Chips.getChips(nick) > amount){ 
+			if (Chips.getChips(nick) >= amount){ 
 				latestGambleRequestByUser.put(nick, call);
 				latestGambleRequest = call;
 			} else {
 				return false;
 			}
 		}
-			return result;
+		return result;
 	}
 
-	public static boolean gamble(String nick, int amount){
-		if (!canGamble(nick, amount)){
-			return false;
-		}
-		if (Chips.getChips(nick) != 0){
-			if (amount <= 100 && 0 < amount){
+	public static void gamble(String nick, int amount){
+		if (canGamble(nick, amount)){
+
+			if (amount <= 100 && 0 < amount)
 				performGamble(nick, Math.random(), amount);
-				return true;
-			} else {
+			else 
 				botty.sendToBunny("The stake must be in range of 1-100.");
-			}
 		}
-		return false;
 	}
 
 	public static void performGamble(String nick, double random, int stake){
@@ -126,6 +143,10 @@ public class StandardCmds {
 		}
 
 	}
+
+
+
+
 
 	public static boolean suicide(String nick){
 		//TODO
@@ -161,16 +182,20 @@ public class StandardCmds {
 		//TODO
 		return false;
 	}
-	
+
 	public static boolean stabRandom(String nick){
 		//TODO
 		return false;
 	}
-	
-	private static String getNick(String realname) {
+
+
+
+
+
+	public static String getNick(String realname) {
 		return ShadyBotty.database.getPrivileges(realname).getNick();
 	}
-	
+
 	private static void changeNick(String realname, String nick){
 		ShadyBotty.database.getPrivileges(realname).setNick(nick);
 	}

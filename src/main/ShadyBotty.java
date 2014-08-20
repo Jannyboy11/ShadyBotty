@@ -7,7 +7,7 @@ import org.jibble.pircbot.PircBot;
 import org.jibble.pircbot.User;
 
 import commands.Shop;
-
+import commands.StandardCmds;
 import chat.ChatRules;
 import chat.Pair;
 import api.CheckStreamThread;
@@ -20,6 +20,7 @@ public class ShadyBotty extends PircBot {
 	public static CheckStreamThread streamThread;
 	public static Points points;
 	public static Shop shop;
+	public static StandardCmds standardCmds;
 	public void sendToBunny(String text) {
 		sendMessage("#shadybunny",text);
 	}
@@ -31,6 +32,7 @@ public class ShadyBotty extends PircBot {
 		pointsThread = new GivePointsThread(this);
 		pointsThread.start();
 		shop = new Shop(this);
+		standardCmds = new StandardCmds(this);
 		streamThread = new CheckStreamThread(this);
 		streamThread.start();
 	}
@@ -87,7 +89,8 @@ public class ShadyBotty extends PircBot {
 		}
 		if (Shop.isValidShopCommand(message,sender))
 			return;
-		//CHECK IF USER USED A  COMMAND
+		if (StandardCmds.isValidStandardCmd(message,sender))
+			return;
 		
 		// CHECK IF HE TRIGGERED AN AUTOREPLY
 		
