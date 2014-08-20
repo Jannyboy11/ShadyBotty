@@ -36,7 +36,15 @@ public class StandardCmds {
 			else
 				requestPoints(nick);
 			return true;
+
+		} else if (words[0].equalsIgnoreCase("!gamble")) {
+			if (ShadyBotty.database.getPrivileges(nick).getStatus() != Status.VIEWER && words.length == 2 && isDouble(words[1]))
+				gamble(nick, Double.parseDouble(words[1]));
+			return true;
 		}
+
+
+
 		return false;
 	}
 
@@ -94,9 +102,10 @@ public class StandardCmds {
 		boolean result = false;
 		Long latestrequest = new Long(0);
 		long call =  System.currentTimeMillis();
+		Long wait = ShadyBotty.database.getPrivileges(nick).getCooldown() == -1 ? new Long(45000) : new Long(60000);
 		if (latestGambleRequestByUser.containsKey(nick))
 			latestrequest = latestGambleRequestByUser.get(nick);
-		if (call - latestrequest > 60000 && call - latestGambleRequest > 5000)			
+		if (call - latestrequest > wait && call - latestGambleRequest > 5000)			
 			result = true;
 
 
@@ -111,11 +120,11 @@ public class StandardCmds {
 		return result;
 	}
 
-	public static void gamble(String nick, int amount){
-		if (canGamble(nick, amount)){
+	public static void gamble(String nick, double amount){
+		if (canGamble(nick, (int) Math.round(amount))){
 
 			if (amount <= 100 && 0 < amount)
-				performGamble(nick, Math.random(), amount);
+				performGamble(nick, Math.random(), (int) Math.round(amount));
 			else 
 				botty.sendToBunny("The stake must be in range of 1-100.");
 		}
@@ -200,5 +209,16 @@ public class StandardCmds {
 		ShadyBotty.database.getPrivileges(realname).setNick(nick);
 	}
 
+
+
+	public static boolean isDouble(String s) {
+		try { 
+			Double.parseDouble(s); 
+		} catch(NumberFormatException e) { 
+			return false; 
+		}
+		// only got here if we didn't return false
+		return true;
+	}
 
 }
