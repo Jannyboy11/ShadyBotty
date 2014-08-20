@@ -127,10 +127,6 @@ public class StandardCmds {
 
 	}
 
-	private static String getNick(String realname) {
-		return ShadyBotty.database.getPrivileges(realname).getNick();
-	}
-
 	public static boolean suicide(String nick){
 		//TODO
 		return false;
@@ -175,5 +171,15 @@ public class StandardCmds {
 		//TODO
 		return false;
 	}
+	
+	
+	private static String getNick(String realname) {
+		return ShadyBotty.database.getPrivileges(realname).getNick();
+	}
+	
+	private static void setNick(String realname, String nick){
+		ShadyBotty.database.getPrivileges(realname).setNick(nick);
+	}
+
 
 }
