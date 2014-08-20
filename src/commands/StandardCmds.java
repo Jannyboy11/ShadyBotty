@@ -47,14 +47,13 @@ public class StandardCmds {
 			toSend += ".";
 			if (ShadyBotty.database.getPrivileges(nick).getFaction().equalsIgnoreCase("jb940")) {
 				toSend += " " + nick + " also has 1 GodPoint! Kappa/";	
-			
-			botty.sendToBunny(toSend);
+
+				botty.sendToBunny(toSend);
+
+			}
 			return true;
 		}
 		return false;
 	}
-
-
-
 
 }
