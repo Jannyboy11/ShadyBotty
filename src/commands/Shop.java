@@ -132,7 +132,7 @@ System.out.println("correct length shop");
 			setLatestShop(System.currentTimeMillis());			
 			return true;
 		} else if (msg.equals("gain") && shopAvailable()) {
-			bot.sendToBunny("PRICES VARY ON LEVEL. current price for " + nick + " is: "
+			bot.sendToBunny("PRICES VARY ON CURRENT GAIN. get more points/min! current price for " + nick + " is: "
 					+ Points.getCostItem(nick,new Double((ShadyBotty.database.getPrivileges(nick).getGain()+1)*1500))
 					+ " for level " + (ShadyBotty.database.getPrivileges(nick).getGain()+1));
 			setLatestShop(System.currentTimeMillis());			
