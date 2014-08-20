@@ -9,8 +9,16 @@ import main.ShadyBotty;
 public class StandardCmds {
 
 	private static ShadyBotty botty;
+	
+	//used for points request
 	private static long latestPointsRequest;
-	private static HashMap<String, Long> latestRequestByUser;
+	private static HashMap<String, Long> latestPointsRequestByUser;
+	
+	//used for gamble request
+	private static long lastGambleRequest;
+	private static HashMap<String, Long> latestGambleRequestByUser;
+	
+	
 
 	public StandardCmds(ShadyBotty bot){
 		botty = bot;
@@ -26,14 +34,14 @@ public class StandardCmds {
 			return true;
 		}
 		long call =  System.currentTimeMillis();
-		if (latestRequestByUser.containsKey(nick)){
-			Long latestrequest = latestRequestByUser.get(nick);
+		if (latestPointsRequestByUser.containsKey(nick)){
+			Long latestrequest = latestPointsRequestByUser.get(nick);
 			if (call - latestrequest > 60000){
-				latestRequestByUser.put(nick, call);
+				latestPointsRequestByUser.put(nick, call);
 				return true;
 			}
 		} else if (call - latestPointsRequest > 5000){
-			latestRequestByUser.put(nick, call);
+			latestPointsRequestByUser.put(nick, call);
 			return true;			
 		}
 		return false;
@@ -53,6 +61,36 @@ public class StandardCmds {
 			}
 			return true;
 		}
+		return false;
+	}
+	
+	public static boolean gamble(String nick){
+		//TODO
+		return false;
+	}
+	
+	public static boolean suicide(String nick){
+		//TODO
+		return false;
+	}
+	
+	public static boolean roulette(String nick){
+		//TODO
+		return false;
+	}
+	
+	public static boolean challenge(String nick){
+		//TODO
+		return false;
+	}
+	
+	public static boolean searchSlave(String nick){
+		//TODO
+		return false;
+	}
+	
+	public static boolean slave(String nick){
+		//TODO
 		return false;
 	}
 
