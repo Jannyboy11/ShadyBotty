@@ -7,4 +7,19 @@ public class Chips {
 		return 0;
 	}
 
+	public static void subtractChips(String nick, int amount) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public static void addChips(String nick, int amount){
+		// TODO
+		
+	}
+	
+	public static void setChips(String nick){
+		// TODO
+		
+	}
+
 }

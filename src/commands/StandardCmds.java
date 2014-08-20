@@ -15,7 +15,7 @@ public class StandardCmds {
 	private static HashMap<String, Long> latestPointsRequestByUser;
 
 	//used for gamble request
-	private static long lastGambleRequest;
+	private static long latestGambleRequest;
 	private static HashMap<String, Long> latestGambleRequestByUser;
 
 
@@ -66,10 +66,62 @@ public class StandardCmds {
 		}
 		return false;
 	}
+	
+	public static boolean canGamble(String nick){
+		boolean result = false;
+		long call =  System.currentTimeMillis();
+		if (latestGambleRequestByUser.containsKey(nick)){
+			Long latestrequest = latestGambleRequestByUser.get(nick);
+			if (call - latestrequest > 60000){				
+				result = true;
+			} else if (call - latestGambleRequest > 5000){
+				result = true;			
+			}
+		}
+		if (result){
+			latestGambleRequestByUser.put(nick, call);
+			latestGambleRequest = call;
+		}
+		return result;
+		
+		
+	}
 
-	public static boolean gamble(String nick){
-		//TODO
+	public static boolean gamble(String nick, int amount){
+		if (!canGamble(nick)){
+			return false;
+		}
+		if (Chips.getChips(nick) != 0){
+			if (amount <= 100 && 0 < amount){
+				performGamble(nick, Math.random(), amount);
+				return true;
+			} else {
+				botty.sendToBunny("The stake must be in range of 1-100.");
+			}
+		}
 		return false;
+	}
+	
+	public static void performGamble(String nick, double random, int stake){
+		Chips.subtractChips(nick, stake);
+		if (random < 0.01){
+			Chips.addChips(nick, stake * 10);
+			botty.sendToBunny(nick + " has won the JACKPOT!!! ");
+			return;
+		}
+		if (random < 0.05){
+			Chips.addChips(nick, stake * 4);
+			return;
+		}
+		if (random < 0.15){
+			Chips.addChips(nick, stake * 2);
+			return;
+		}
+		if (random < 0.25){
+			Chips.addChips(nick, stake);
+			return
+		}
+		
 	}
 
 	public static boolean suicide(String nick){
@@ -93,6 +145,16 @@ public class StandardCmds {
 	}
 
 	public static boolean slave(String nick){
+		//TODO
+		return false;
+	}
+	
+	public static boolean createLottery(String nick){
+		//TODO
+		return false;
+	}
+	
+	public static boolean enterLottery(String nick){
 		//TODO
 		return false;
 	}
