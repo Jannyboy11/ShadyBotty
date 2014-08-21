@@ -8,6 +8,7 @@ import main.ShadyBotty;
 
 import org.ini4j.Wini;
 
+import chat.Privileges.Status;
 import points.Points;
 
 public class Nicknames {
@@ -33,7 +34,8 @@ public class Nicknames {
 		}
 	}	
 	public void ChangeNick(String nn, String nick){
-
+		if (ShadyBotty.database.getPrivileges(nn).getStatus() == Status.VIEWER 
+				|| ShadyBotty.database.getPrivileges(nn).getStatus() == Status.REGULAR) return;
 		try {
 		
 			if (nickList.containsKey(nick) || nickList.containsValue(nick)) {
@@ -44,11 +46,13 @@ public class Nicknames {
 				bot.sendToBunny("Dear " + getNick(nn) + ", this nick is too long.");
 				return;
 			}
-			nickList.put(nn,nick);
+			String goodnick = (double)ChatRules.countUppercase(nick)/(double)nick.length() > (double) 0.5 ? 
+					nick.substring(0,1).toUpperCase() + nick.substring(1).toLowerCase() : nick;
+			nickList.put(nn,goodnick);
 			Wini ini = new Wini(new File("users.ini"));
-			ini.put(nn,"nick",nick);
+			ini.put(nn,"nick",goodnick);
 			ini.store();
-			bot.sendToBunny("Dear " + getNick(nn) + ", your nick has been for 50 points changed to: " + nick);
+			bot.sendToBunny("Dear " + getNick(nn) + ", your nick has been for 50 points changed to: " + goodnick);
 			Points.delPoints(nn, 50);
 		} catch (IOException e) { 
 			// TODO Auto-generated catch block
