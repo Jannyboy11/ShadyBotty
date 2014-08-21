@@ -87,6 +87,9 @@ public class StandardCmds {
 					&& words.length == 2 && isDouble(words[1]))
 				startLottery(nick, Double.parseDouble(words[1]));
 			return true;
+		} else if (words[0].equalsIgnoreCase("!enter")) {
+				enterLottery(nick);
+			return true;
 		}
 		return false;
 	}

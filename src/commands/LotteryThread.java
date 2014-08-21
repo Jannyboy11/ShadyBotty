@@ -13,10 +13,10 @@ public class LotteryThread extends Thread {
 		try {Thread.sleep(60000);} catch (Exception e) {}
 		String msg = "one minute has passed. type !enter (25points) to join lottery. current pot: " + StandardCmds.getPot() + ". people in: " + getInLottery();
 		botty.sendToBunny(msg);
-		try {Thread.sleep(120000);} catch (Exception e) {}
+		try {Thread.sleep(60000);} catch (Exception e) {}
 		 msg = "two minutes has passed. type !enter (25points) to join lottery. current pot: " + StandardCmds.getPot() + ". people in: " + getInLottery();
 		botty.sendToBunny(msg);
-		try {Thread.sleep(180000);} catch (Exception e) {}
+		try {Thread.sleep(60000);} catch (Exception e) {}
 		StandardCmds.endLottery();
 	}
 	
