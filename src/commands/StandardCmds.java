@@ -1,6 +1,7 @@
 package commands;
 
 import java.util.HashMap;
+import java.util.List;
 
 import chat.Privileges.Status;
 import points.Chips;
@@ -22,10 +23,15 @@ public class StandardCmds {
 	//used for suicide request
 	private static long latestSuicideRequest;
 	private static HashMap<String, Long> latestSuicideRequestByUser;
-	
+
 	//used for roulette request
 	private static long latestRouletteRequest;
 	private static HashMap<String, Long> latestRouletteRequestByUser;
+
+	//used for challenge requset
+	private static long latestChallengeRequest;
+	private static HashMap<String, Long> latestChallengeRequestByUser;
+	private static HashMap<String, Long> challengedNicks;
 
 
 
@@ -180,7 +186,7 @@ public class StandardCmds {
 	public static void suicide(String nick){
 		if (!canSuicide(nick)) return;
 		if (ShadyBotty.database.getPrivileges(nick).getStatus() == Status.VIEWER){
-			botty.sendToBunny(getNick(nick) + " is down! RIP in peace Kappa");
+			botty.sendToBunny(getNick(nick) + " is down! RIP in peace Kappa"); //no need to get the nick, caus only premiums can change their nicks? :P
 			botty.sendToBunny(".timeout " + nick + "180");
 		} else if (ShadyBotty.database.getPrivileges(nick).getStatus() == Status.MOD){
 			botty.sendToBunny("You're a mod. Genius Kappa");
@@ -189,19 +195,19 @@ public class StandardCmds {
 		}
 		return;
 	}
-	
+
 	public static boolean canRoulette(String nick){
-			long call = System.currentTimeMillis();
-			Long latestrequest = new Long(0);
-			if (latestRouletteRequestByUser.containsKey(nick)) {
-				latestrequest = latestRouletteRequestByUser.get(nick);
-			}
-			if (call - latestrequest > 240000 && call - latestRouletteRequest > 15000){				
-				latestRouletteRequestByUser.put(nick, call);
-				latestRouletteRequest = call;
-				return true;
-			}
-			return false;
+		long call = System.currentTimeMillis();
+		Long latestrequest = new Long(0);
+		if (latestRouletteRequestByUser.containsKey(nick)) {
+			latestrequest = latestRouletteRequestByUser.get(nick);
+		}
+		if (call - latestrequest > 240000 && call - latestRouletteRequest > 15000){				
+			latestRouletteRequestByUser.put(nick, call);
+			latestRouletteRequest = call;
+			return true;
+		}
+		return false;
 	}
 
 	public static void roulette(String nick){
@@ -221,10 +227,55 @@ public class StandardCmds {
 		}
 	}
 
-	public static boolean challenge(String nick){
-		//TODO
+	public static boolean canChallenge(String nick){
+		if (ShadyBotty.database.getPrivileges(nick).getStatus() == Status.VIEWER ||
+				ShadyBotty.database.getPrivileges(nick).getStatus() == Status.REGULAR) return false;
+		long call = System.currentTimeMillis();
+		Long latestrequest = new Long(0);
+		if (latestChallengeRequestByUser.containsKey(nick)) {
+			latestrequest = latestChallengeRequestByUser.get(nick);
+		}
+		if (call - latestrequest > 180000 && call - latestChallengeRequest > 15000){				
+			latestChallengeRequestByUser.put(nick, call);
+			latestChallengeRequest = call;
+			return true;
+		}
 		return false;
 	}
+
+	public static void challenge(String challengernick, String challengednick){
+
+		if (!(canChallenge(challengernick))) return;
+
+		botty.sendToBunny("Dear " + getNick(challengednick) + ", " + getNick(challengernick) + " has challenged you to a game of roulette! press !accept to play!");
+		challengedNicks.add(challengednick);
+		ChallengeThread hi = new ChallengeThread(challengednick);
+		hi.start();
+		return;
+	}
+
+	static class ChallengeThread extends Thread{
+
+		public String challengednick;
+
+		public ChallengeThread(String challenged){
+			challengednick = challenged;
+		}
+
+		public void run(){
+			challengedNicks.add(challengednick);
+			try {
+				sleep(30000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			challengedNicks.remove(challengednick);
+			return;
+		}
+	}
+	
+	
 
 	public static boolean searchSlave(String nick){
 		//TODO
