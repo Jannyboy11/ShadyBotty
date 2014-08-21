@@ -319,7 +319,7 @@ public class StandardCmds {
 			latest = dailyBonus.get(nick);
 		}
 		long call = System.currentTimeMillis();
-		if (call - latest > 24 * 60 * 60){
+		if (call - latest > 24 * 60 * 60 * 1000){
 			dailyBonus.put(nick, call);			
 			return true;
 		}
