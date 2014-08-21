@@ -3,6 +3,7 @@ package commands;
 import java.util.HashMap;
 import java.util.List;
 
+import chat.Nicknames;
 import chat.Privileges.Status;
 import points.Chips;
 import points.Points;
@@ -310,12 +311,9 @@ public class StandardCmds {
 
 
 	public static String getNick(String realname) {
-		return ShadyBotty.database.getPrivileges(realname).getNick();
+		return Nicknames.nickList.get(realname);
 	}
 
-	private static void changeNick(String realname, String nick){
-		ShadyBotty.database.getPrivileges(realname).setNick(nick);
-	}
 
 
 
