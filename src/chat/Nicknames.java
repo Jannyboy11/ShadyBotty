@@ -22,7 +22,7 @@ public class Nicknames {
 		return nickList.get(user) == null ? user : nickList.get(user);
 	}
 
-	public void addNick(String nn){
+	public static void addNick(String nn){
 		Wini ini;
 		try {
 			ini = new Wini(new File("users.ini"));

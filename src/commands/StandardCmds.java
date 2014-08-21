@@ -58,6 +58,17 @@ public class StandardCmds {
 			if (ShadyBotty.database.getPrivileges(nick).getStatus() != Status.VIEWER && words.length == 2 && isDouble(words[1]))
 				gamble(nick, Double.parseDouble(words[1]));
 			return true;
+		} else if (words[0].equalsIgnoreCase("!challenge") && words.length == 2) {
+
+			Status stat = ShadyBotty.database.getPrivileges(nick).getStatus();
+			System.out.println("challenger is: " + nick + "and stat is:" +stat);
+			if (!(stat == Status.VIEWER || stat == Status.REGULAR))
+				System.out.println("challenger is premium+ : " + nick);
+				challenge(nick, words[1]);
+			return true;
+		} else if (words[0].equalsIgnoreCase("!accept") && words.length == 1) {
+			performChallenge(nick);
+			return true;
 		}
 		return false;
 	}
@@ -229,8 +240,8 @@ public class StandardCmds {
 	}
 
 	public static boolean canChallenge(String nick, String challengednick){
-		//if (ShadyBotty.database.getPrivileges(nick).getStatus() == Status.VIEWER ||
-		//		ShadyBotty.database.getPrivileges(nick).getStatus() == Status.REGULAR) return false;
+		if (ShadyBotty.database.getPrivileges(nick).getStatus() == Status.VIEWER ||
+			ShadyBotty.database.getPrivileges(nick).getStatus() == Status.REGULAR) return false;
 		long call = System.currentTimeMillis();
 		Long latestrequest = new Long(0);
 		Long latestrequest2 = new Long(0);

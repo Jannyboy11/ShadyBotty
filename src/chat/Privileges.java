@@ -34,11 +34,11 @@ public class Privileges {
 			//TODO read the nickname from the users.ini;
 
 			//DONE?
-			if (ini.get(nick,"status") == null) {
+			if (ini.get(nick,"Status") == null) {
 			status = Status.VIEWER;
 			ini.add(nick,"status","viewer");
 			} else {
-			status = Status.valueOf(ini.get(nick,"status").toUpperCase());
+			status = Status.valueOf(ini.get(nick,"Status").toUpperCase());
 			}
 			ini = new Wini(new File("currencies.ini"));
 			gain = ini.get(nick,"gain") == null ? 0 : new Integer(ini.get(nick,"gain"));

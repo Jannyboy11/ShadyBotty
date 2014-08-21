@@ -75,10 +75,11 @@ public class ShadyBotty extends PircBot {
 	
 	public void onMessage(String channel, String sender,
 			String login, String hostname, String message) {
-
+		
 		database.setLastMessage(sender, System.currentTimeMillis());
 		database.addCurrentUsers(sender);
 		database.addPrivileges(sender);
+		Nicknames.addNick(sender);
 		Pair temp;
 		System.out.println("before check");
 		temp = ChatRules.checkMessage(sender, message);
