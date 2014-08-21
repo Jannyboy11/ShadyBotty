@@ -31,8 +31,8 @@ public class StandardCmds {
 
 	//used for challenge requset
 	private static long latestChallengeRequest;
-	private static HashMap<String, Long> latestChallengeRequestByUser;
-	private static HashMap<String, HashMap<String, Long>> challengedNicks;
+	private static HashMap<String, Long> latestChallengeRequestByUser = new HashMap<String,Long>();
+	private static HashMap<String, HashMap<String, Long>> challengedNicks = new HashMap<String, HashMap<String,Long>>();
 
 
 
@@ -229,8 +229,8 @@ public class StandardCmds {
 	}
 
 	public static boolean canChallenge(String nick, String challengednick){
-		if (ShadyBotty.database.getPrivileges(nick).getStatus() == Status.VIEWER ||
-				ShadyBotty.database.getPrivileges(nick).getStatus() == Status.REGULAR) return false;
+		//if (ShadyBotty.database.getPrivileges(nick).getStatus() == Status.VIEWER ||
+		//		ShadyBotty.database.getPrivileges(nick).getStatus() == Status.REGULAR) return false;
 		long call = System.currentTimeMillis();
 		Long latestrequest = new Long(0);
 		Long latestrequest2 = new Long(0);
@@ -252,12 +252,24 @@ public class StandardCmds {
 	public static void challenge(String challengernick, String challengednick){
 
 		if (!(canChallenge(challengernick, challengednick))) return;
-		HashMap<String,Long> temp = new HashMap();
+		HashMap<String,Long> temp = new HashMap<String, Long>();
 		temp.put(challengernick, System.currentTimeMillis());
 		botty.sendToBunny("Dear " + getNick(challengednick) + ", " + getNick(challengernick) + " has challenged you to a game of roulette! press !accept to play!");
 		challengedNicks.put(challengednick,temp);
 		temp = challengedNicks.get(challengednick);
-		System.out.println(temp.get(temp.keySet().toArray()[0]));
+		System.out.println(temp.keySet().toArray()[0] + " wooop  " +temp.get(temp.keySet().toArray()[0]));
+		return;
+	}
+	
+	public static void performChallenge(String challengednick){
+		if (!challengedNicks.containsKey(challengednick)) return;
+		HashMap<String,Long> temp = new HashMap<String, Long>();
+		temp = challengedNicks.get(challengednick);
+		String challengernick = (String) temp.keySet().toArray()[0];
+		if (System.currentTimeMillis() - temp.get(challengernick) > 25000) return;
+		String loser = Math.random() < 0.5 ? challengednick : challengernick;
+		botty.sendToBunny( getNick(challengednick) + " and " + getNick(challengernick) + " play roulette. " + getNick(loser) + " got shot. REKT");
+		botty.sendToBunny("/timeout " + loser + " 30");
 		return;
 	}
 	
@@ -296,7 +308,7 @@ public class StandardCmds {
 
 
 	public static String getNick(String realname) {
-		return Nicknames.nickList.get(realname);
+		return Nicknames.getNick(realname);
 	}
 
 

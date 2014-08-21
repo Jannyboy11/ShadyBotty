@@ -18,7 +18,7 @@ public class Nicknames {
 		bot = botty;
 	}
 
-	public String getNick(String user) {
+	public static String getNick(String user) {
 		return nickList.get(user) == null ? user : nickList.get(user);
 	}
 

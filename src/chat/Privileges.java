@@ -14,7 +14,6 @@ public class Privileges {
 	private int emoFilter;
 	private boolean subscriber;
 	private int gain;
-	private String nickname;
 	private boolean templink;
 	
 	private String faction;
@@ -33,7 +32,7 @@ public class Privileges {
 			emoFilter = ini.get(nick,"Filter") == null ? 0 : -1;
 			faction = ini.get(nick,"faction") == null ? "null" : ini.get(nick,"faction");
 			//TODO read the nickname from the users.ini;
-			nickname = ini.get(nick,"nick") == null ? nick : ini.get(nick,"nick");
+
 			//DONE?
 			if (ini.get(nick,"status") == null) {
 			status = Status.VIEWER;
@@ -124,13 +123,6 @@ public class Privileges {
 	}
 
 
-	public String getNick() {
-		return nickname;
-	}
-	
-	public void setNick(String nn){
-		nickname = nn;
-	}
 
 
 	public boolean isTemplink() {

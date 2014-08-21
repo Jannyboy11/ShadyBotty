@@ -9,6 +9,7 @@ import org.jibble.pircbot.User;
 import commands.Shop;
 import commands.StandardCmds;
 import chat.ChatRules;
+import chat.Nicknames;
 import chat.Pair;
 import api.CheckStreamThread;
 import points.GivePointsThread;
@@ -19,6 +20,7 @@ public class ShadyBotty extends PircBot {
 	public GivePointsThread pointsThread;
 	public static CheckStreamThread streamThread;
 	public static Points points;
+	public static Nicknames nicks;
 	public static Shop shop;
 	public static StandardCmds standardCmds;
 	public void sendToBunny(String text) {
@@ -29,6 +31,7 @@ public class ShadyBotty extends PircBot {
 		this.setName("ShadyBotty");
 		database = new Database();
 		points = new Points();
+		nicks = new Nicknames(this);
 		pointsThread = new GivePointsThread(this);
 		pointsThread.start();
 		shop = new Shop(this);
