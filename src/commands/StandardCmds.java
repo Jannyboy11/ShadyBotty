@@ -145,21 +145,22 @@ public class StandardCmds {
 			botty.sendToBunny("Gamble rolls... and " + getNick(nick) + " has won the JACKPOT!!! " + getNick(nick) + " has won " + stake * 10 + "chips!");
 			return;
 		}
-		if (random < 0.05){
+		if (random < 0.06){
 			Chips.addChips(nick, stake * 4);
 			botty.sendToBunny("Gamble rolls... and QUADRUPLES your chips! " + getNick(nick) + " has won " + stake * 4 + "chips!");
 			return;
 		}
-		if (random < 0.15){
+		if (random < 0.21){
 			Chips.addChips(nick, stake * 2);
 			botty.sendToBunny("Gamble rolls... and doubles your chips! " + getNick(nick) + " has won" + stake * 2 + " chips!");
 			return;
 		}
-		if (random < 0.25){
+		if (random < 0.46){
 			Chips.addChips(nick, stake);
 			botty.sendToBunny("Gamble rolls... and you get your chips back! " + getNick(nick) + " has retained his " + stake + " chips.");
 			return;
 		}
+		botty.sendToBunny("Gamble rolls... and totally misses your bet! " + getNick(nick) + " has lost " + stake + " chips.");
 	}
 
 	public static boolean canSuicide(String nick){
