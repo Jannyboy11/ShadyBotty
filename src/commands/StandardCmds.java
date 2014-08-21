@@ -34,7 +34,8 @@ public class StandardCmds {
 	private static HashMap<String, Long> latestChallengeRequestByUser = new HashMap<String,Long>();
 	private static HashMap<String, HashMap<String, Long>> challengedNicks = new HashMap<String, HashMap<String,Long>>();
 
-
+	//used for dailybonus
+	private static HashMap<String, Long> dailyBonus;
 
 	public StandardCmds(ShadyBotty bot){
 		botty = bot;
@@ -64,7 +65,7 @@ public class StandardCmds {
 			System.out.println("challenger is: " + nick + "and stat is:" +stat);
 			if (!(stat == Status.VIEWER || stat == Status.REGULAR))
 				System.out.println("challenger is premium+ : " + nick);
-				challenge(nick, words[1]);
+			challenge(nick, words[1]);
 			return true;
 		} else if (words[0].equalsIgnoreCase("!accept") && words.length == 1) {
 			performChallenge(nick);
@@ -241,7 +242,7 @@ public class StandardCmds {
 
 	public static boolean canChallenge(String nick, String challengednick){
 		if (ShadyBotty.database.getPrivileges(nick).getStatus() == Status.VIEWER ||
-			ShadyBotty.database.getPrivileges(nick).getStatus() == Status.REGULAR) return false;
+				ShadyBotty.database.getPrivileges(nick).getStatus() == Status.REGULAR) return false;
 		long call = System.currentTimeMillis();
 		Long latestrequest = new Long(0);
 		Long latestrequest2 = new Long(0);
@@ -271,7 +272,7 @@ public class StandardCmds {
 		System.out.println(temp.keySet().toArray()[0] + " wooop  " +temp.get(temp.keySet().toArray()[0]));
 		return;
 	}
-	
+
 	public static void performChallenge(String challengednick){
 		if (!challengedNicks.containsKey(challengednick)) return;
 		HashMap<String,Long> temp = new HashMap<String, Long>();
@@ -283,8 +284,8 @@ public class StandardCmds {
 		botty.sendToBunny("/timeout " + loser + " 30");
 		return;
 	}
-	
-	
+
+
 
 	public static boolean searchSlave(String nick){
 		//TODO
@@ -311,12 +312,27 @@ public class StandardCmds {
 		return false;
 	}
 
-	public static boolean dailyBonus(String nick){
-		//TODO
+	public static boolean canDailyBonus(String nick){
+		if (!ShadyBotty.database.getPrivileges(nick).isSubscriber()) return false;
+		Long latest = new Long(0);
+		if (dailyBonus.containsKey(nick)){
+			latest = dailyBonus.get(nick);
+		}
+		long call = System.currentTimeMillis();
+		if (call - latest > 24 * 60 * 60){
+			dailyBonus.put(nick, call);			
+			return true;
+		}
 		return false;
 	}
 
+	public static void dailyBonus(String nick){
+		if (!canDailyBonus(nick)) return;
+		int amount = (int) Math.round(Math.random() * 300);
+		Points.addPoints(nick, amount);
+		botty.sendToBunny(getNick(nick) + " has got " + amount + " points today!");
 
+	}
 
 	public static String getNick(String realname) {
 		return Nicknames.getNick(realname);
