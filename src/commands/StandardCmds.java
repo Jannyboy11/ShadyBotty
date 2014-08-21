@@ -1,7 +1,10 @@
 package commands;
 
+import java.sql.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 import chat.Nicknames;
 import chat.Privileges.Status;
@@ -37,8 +40,17 @@ public class StandardCmds {
 	//used for dailybonus
 	private static HashMap<String, Long> dailyBonus;
 
+	//used for lottery
+	private static long lastLottery;
+	public static ArrayList<String> lotteryPlayers = new ArrayList<String>();
+	private static int lotteryPot;
+	private static boolean lottery = false;
+
+
+
 	public StandardCmds(ShadyBotty bot){
 		botty = bot;
+		setLastLottery(0);
 		setLatestPointsRequest(System.currentTimeMillis());
 		setLatestGambleRequest(System.currentTimeMillis());
 		setLatestSuicideRequest(System.currentTimeMillis());
@@ -69,6 +81,11 @@ public class StandardCmds {
 			return true;
 		} else if (words[0].equalsIgnoreCase("!accept") && words.length == 1) {
 			performChallenge(nick);
+			return true;
+		} else if (words[0].equalsIgnoreCase("!lottery")) {
+			if ((ShadyBotty.database.getPrivileges(nick).getStatus() == Status.DEMIMOD || ShadyBotty.database.getPrivileges(nick).getStatus() == Status.MOD)
+					&& words.length == 2 && isDouble(words[1]))
+				startLottery(nick, Double.parseDouble(words[1]));
 			return true;
 		}
 		return false;
@@ -297,16 +314,6 @@ public class StandardCmds {
 		return false;
 	}
 
-	public static boolean createLottery(String nick){
-		//TODO
-		return false;
-	}
-
-	public static boolean enterLottery(String nick){
-		//TODO
-		return false;
-	}
-
 	public static boolean stabRandom(String nick){
 		//TODO
 		return false;
@@ -337,8 +344,100 @@ public class StandardCmds {
 	public static String getNick(String realname) {
 		return Nicknames.getNick(realname);
 	}
+	public static boolean canStartLottery(String nick, double amount) {
+		if (ShadyBotty.database.getPrivileges(nick).getStatus() == Status.VIEWER ||
+				ShadyBotty.database.getPrivileges(nick).getStatus() == Status.REGULAR || 
+				ShadyBotty.database.getPrivileges(nick).getStatus() == Status.PREMIUM) return false;
+		long call = System.currentTimeMillis();
+		if (call - getLastLottery() > 5 * 60 * 1000 && Points.getPoints(nick) >= amount) {
+			lastLottery = call;
+			return true;
+		}
+		return false;
+	}
 
 
+
+	public static void startLottery(String nick, double amount) {
+		System.out.println("in lotterystart");
+		if (lottery) return;
+		System.out.println("lottery off");
+		if (!canStartLottery(nick, amount)) return;
+		lotteryPot = (int)Math.round(amount);
+		botty.sendToBunny("the lottery has been started by " + getNick(nick) + ". The Lottery has started with " +lotteryPot + " points! type !enter to join(cost 25).");
+		new LotteryThread(botty).start();
+		lottery = true;
+		lotteryPlayers.add(nick);
+	}
+	public static void endLottery() {
+		String message;
+		if (lotteryPlayers.size() > 7) {
+			Random rand = new Random();
+			message = "Lottery is over. The total pot was " + getPot() + ". The winners are: ";
+			ArrayList<Integer> winnerNum = new ArrayList<Integer>();
+			for (int i = 0; i < 3; i++) {
+				
+				int randomNum = rand.nextInt(lotteryPlayers.size());
+				while (winnerNum.contains(randomNum)) //check if this player has already won.
+					randomNum = rand.nextInt(lotteryPlayers.size());
+				winnerNum.add(randomNum);
+				
+				double profit;
+				 String winner = getNick(lotteryPlayers.get(randomNum));
+				 if (i == 0) {
+					 profit = (double) getPot()*0.5;
+					 message += getNick(winner + " with " + profit + ", ");
+					 Points.addPoints(winner,profit);
+				 } else if (i == 1) {
+					 profit = (double) getPot()*0.35;
+					 message += getNick(winner + " with " + profit + ", ");
+					 Points.addPoints(winner,profit);
+				 } else {
+					 profit = (double) getPot()*0.15;
+					 message += getNick(winner + " with " + profit + ", ");
+					 Points.addPoints(winner,profit);
+				 }
+			}
+		} else {
+			message = "Not enough people have participated. Everyone will receive their points back.";
+			for (int i = 1; i < lotteryPlayers.size(); i++) {
+				Points.addPoints(lotteryPlayers.get(i), (double) 25);
+				lotteryPot -= 25;
+			}
+			Points.addPoints(lotteryPlayers.get(0),lotteryPot);
+		}
+		lotteryPot = 0;
+		lottery = false;
+		lotteryPlayers.clear();
+		botty.sendToBunny(message);
+	}
+
+	public static void enterLottery(String nick) {
+		if (Points.getPoints(nick) >=25 && lottery == true && !lotteryPlayers.contains(nick)) {
+			lotteryPlayers.add(nick);
+			addPot(25);
+			Points.delPoints(nick, 25);
+		}
+	}
+	public static long getLastLottery() {
+		return lastLottery;
+	}
+
+	public static void setLastLottery(long lastLottery) {
+		StandardCmds.lastLottery = lastLottery;
+	}
+
+
+
+
+
+
+	public static int getPot() {
+		return lotteryPot;
+	}
+	public static void addPot(int amount) {
+		lotteryPot = getPot() + amount;
+	}
 
 
 	public static boolean isDouble(String s) {
@@ -350,6 +449,7 @@ public class StandardCmds {
 		// only got here if we didn't return false
 		return true;
 	}
+
 
 
 
