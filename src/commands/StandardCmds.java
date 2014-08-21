@@ -32,7 +32,7 @@ public class StandardCmds {
 	//used for challenge requset
 	private static long latestChallengeRequest;
 	private static HashMap<String, Long> latestChallengeRequestByUser;
-	private static HashMap<String, Long> challengedNicks;
+	private static HashMap<String, HashMap<String, Long>> challengedNicks;
 
 
 
@@ -228,16 +228,21 @@ public class StandardCmds {
 		}
 	}
 
-	public static boolean canChallenge(String nick){
+	public static boolean canChallenge(String nick, String challengednick){
 		if (ShadyBotty.database.getPrivileges(nick).getStatus() == Status.VIEWER ||
 				ShadyBotty.database.getPrivileges(nick).getStatus() == Status.REGULAR) return false;
 		long call = System.currentTimeMillis();
 		Long latestrequest = new Long(0);
+		Long latestrequest2 = new Long(0);
 		if (latestChallengeRequestByUser.containsKey(nick)) {
 			latestrequest = latestChallengeRequestByUser.get(nick);
 		}
-		if (call - latestrequest > 180000 && call - latestChallengeRequest > 15000){				
+		if (latestChallengeRequestByUser.containsKey(challengednick)) {
+			latestrequest2 = latestChallengeRequestByUser.get(challengednick);
+		}
+		if (call - latestrequest2 > 120000 &&call - latestrequest > 120000 && call - latestChallengeRequest > 15000){				
 			latestChallengeRequestByUser.put(nick, call);
+			latestChallengeRequestByUser.put(challengednick, call);
 			latestChallengeRequest = call;
 			return true;
 		}
@@ -246,34 +251,14 @@ public class StandardCmds {
 
 	public static void challenge(String challengernick, String challengednick){
 
-		if (!(canChallenge(challengernick))) return;
-
+		if (!(canChallenge(challengernick, challengednick))) return;
+		HashMap<String,Long> temp = new HashMap();
+		temp.put(challengernick, System.currentTimeMillis());
 		botty.sendToBunny("Dear " + getNick(challengednick) + ", " + getNick(challengernick) + " has challenged you to a game of roulette! press !accept to play!");
-		challengedNicks.add(challengednick);
-		ChallengeThread hi = new ChallengeThread(challengednick);
-		hi.start();
+		challengedNicks.put(challengednick,temp);
+		temp = challengedNicks.get(challengednick);
+		System.out.println(temp.get(temp.keySet().toArray()[0]));
 		return;
-	}
-
-	static class ChallengeThread extends Thread{
-
-		public String challengednick;
-
-		public ChallengeThread(String challenged){
-			challengednick = challenged;
-		}
-
-		public void run(){
-			challengedNicks.add(challengednick);
-			try {
-				sleep(30000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			challengedNicks.remove(challengednick);
-			return;
-		}
 	}
 	
 	
