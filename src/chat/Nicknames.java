@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
+import main.Database;
 import main.ShadyBotty;
 
 import org.ini4j.Wini;
@@ -25,14 +26,9 @@ public class Nicknames {
 
 	public static void addNick(String nn){
 		Wini ini;
-		try {
-			ini = new Wini(new File("users.ini"));
+			ini = Database.usersIni;
 			System.out.println(nn + "  " + ini.get(nn,"nick"));
 			nickList.put(nn,ini.get(nn,"nick") == null ? nn : ini.get(nn,"nick"));
-		} catch (IOException e) { 
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}	
 	public void ChangeNick(String nn, String nick){
 		if (ShadyBotty.database.getPrivileges(nn).getStatus() == Status.VIEWER 
@@ -50,7 +46,7 @@ public class Nicknames {
 			String goodnick = (double)ChatRules.countUppercase(nick)/(double)nick.length() > (double) 0.5 ? 
 					nick.substring(0,1).toUpperCase() + nick.substring(1).toLowerCase() : nick;
 			nickList.put(nn,goodnick);
-			Wini ini = new Wini(new File("users.ini"));
+			Wini ini = Database.usersIni;
 			ini.put(nn,"nick",goodnick);
 			ini.store();
 			bot.sendToBunny("Dear " + getNick(nn) + ", your nick has been for 50 points changed to: " + goodnick);
