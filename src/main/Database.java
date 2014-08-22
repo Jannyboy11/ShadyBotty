@@ -1,9 +1,13 @@
 package main;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+
+import org.ini4j.Wini;
 
 import chat.Privileges;
 
@@ -11,11 +15,21 @@ public class Database {
 	private HashMap<String,Long> lastChat;
 	private HashMap<String,Privileges> privileges;
 	private ArrayList<String> currentUsers;
+	public static Wini usersIni;
+	public static Wini currenciesIni;
+
 
 	public Database() {
 		lastChat = new HashMap<String,Long>();
 		privileges = new HashMap<String,chat.Privileges>();
 		currentUsers = (new ArrayList<String>());
+		try {
+		usersIni = new Wini(new File("users.ini"));
+		usersIni = new Wini(new File("currencies.ini"));
+		} catch (IOException e) { 
+	// TODO Auto-generated catch block
+	e.printStackTrace();
+}
 	}
 
 

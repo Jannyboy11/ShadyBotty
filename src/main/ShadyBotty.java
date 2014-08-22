@@ -108,6 +108,7 @@ public class ShadyBotty extends PircBot {
 		for (int i =0; i< users.length;i++){
 			database.addCurrentUsers(users[i].getNick());
 			database.addPrivileges(users[i].getNick());
+			Nicknames.addNick(users[i].getNick());
 			
 		}
 

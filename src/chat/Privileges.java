@@ -2,6 +2,9 @@ package chat;
 import java.io.File;
 import java.io.IOException;
 
+import main.Database;
+import main.ShadyBotty;
+
 import org.ini4j.*;
 
 public class Privileges {
@@ -21,15 +24,14 @@ public class Privileges {
 	private Status status;
 	public Privileges(String n){
 		nick = n;
-		Wini ini;
-		try {
+		Wini ini = Database.usersIni;
 			templink = false;
-			ini = new Wini(new File("users.ini"));
+
 			links = ini.get(nick,"Links") == null ? 0 : -1;
 			cooldown = ini.get(nick,"Cooldown") == null ? 0 : -1;
 			capsFilter = ini.get(nick,"Filter") == null ? 0 : -1;
 			emoFilter = ini.get(nick,"Filter") == null ? 0 : -1;
-			faction = ini.get(nick,"faction") == null ? "null" : ini.get(nick,"faction");
+			faction = ini.get(nick,"Faction") == null ? "null" : ini.get(nick,"Faction");
 			subscriber = ini.get(nick,"Subscriber") == null ? false : true;
 			if (ini.get(nick,"Status") == null) {
 			status = Status.VIEWER;
@@ -37,12 +39,9 @@ public class Privileges {
 			} else {
 			status = Status.valueOf(ini.get(nick,"Status").toUpperCase());
 			}
-			ini = new Wini(new File("currencies.ini"));
-			gain = ini.get(nick,"gain") == null ? 0 : new Integer(ini.get(nick,"gain"));
-				} catch (IOException e) { 
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			ini = Database.currenciesIni;
+			gain = ini.get(nick,"Gain") == null ? 0 : new Integer(ini.get(nick,"Gain"));
+
 
 		
 		

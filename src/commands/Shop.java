@@ -181,12 +181,12 @@ public class Shop {
 			return true;
 		} else if (msg.equals("gain") && shopAvailable() && Points.getPoints(nick) >= (ShadyBotty.database.getPrivileges(nick).getGain()+1)*1500) {
 			bot.sendToBunny(nickn + "has bought level "
-					+ ShadyBotty.database.getPrivileges(nick).getGain()+1
+					+ (ShadyBotty.database.getPrivileges(nick).getGain()+1)
 					+ " gain for " + 
 					Math.round(Points.getCostItem(nick,new Double((ShadyBotty.database.getPrivileges(nick).getGain()+1)*1500))));
 			Points.buyItemWithPoints(nick, new Double((ShadyBotty.database.getPrivileges(nick).getGain()+1)*1500));
 			setLatestShop(System.currentTimeMillis());
-			writePrivileges(nick,msg,"" +ShadyBotty.database.getPrivileges(nick).getGain()+1);
+			writePrivileges(nick,msg,"" +(ShadyBotty.database.getPrivileges(nick).getGain()+1));
 			return true;
 		}
 		return false;
@@ -252,11 +252,15 @@ public class Shop {
 
 		Wini ini;
 		try {
-
+			if (item.equals("Gain")) {
+				ini = new Wini(new File("currencies.ini"));
+				ini.put(nick,item,value);
+				ini.store();
+			} else {
 			ini = new Wini(new File("users.ini"));
 			ini.put(nick,item,value);
 			ini.store();
-
+			}
 		} catch (IOException e) { 
 			// TODO Auto-generated catch block
 			e.printStackTrace();

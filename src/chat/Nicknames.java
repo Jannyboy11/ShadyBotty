@@ -27,6 +27,7 @@ public class Nicknames {
 		Wini ini;
 		try {
 			ini = new Wini(new File("users.ini"));
+			System.out.println(nn + "  " + ini.get(nn,"nick"));
 			nickList.put(nn,ini.get(nn,"nick") == null ? nn : ini.get(nn,"nick"));
 		} catch (IOException e) { 
 			// TODO Auto-generated catch block

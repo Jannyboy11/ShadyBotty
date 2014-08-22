@@ -61,10 +61,19 @@ public class StandardCmds {
 		String[] words = chat.ChatRules.getWords(msg);
 		if (words[0].equalsIgnoreCase("!points")) {
 			if ((ShadyBotty.database.getPrivileges(nick).getStatus() == Status.MOD 
-					|| ShadyBotty.database.getPrivileges(nick).getStatus() == Status.DEMIMOD) && words.length == 2) 
-				requestPoints(words[1]);
+					|| ShadyBotty.database.getPrivileges(nick).getStatus() == Status.DEMIMOD) && words.length == 2)  {
+				System.out.println(words[1]);
+				System.out.println(ShadyBotty.database.getPrivileges(words[1]));
+				System.out.println(words[1] + "  "  + getNick(words[1]));
+				if (ShadyBotty.database.getPrivileges(words[1]) == null) {
+					ShadyBotty.database.addPrivileges(words[1]);
+					Nicknames.addNick(words[1]);	
+					System.out.println(words[1] + "  "  + getNick(words[1]));
+				}
+				requestPoints(nick,words[1]);
+			}
 			else
-				requestPoints(nick);
+				requestPoints(nick, nick);
 			return true;
 
 		} else if (words[0].equalsIgnoreCase("!gamble")) {
@@ -72,7 +81,10 @@ public class StandardCmds {
 				gamble(nick, Double.parseDouble(words[1]));
 			return true;
 		} else if (words[0].equalsIgnoreCase("!challenge") && words.length == 2) {
-
+			if (ShadyBotty.database.getPrivileges(words[1]) == null) {
+				ShadyBotty.database.addPrivileges(words[1]);
+				Nicknames.addNick(words[1]);
+			}
 			Status stat = ShadyBotty.database.getPrivileges(nick).getStatus();
 			System.out.println("challenger is: " + nick + "and stat is:" +stat);
 			if (!(stat == Status.VIEWER || stat == Status.REGULAR))
@@ -115,7 +127,9 @@ public class StandardCmds {
 
 	public static boolean canRequestPoints(String nick){
 		long call =  System.currentTimeMillis();
-		if (ShadyBotty.database.getPrivileges(nick).getCooldown() == -1){
+		if (ShadyBotty.database.getPrivileges(nick).getCooldown() == -1 ||
+				ShadyBotty.database.getPrivileges(nick).getStatus() == Status.MOD ||  
+				ShadyBotty.database.getPrivileges(nick).getStatus() == Status.DEMIMOD){
 			latestPointsRequest = call;
 			return true;
 		};
@@ -130,14 +144,14 @@ public class StandardCmds {
 		} else return false;
 	}
 
-	public static void requestPoints(String nick){		
+	public static void requestPoints(String nick,String target){		
 		if (canRequestPoints(nick)){
-			String toSend = getNick(nick) + " has " + Math.round(Points.getPoints(nick)*10)/10 + " points";
-			if (Chips.getChips(nick) != 0)
-				toSend += " and " + Chips.getChips(nick);
+			String toSend = getNick(target) + " has " + Math.round(Points.getPoints(target)) + " points";
+			if (Chips.getChips(target) != 0)
+				toSend += " and " + Math.round(Chips.getChips(target)) + " chips";
 			toSend+= ". ";
-			if (ShadyBotty.database.getPrivileges(nick).getFaction().equalsIgnoreCase("jb940")) 
-				toSend += getNick(nick) + " also has 1 GodPoint! Kappa/";	
+			if (ShadyBotty.database.getPrivileges(target).getFaction().equalsIgnoreCase("jb940")) 
+				toSend += getNick(target) + " also has 1 GodPoint! Kappa/";	
 			System.out.println(toSend);
 			botty.sendToBunny(toSend);
 
