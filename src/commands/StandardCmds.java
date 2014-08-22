@@ -18,19 +18,19 @@ public class StandardCmds {
 
 	//used for points request
 	private static long latestPointsRequest;
-	private static HashMap<String, Long> latestPointsRequestByUser;
+	private static HashMap<String, Long> latestPointsRequestByUser = new HashMap<String, Long>();
 
 	//used for gamble request
 	private static long latestGambleRequest;
-	private static HashMap<String, Long> latestGambleRequestByUser;
+	private static HashMap<String, Long> latestGambleRequestByUser = new HashMap<String, Long>();
 
 	//used for suicide request
 	private static long latestSuicideRequest;
-	private static HashMap<String, Long> latestSuicideRequestByUser;
+	private static HashMap<String, Long> latestSuicideRequestByUser = new HashMap<String, Long>();
 
 	//used for roulette request
 	private static long latestRouletteRequest;
-	private static HashMap<String, Long> latestRouletteRequestByUser;
+	private static HashMap<String, Long> latestRouletteRequestByUser = new HashMap<String, Long>();
 
 	//used for challenge requset
 	private static long latestChallengeRequest;
@@ -51,10 +51,10 @@ public class StandardCmds {
 	public StandardCmds(ShadyBotty bot){
 		botty = bot;
 		setLastLottery(0);
-		setLatestPointsRequest(System.currentTimeMillis());
-		setLatestGambleRequest(System.currentTimeMillis());
-		setLatestSuicideRequest(System.currentTimeMillis());
-		setLatestRouletteRequest(System.currentTimeMillis());
+		setLatestPointsRequest(0);
+		setLatestGambleRequest(0);
+		setLatestSuicideRequest(0);
+		setLatestRouletteRequest(0);
 	}
 
 	public static boolean isValidStandardCmd(String msg, String nick) {
@@ -86,6 +86,9 @@ public class StandardCmds {
 			if ((ShadyBotty.database.getPrivileges(nick).getStatus() == Status.DEMIMOD || ShadyBotty.database.getPrivileges(nick).getStatus() == Status.MOD)
 					&& words.length == 2 && isDouble(words[1]))
 				startLottery(nick, Double.parseDouble(words[1]));
+				if ((ShadyBotty.database.getPrivileges(nick).getStatus() == Status.DEMIMOD || ShadyBotty.database.getPrivileges(nick).getStatus() == Status.MOD)
+						&& words.length == 1)
+					startLottery(nick, 0);
 			return true;
 		} else if (words[0].equalsIgnoreCase("!enter")) {
 				enterLottery(nick);
@@ -129,7 +132,7 @@ public class StandardCmds {
 
 	public static void requestPoints(String nick){		
 		if (canRequestPoints(nick)){
-			String toSend = getNick(nick) + " has " + Math.round(Points.getPoints(nick)*10)/10 + " points ";
+			String toSend = getNick(nick) + " has " + Math.round(Points.getPoints(nick)*10)/10 + " points";
 			if (Chips.getChips(nick) != 0)
 				toSend += " and " + Chips.getChips(nick);
 			toSend+= ". ";
@@ -157,6 +160,7 @@ public class StandardCmds {
 
 
 		if (result){
+			System.out.println("result true");
 			if (Chips.getChips(nick) >= amount){ 
 				latestGambleRequestByUser.put(nick, call);
 				latestGambleRequest = call;
@@ -168,8 +172,9 @@ public class StandardCmds {
 	}
 
 	public static void gamble(String nick, double amount){
+		System.out.println("test");
 		if (canGamble(nick, (int) Math.round(amount))){
-
+			System.out.println("passed cangamble");
 			if (amount <= 100 && 0 < amount)
 				performGamble(nick, Math.random(), (int) Math.round(amount));
 			else 
@@ -301,6 +306,7 @@ public class StandardCmds {
 		if (System.currentTimeMillis() - temp.get(challengernick) > 25000) return;
 		String loser = Math.random() < 0.5 ? challengednick : challengernick;
 		botty.sendToBunny( getNick(challengednick) + " and " + getNick(challengernick) + " play roulette. " + getNick(loser) + " got shot. REKT");
+		if (ShadyBotty.database.getPrivileges(loser).getStatus() != Status.DEMIMOD)
 		botty.sendToBunny("/timeout " + loser + " 30");
 		return;
 	}
@@ -348,6 +354,7 @@ public class StandardCmds {
 		return Nicknames.getNick(realname);
 	}
 	public static boolean canStartLottery(String nick, double amount) {
+		if (0 >= amount && amount <= 500) return false;
 		if (ShadyBotty.database.getPrivileges(nick).getStatus() == Status.VIEWER ||
 				ShadyBotty.database.getPrivileges(nick).getStatus() == Status.REGULAR || 
 				ShadyBotty.database.getPrivileges(nick).getStatus() == Status.PREMIUM) return false;
@@ -362,13 +369,12 @@ public class StandardCmds {
 
 
 	public static void startLottery(String nick, double amount) {
-		System.out.println("in lotterystart");
 		if (lottery) return;
-		System.out.println("lottery off");
 		if (!canStartLottery(nick, amount)) return;
 		lotteryPot = (int)Math.round(amount);
 		botty.sendToBunny("the lottery has been started by " + getNick(nick) + ". The Lottery has started with " +lotteryPot + " points! type !enter to join(cost 25).");
 		new LotteryThread(botty).start();
+		Points.delPoints(nick, amount);
 		lottery = true;
 		lotteryPlayers.add(nick);
 	}

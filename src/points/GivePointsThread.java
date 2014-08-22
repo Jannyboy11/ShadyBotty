@@ -18,10 +18,18 @@ public class GivePointsThread extends Thread {
 			System.out.println("poitns given");
 			for (int i=0; i<temp.size(); i++) {
 				String nick = temp.get(i);
-				ShadyBotty.points.addPoints(nick,(ShadyBotty.database.getPrivileges(nick).getGain() + 2) * 0.25);
-				if (ShadyBotty.database.getDifferenceSeconds(nick) < 600) {
+				if (!ShadyBotty.database.getPrivileges(nick).isSubscriber()) { //nonsub 
+					Points.addPoints(nick,(ShadyBotty.database.getPrivileges(nick).getGain() + 2) * 0.25);
+					if (ShadyBotty.database.getDifferenceSeconds(nick) < 600) {
 
-					ShadyBotty.points.addPoints(nick,(ShadyBotty.database.getPrivileges(nick).getGain() + 2));
+						Points.addPoints(nick,(ShadyBotty.database.getPrivileges(nick).getGain() + 2));
+					}
+				} else { // subs get x2
+					Points.addPoints(nick,(ShadyBotty.database.getPrivileges(nick).getGain() + 2) * 0.5);
+					if (ShadyBotty.database.getDifferenceSeconds(nick) < 600) {
+
+						Points.addPoints(nick,(ShadyBotty.database.getPrivileges(nick).getGain() + 2) * 2);
+					}
 				}
 			}
 			try {

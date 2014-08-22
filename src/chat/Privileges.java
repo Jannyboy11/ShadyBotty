@@ -15,7 +15,6 @@ public class Privileges {
 	private boolean subscriber;
 	private int gain;
 	private boolean templink;
-	
 	private String faction;
 	
 	public enum Status{VIEWER, REGULAR, PREMIUM, DEMIMOD, MOD};
@@ -31,12 +30,10 @@ public class Privileges {
 			capsFilter = ini.get(nick,"Filter") == null ? 0 : -1;
 			emoFilter = ini.get(nick,"Filter") == null ? 0 : -1;
 			faction = ini.get(nick,"faction") == null ? "null" : ini.get(nick,"faction");
-			//TODO read the nickname from the users.ini;
-
-			//DONE?
+			subscriber = ini.get(nick,"Subscriber") == null ? false : true;
 			if (ini.get(nick,"Status") == null) {
 			status = Status.VIEWER;
-			ini.add(nick,"status","viewer");
+			ini.add(nick,"Status","viewer");
 			} else {
 			status = Status.valueOf(ini.get(nick,"Status").toUpperCase());
 			}
@@ -46,12 +43,7 @@ public class Privileges {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//TODO get al the user privilges from the ini file and set the fields.
-		//filters: read from ini file how many times the user spammed to much caps or too much emoticons. if the user has bought filters, set it to -1;
-		//links: read from ini file how many times the users typed a link. if the user has bought links, set it to -1;
-		//premium: read from inin file whether the user has premium.
-		//gain: read from ini
-		//sub: read from ini
+
 		
 		
 	}
