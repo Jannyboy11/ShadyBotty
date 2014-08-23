@@ -62,13 +62,9 @@ public class StandardCmds {
 		if (words[0].equalsIgnoreCase("!points")) {
 			if ((ShadyBotty.database.getPrivileges(nick).getStatus() == Status.MOD 
 					|| ShadyBotty.database.getPrivileges(nick).getStatus() == Status.DEMIMOD) && words.length == 2)  {
-				System.out.println(words[1]);
-				System.out.println(ShadyBotty.database.getPrivileges(words[1]));
-				System.out.println(words[1] + "  "  + getNick(words[1]));
 				if (ShadyBotty.database.getPrivileges(words[1]) == null) {
 					ShadyBotty.database.addPrivileges(words[1]);
 					Nicknames.addNick(words[1]);	
-					System.out.println(words[1] + "  "  + getNick(words[1]));
 				}
 				requestPoints(nick,words[1]);
 			}

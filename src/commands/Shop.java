@@ -180,7 +180,7 @@ public class Shop {
 			writePrivileges(nick,"Status",msg);
 			return true;
 		} else if (msg.equals("gain") && shopAvailable() && Points.getPoints(nick) >= (ShadyBotty.database.getPrivileges(nick).getGain()+1)*1500) {
-			bot.sendToBunny(nickn + "has bought level "
+			bot.sendToBunny(nickn + " has bought level "
 					+ (ShadyBotty.database.getPrivileges(nick).getGain()+1)
 					+ " gain for " + 
 					Math.round(Points.getCostItem(nick,new Double((ShadyBotty.database.getPrivileges(nick).getGain()+1)*1500))));

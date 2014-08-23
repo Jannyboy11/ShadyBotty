@@ -36,6 +36,12 @@ public class Privileges {
 			if (ini.get(nick,"Status") == null) {
 			status = Status.VIEWER;
 			ini.add(nick,"Status","viewer");
+			try {
+				ini.store();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			} else {
 			status = Status.valueOf(ini.get(nick,"Status").toUpperCase());
 			}

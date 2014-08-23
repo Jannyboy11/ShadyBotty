@@ -20,12 +20,13 @@ public class Database {
 
 
 	public Database() {
+		try {
+			usersIni = new Wini(new File("users.ini"));
+			currenciesIni = new Wini(new File("currencies.ini"));
 		lastChat = new HashMap<String,Long>();
 		privileges = new HashMap<String,chat.Privileges>();
 		currentUsers = (new ArrayList<String>());
-		try {
-		usersIni = new Wini(new File("users.ini"));
-		usersIni = new Wini(new File("currencies.ini"));
+
 		} catch (IOException e) { 
 	// TODO Auto-generated catch block
 	e.printStackTrace();
