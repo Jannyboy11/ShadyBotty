@@ -166,6 +166,7 @@ public class Shop {
 		} else if (msg.equals("link") && shopAvailable() && Points.getPoints(nick) > Points.getCostItem(nick,new Double(500))) {
 			bot.sendToBunny(nickn +" can quickly post a link! paid " + Math.round(Points.getCostItem(nick,new Double(100))) + " points.");
 			Points.buyItemWithPoints(nick, new Double(100));
+			ShadyBotty.database.getPrivileges(nick).setTemplink(true);
 			setLatestShop(System.currentTimeMillis());			
 			return true;
 		} else if (msg.equals("regular") && shopAvailable() && Points.getPoints(nick) > Points.getCostItem(nick,new Double(1800))) {
@@ -179,13 +180,14 @@ public class Shop {
 			setLatestShop(System.currentTimeMillis());
 			writePrivileges(nick,"Status",msg);
 			return true;
-		} else if (msg.equals("gain") && shopAvailable() && Points.getPoints(nick) >= (ShadyBotty.database.getPrivileges(nick).getGain()+1)*1500) {
+		} else if (msg.equals("gain") && shopAvailable() && Points.getPoints(nick) >= (Points.getCostItem(nick,new Double((ShadyBotty.database.getPrivileges(nick).getGain()+1)*1500)))) {
 			bot.sendToBunny(nickn + " has bought level "
 					+ (ShadyBotty.database.getPrivileges(nick).getGain()+1)
 					+ " gain for " + 
 					Math.round(Points.getCostItem(nick,new Double((ShadyBotty.database.getPrivileges(nick).getGain()+1)*1500))));
 			Points.buyItemWithPoints(nick, new Double((ShadyBotty.database.getPrivileges(nick).getGain()+1)*1500));
 			setLatestShop(System.currentTimeMillis());
+			System.out.println(nick + "  " + msg +"  " +(ShadyBotty.database.getPrivileges(nick).getGain()+1));
 			writePrivileges(nick,msg,"" +(ShadyBotty.database.getPrivileges(nick).getGain()+1));
 			return true;
 		}

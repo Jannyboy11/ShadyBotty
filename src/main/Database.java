@@ -14,7 +14,7 @@ import chat.Privileges;
 public class Database {
 	private HashMap<String,Long> lastChat;
 	private HashMap<String,Privileges> privileges;
-	private ArrayList<String> currentUsers;
+	public static ArrayList<String> currentUsers;
 	public static Wini usersIni;
 	public static Wini currenciesIni;
 
@@ -103,7 +103,7 @@ public class Database {
 	
 	public void addCurrentUsers(String nick) {
 		if (!currentUsers.contains(nick))
-		currentUsers.add(nick);
+		currentUsers.add(nick.toLowerCase());
 	}
 	
 	public void delCurrentUsers(String nick) {

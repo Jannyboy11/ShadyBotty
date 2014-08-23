@@ -38,7 +38,7 @@ public class StandardCmds {
 	private static HashMap<String, HashMap<String, Long>> challengedNicks = new HashMap<String, HashMap<String,Long>>();
 
 	//used for dailybonus
-	private static HashMap<String, Long> dailyBonus;
+	private static HashMap<String, Long> dailyBonus  = new HashMap<String,Long>();
 
 	//used for lottery
 	private static long lastLottery;
@@ -94,12 +94,18 @@ public class StandardCmds {
 			if ((ShadyBotty.database.getPrivileges(nick).getStatus() == Status.DEMIMOD || ShadyBotty.database.getPrivileges(nick).getStatus() == Status.MOD)
 					&& words.length == 2 && isDouble(words[1]))
 				startLottery(nick, Double.parseDouble(words[1]));
-				if ((ShadyBotty.database.getPrivileges(nick).getStatus() == Status.DEMIMOD || ShadyBotty.database.getPrivileges(nick).getStatus() == Status.MOD)
-						&& words.length == 1)
-					startLottery(nick, 0);
+			if ((ShadyBotty.database.getPrivileges(nick).getStatus() == Status.DEMIMOD || ShadyBotty.database.getPrivileges(nick).getStatus() == Status.MOD)
+					&& words.length == 1)
+				startLottery(nick, 0);
 			return true;
 		} else if (words[0].equalsIgnoreCase("!enter")) {
-				enterLottery(nick);
+			enterLottery(nick);
+			return true;
+		} else if (words[0].equalsIgnoreCase("!dailybonus")) {
+			dailyBonus(nick);
+			return true;
+		} else if (words[0].equalsIgnoreCase("!nick") && words.length >= 2) {
+			Nicknames.ChangeNick(nick, msg.substring(6));
 			return true;
 		}
 		return false;
@@ -317,7 +323,7 @@ public class StandardCmds {
 		String loser = Math.random() < 0.5 ? challengednick : challengernick;
 		botty.sendToBunny( getNick(challengednick) + " and " + getNick(challengernick) + " play roulette. " + getNick(loser) + " got shot. REKT");
 		if (ShadyBotty.database.getPrivileges(loser).getStatus() != Status.DEMIMOD)
-		botty.sendToBunny("/timeout " + loser + " 30");
+			botty.sendToBunny("/timeout " + loser + " 30");
 		return;
 	}
 
@@ -395,27 +401,27 @@ public class StandardCmds {
 			message = "Lottery is over. The total pot was " + getPot() + ". The winners are: ";
 			ArrayList<Integer> winnerNum = new ArrayList<Integer>();
 			for (int i = 0; i < 3; i++) {
-				
+
 				int randomNum = rand.nextInt(lotteryPlayers.size());
 				while (winnerNum.contains(randomNum)) //check if this player has already won.
 					randomNum = rand.nextInt(lotteryPlayers.size());
 				winnerNum.add(randomNum);
-				
+
 				double profit;
-				 String winner = getNick(lotteryPlayers.get(randomNum));
-				 if (i == 0) {
-					 profit = (double) getPot()*0.5;
-					 message += getNick(winner + " with " + profit + ", ");
-					 Points.addPoints(winner,profit);
-				 } else if (i == 1) {
-					 profit = (double) getPot()*0.35;
-					 message += getNick(winner + " with " + profit + ", ");
-					 Points.addPoints(winner,profit);
-				 } else {
-					 profit = (double) getPot()*0.15;
-					 message += getNick(winner + " with " + profit + ", ");
-					 Points.addPoints(winner,profit);
-				 }
+				String winner = getNick(lotteryPlayers.get(randomNum));
+				if (i == 0) {
+					profit = (double) getPot()*0.5;
+					message += getNick(winner + " with " + profit + ", ");
+					Points.addPoints(winner,profit);
+				} else if (i == 1) {
+					profit = (double) getPot()*0.35;
+					message += getNick(winner + " with " + profit + ", ");
+					Points.addPoints(winner,profit);
+				} else {
+					profit = (double) getPot()*0.15;
+					message += getNick(winner + " with " + profit + ", ");
+					Points.addPoints(winner,profit);
+				}
 			}
 		} else {
 			message = "Not enough people have participated. Everyone will receive their points back.";

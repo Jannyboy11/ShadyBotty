@@ -76,7 +76,10 @@ public class ChatRules {
 
 	private static int checkLink(String nick, String message) {
 		int links = (ShadyBotty.database.getPrivileges(nick).getLinks());
-		if (links == -1) return 0;
+		if (links == -1 || ShadyBotty.database.getPrivileges(nick).isTemplink()) {
+			ShadyBotty.database.getPrivileges(nick).setTemplink(false);
+			return 0;
+		}
 
 		for (String word : getWords(message)){
 			int length = word.length();
@@ -90,6 +93,7 @@ public class ChatRules {
 
 					if ((word.charAt(i) == '.' && Character.isLetter(word.charAt(i +1)) && Character.isLetter(word.charAt(i +2)) && Character.isLetter(word.charAt(i+3))) || (word.charAt(i+1) == '.' && Character.isLetter(word.charAt(i+2)) && Character.isLetter(word.charAt(i+3)))) {
 						//the word is probably a link or emailaddress
+						if (word.contains("..")) return 0;
 						ShadyBotty.database.getPrivileges(nick).setLinks("" +links + 1);
 						isLink = true;
 					}

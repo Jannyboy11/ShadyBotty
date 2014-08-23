@@ -1,5 +1,7 @@
 package api;
 
+import org.json.JSONObject;
+
 import points.GivePointsThread;
 import main.ShadyBotty;
 
@@ -14,8 +16,9 @@ public class CheckStreamThread extends Thread {
 	{
 		while (true) {
 			try {Thread.sleep(5000);} catch (Exception e) {}
-			System.out.println("shady is: " + (TwitchAPI.getJSONStreamShady() != null));
-			if (TwitchAPI.getJSONStreamShady() != null) {
+			JSONObject a = TwitchAPI.getJSONStreamShady();
+			System.out.println("shady is: " + (a != null));
+			if (a != null) {
 				if(!botty.getPointsThread().getStatus()) {
 					botty.getPointsThread().setOnline();
 					GivePointsThread thr = new GivePointsThread(botty);
