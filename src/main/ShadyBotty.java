@@ -59,6 +59,7 @@ public class ShadyBotty extends PircBot {
 				} catch(Exception ex) {
 			}
 			try {
+				database.clearCurrentUsers();
    		// Connect to the IRC server.
 	            BufferedReader blub = new BufferedReader(new FileReader("C:/wachtwoord.txt"));
 	            String password = blub.readLine();
@@ -67,7 +68,7 @@ public class ShadyBotty extends PircBot {
 
 	        // Join the #pircbot channel.
 				this.joinChannel("#shadybunny");
-				database.clearCurrentUsers();
+
 				} catch(Exception ex) {
 			}
 		}

@@ -35,7 +35,7 @@ public class Nicknames {
 				|| ShadyBotty.database.getPrivileges(nn).getStatus() == Status.REGULAR) return;
 		try {
 		
-			if (nickList.containsKey(nick.toLowerCase()) || nickList.containsValue(nick) || ShadyBotty.database.getPrivileges(nick) != null ||  Database.usersIni.get(nick) != null || Database.currentUsers.contains(nick.toLowerCase())) {
+			if (nickList.containsKey(nick.toLowerCase()) || nickList.containsValue(nick) || ShadyBotty.database.getPrivileges(nick.toLowerCase()) != null ||  Database.usersIni.get(nick) != null || Database.currentUsers.contains(nick.toLowerCase())) {
 				bot.sendToBunny("Dear " + getNick(nn) + ", this nick is already in use or a username.");
 				return;
 			}

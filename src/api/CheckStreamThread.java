@@ -15,27 +15,30 @@ public class CheckStreamThread extends Thread {
 	public void run ()
 	{
 		while (true) {
-			try {Thread.sleep(5000);} catch (Exception e) {}
-			JSONObject a = TwitchAPI.getJSONStreamShady();
-			System.out.println("shady is: " + (a != null));
-			if (a != null) {
-				if(!botty.getPointsThread().getStatus()) {
-					botty.getPointsThread().setOnline();
-					GivePointsThread thr = new GivePointsThread(botty);
-					botty.newPointsThread(thr);
-				}
-			} else {
-				if(!botty.getPointsThread().getStatus()) continue;
-				try {Thread.sleep(2000);} catch (Exception e) {}
-				if (TwitchAPI.getJSONStreamShady() != null) continue;
-				try {Thread.sleep(2000);} catch (Exception e) {}
-				if (TwitchAPI.getJSONStreamShady() != null) continue;
-				try {Thread.sleep(2000);} catch (Exception e) {}
-				if (TwitchAPI.getJSONStreamShady() != null) continue;
-				botty.getPointsThread().setOffline();
-				botty.sendToBunny("Shadyb00ny is now offline!");
-			}
+			while (botty.isConnected()) {
 
+				try {Thread.sleep(5000);} catch (Exception e) {}
+				JSONObject a = TwitchAPI.getJSONStreamShady();
+				System.out.println("shady is: " + (a != null));
+				if (a != null) {
+					if(!botty.getPointsThread().getStatus()) {
+						botty.getPointsThread().setOnline();
+						GivePointsThread thr = new GivePointsThread(botty);
+						botty.newPointsThread(thr);
+					}
+				} else {
+					if(!botty.getPointsThread().getStatus()) continue;
+					try {Thread.sleep(2000);} catch (Exception e) {}
+					if (TwitchAPI.getJSONStreamShady() != null) continue;
+					try {Thread.sleep(2000);} catch (Exception e) {}
+					if (TwitchAPI.getJSONStreamShady() != null) continue;
+					try {Thread.sleep(2000);} catch (Exception e) {}
+					if (TwitchAPI.getJSONStreamShady() != null) continue;
+					botty.getPointsThread().setOffline();
+					botty.sendToBunny("Shadyb00ny is now offline!");
+				}
+			}
+			try {Thread.sleep(10000);} catch (Exception e) {}
 		}
 	}
 }

@@ -41,8 +41,8 @@ public class Database {
 	}
 
 	public void addPrivileges(String nick) {
-		if (!privileges.containsKey(nick))
-		privileges.put(nick, new Privileges(nick));
+		if (!privileges.containsKey(nick.toLowerCase()))
+		privileges.put(nick.toLowerCase(), new Privileges(nick));
 	}
 
 
