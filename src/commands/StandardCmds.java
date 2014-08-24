@@ -319,7 +319,7 @@ public class StandardCmds {
 		HashMap<String,Long> temp = new HashMap<String, Long>();
 		temp = challengedNicks.get(challengednick);
 		String challengernick = (String) temp.keySet().toArray()[0];
-		if (System.currentTimeMillis() - temp.get(challengernick) > 25000) return;
+		if (System.currentTimeMillis() - temp.get(challengernick) > 30000) return;
 		String loser = Math.random() < 0.5 ? challengednick : challengernick;
 		botty.sendToBunny( getNick(challengednick) + " and " + getNick(challengernick) + " play roulette. " + getNick(loser) + " got shot. REKT");
 		if (ShadyBotty.database.getPrivileges(loser).getStatus() != Status.DEMIMOD)
