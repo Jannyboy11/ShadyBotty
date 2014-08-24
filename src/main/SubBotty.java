@@ -11,30 +11,23 @@ import org.jibble.pircbot.User;
 
 public class SubBotty extends PircBot {
 	public static SubCheckThread thread;
-	public static List<String> pendingUsers = Collections.synchronizedList(new ArrayList<String>());
-	public static  List<String> subUsers = Collections.synchronizedList(new ArrayList<String>());
+	public static ArrayList<String> pendingUsers;
+	public static  ArrayList<String> subUsers;
 	
 	public SubBotty() {
-		
+		subUsers =  new ArrayList<String>();
+		pendingUsers  = new ArrayList<String>();
 		this.setName("ShadyBotty");
 		thread = new SubCheckThread(this);
 		thread.start();
 	}
-	public String[] getPendingUsersArr() {
-		String[] list = (String[])pendingUsers.toArray();
-		System.out.println(list.length);
+
+	public ArrayList<String> getPendingUsers() {
+		ArrayList<String> list = pendingUsers;
 		return  list;
 	}
-	public String[] getSubUsersArr() {
-		String[] list = (String[])subUsers.toArray();
-		return  list;
-	}
-	public List<String> getPendingUsers() {
-		List<String> list = Collections.synchronizedList(pendingUsers);
-		return  list;
-	}
-	public List<String> getSubUsers() {
-		List<String> list = Collections.synchronizedList(subUsers);
+	public ArrayList<String> getSubUsers() {
+		ArrayList<String> list = subUsers;
 		return  list;
 	}
 	public void onConnect() {
@@ -66,17 +59,13 @@ public class SubBotty extends PircBot {
 	
 	public void onMessage(String channel, String sender,
 			String login, String hostname, String message) {
-		System.out.println(sender + !sender.equalsIgnoreCase("jtv") + !pendingUsers.contains(sender));
 		if (!sender.equalsIgnoreCase("jtv") && !pendingUsers.contains(sender.toLowerCase())) {
+			System.out.println(sender + " andded. size: " + pendingUsers.size());
 			pendingUsers.add(sender);
-			System.out.println(pendingUsers.size() +"added");
-			System.out.println(getPendingUsers().get(0));
 		}
 		else if (sender.equalsIgnoreCase("jtv") && !subUsers.contains(message.split(" ")[1]) &&
 				message.startsWith("SPECIALUSER") && message.endsWith("subscriber")) {
 			subUsers.add(message.split(" ")[1]);	
-			
-			System.out.println(subUsers.size() +"jtv added" + message.split(" ")[1]);
 		}
 			
 	}

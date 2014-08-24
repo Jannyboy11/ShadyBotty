@@ -14,8 +14,8 @@ public class ShadyBottyMain {
 		ShadyBotty bot = new ShadyBotty();
 		SubBotty subbot = new SubBotty();
 		// Enable debugging output.
-		bot.setVerbose(false);
-		subbot.setVerbose(true);
+		bot.setVerbose(true);
+		subbot.setVerbose(false);
 		// Connect to the IRC server.
 		BufferedReader blub = new BufferedReader(new FileReader("C:/wachtwoord.txt"));
 		String password = blub.readLine();

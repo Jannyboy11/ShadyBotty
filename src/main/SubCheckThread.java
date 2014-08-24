@@ -5,33 +5,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SubCheckThread extends Thread {
-	private SubBotty botty = new SubBotty();
+	private SubBotty botty;
 	public SubCheckThread(SubBotty bot) {
 		botty = bot;
 	}
 
 	public void run() {
 		while (true) {
-			while (botty.isConnected()) {
-				System.out.println("checking subs" + botty.getSubUsersArr().length );
+			System.out.println("w true");
 				try {Thread.sleep(15000);} catch (Exception e) {}
-				List<String> temp = botty.getSubUsers();
-				List<String> toTest = botty.getPendingUsers();
-				botty.pendingUsers.clear();
-				botty.subUsers.clear();
+				System.out.println("15 sec passed");
+				System.out.println(SubBotty.pendingUsers.size());
+				ArrayList<String> temp = SubBotty.subUsers;
+				ArrayList<String> toTest = SubBotty.pendingUsers;
+
 				for (int i = 0; i < toTest.size(); i++) {
+					System.out.println("checking nick: " +toTest.get(i));
 					if (temp.contains(toTest.get(i))) {
+
 						if (Database.usersIni.get(toTest.get(i),"Subscriber").equals("true"))
 							//is a sub and in file.
-							return;
+							continue;
 						//is a sub, but needs to be added in file.
 						Database.usersIni.add(toTest.get(i),"Subscriber","true");
 						try {Database.usersIni.store();} catch (IOException e) { }			
 						System.out.println(toTest.get(i) + " is a new sub");
 					} else {
+						if (Database.usersIni.get(toTest.get(i),"Subscriber") == null) {
+							Database.usersIni.add(toTest.get(i),"Subscriber","false");
+							try {Database.usersIni.store();} catch (IOException e) { }	
+						}
+						System.out.println("not contains: " +toTest.get(i));
 						if (!Database.usersIni.get(toTest.get(i),"Subscriber").equals("true"))
 							//not a sub, not in file.
-							return;
+							continue;
 						//not a sub, but in file. -> delete
 						Database.usersIni.add(toTest.get(i),"Subscriber","false");
 						try {Database.usersIni.store();} catch (IOException e) { }			
@@ -39,9 +46,10 @@ public class SubCheckThread extends Thread {
 					} 
 
 				}
-			this.stop();
-			}
-			try {Thread.sleep(30000);} catch (Exception e) {}
+				SubBotty.pendingUsers.clear();
+				SubBotty.subUsers.clear();
+//			}
+//			try {Thread.sleep(30000);} catch (Exception e) {}
 		}
 	}
 }
