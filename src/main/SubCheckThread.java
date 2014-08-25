@@ -12,15 +12,11 @@ public class SubCheckThread extends Thread {
 
 	public void run() {
 		while (true) {
-			System.out.println("w true");
 				try {Thread.sleep(15000);} catch (Exception e) {}
-				System.out.println("15 sec passed");
-				System.out.println(SubBotty.pendingUsers.size());
 				ArrayList<String> temp = SubBotty.subUsers;
 				ArrayList<String> toTest = SubBotty.pendingUsers;
 
 				for (int i = 0; i < toTest.size(); i++) {
-					System.out.println("checking nick: " +toTest.get(i));
 					if (temp.contains(toTest.get(i))) {
 
 						if (Database.usersIni.get(toTest.get(i),"Subscriber").equals("true"))
@@ -35,7 +31,6 @@ public class SubCheckThread extends Thread {
 							Database.usersIni.add(toTest.get(i),"Subscriber","false");
 							try {Database.usersIni.store();} catch (IOException e) { }	
 						}
-						System.out.println("not contains: " +toTest.get(i));
 						if (!Database.usersIni.get(toTest.get(i),"Subscriber").equals("true"))
 							//not a sub, not in file.
 							continue;

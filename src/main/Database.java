@@ -37,7 +37,7 @@ public class Database {
 
 
 	public Privileges getPrivileges(String user) {
-		return privileges.get(user);
+		return privileges.get(user.toLowerCase());
 	}
 
 	public void addPrivileges(String nick) {

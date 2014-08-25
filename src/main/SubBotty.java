@@ -32,8 +32,6 @@ public class SubBotty extends PircBot {
 	}
 	public void onConnect() {
 		sendRawLine("TWITCHCLIENT 3");
-		thread = new SubCheckThread(this);
-		thread.start();
 		return;
 	}
 
@@ -60,7 +58,6 @@ public class SubBotty extends PircBot {
 	public void onMessage(String channel, String sender,
 			String login, String hostname, String message) {
 		if (!sender.equalsIgnoreCase("jtv") && !pendingUsers.contains(sender.toLowerCase())) {
-			System.out.println(sender + " andded. size: " + pendingUsers.size());
 			pendingUsers.add(sender);
 		}
 		else if (sender.equalsIgnoreCase("jtv") && !subUsers.contains(message.split(" ")[1]) &&

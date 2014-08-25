@@ -27,7 +27,6 @@ public class Nicknames {
 	public static void addNick(String nn){
 		Wini ini;
 			ini = Database.usersIni;
-			System.out.println(nn + "  " + ini.get(nn,"nick"));
 			nickList.put(nn.toLowerCase(),ini.get(nn,"nick") == null ? nn : ini.get(nn,"nick"));
 	}	
 	public static void ChangeNick(String nn, String nick){

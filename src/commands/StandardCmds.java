@@ -45,16 +45,27 @@ public class StandardCmds {
 	public static ArrayList<String> lotteryPlayers = new ArrayList<String>();
 	private static int lotteryPot;
 	private static boolean lottery = false;
+	
+	
+	//for stabrandom
+	private static long latestStabRequest;
+	private static HashMap<String, Long> latestStabRequestByUser  = new HashMap<String, Long>();
+
 
 
 
 	public StandardCmds(ShadyBotty bot){
 		botty = bot;
+		setLatestStabRequest(0);
 		setLastLottery(0);
 		setLatestPointsRequest(0);
 		setLatestGambleRequest(0);
 		setLatestSuicideRequest(0);
 		setLatestRouletteRequest(0);
+	}
+
+	public void setLatestStabRequest(int i) {
+		latestStabRequest = i;	
 	}
 
 	public static boolean isValidStandardCmd(String msg, String nick) {
@@ -82,9 +93,7 @@ public class StandardCmds {
 				Nicknames.addNick(words[1]);
 			}
 			Status stat = ShadyBotty.database.getPrivileges(nick).getStatus();
-			System.out.println("challenger is: " + nick + "and stat is:" +stat);
 			if (!(stat == Status.VIEWER || stat == Status.REGULAR))
-				System.out.println("challenger is premium+ : " + nick);
 			challenge(nick, words[1]);
 			return true;
 		} else if (words[0].equalsIgnoreCase("!accept") && words.length == 1) {
@@ -152,7 +161,7 @@ public class StandardCmds {
 			if (Chips.getChips(target) != 0)
 				toSend += " and " + Math.round(Chips.getChips(target)) + " chips";
 			toSend+= ". ";
-			if (ShadyBotty.database.getPrivileges(target).getFaction().equalsIgnoreCase("jb940")) 
+			if (ShadyBotty.database.getPrivileges(target.toLowerCase()).getFaction().equalsIgnoreCase("jb940")) 
 				toSend += getNick(target) + " also has 1 GodPoint! Kappa/";	
 			System.out.println(toSend);
 			botty.sendToBunny(toSend);
@@ -168,7 +177,7 @@ public class StandardCmds {
 		boolean result = false;
 		Long latestrequest = new Long(0);
 		long call =  System.currentTimeMillis();
-		Long wait = ShadyBotty.database.getPrivileges(nick).getCooldown() == -1 ? new Long(45000) : new Long(60000);
+		Long wait = ShadyBotty.database.getPrivileges(nick.toLowerCase()).getCooldown() == -1 ? new Long(45000) : new Long(60000);
 		if (latestGambleRequestByUser.containsKey(nick))
 			latestrequest = latestGambleRequestByUser.get(nick);
 		if (call - latestrequest > wait && call - latestGambleRequest > 5000)			
@@ -315,10 +324,12 @@ public class StandardCmds {
 	}
 
 	public static void performChallenge(String challengednick){
+		System.out.println(challengednick);
 		if (!challengedNicks.containsKey(challengednick)) return;
 		HashMap<String,Long> temp = new HashMap<String, Long>();
 		temp = challengedNicks.get(challengednick);
 		String challengernick = (String) temp.keySet().toArray()[0];
+		System.out.println(challengernick);
 		if (System.currentTimeMillis() - temp.get(challengernick) > 30000) return;
 		String loser = Math.random() < 0.5 ? challengednick : challengernick;
 		botty.sendToBunny( getNick(challengednick) + " and " + getNick(challengernick) + " play roulette. " + getNick(loser) + " got shot. REKT");
@@ -338,10 +349,27 @@ public class StandardCmds {
 		//TODO
 		return false;
 	}
+	
 
-	public static boolean stabRandom(String nick){
-		//TODO
-		return false;
+	public static boolean canStabRandom(String nick){
+		Long latestrequest = new Long(0);
+		long call =  System.currentTimeMillis();
+		Long wait = ShadyBotty.database.getPrivileges(nick.toLowerCase()).getCooldown() == -1 ? new Long(60000) : new Long(90000);
+		if (latestStabRequestByUser.containsKey(nick))
+			latestrequest = latestStabRequestByUser.get(nick);
+		if (call - latestrequest > wait && call - latestStabRequest > 15000) {
+			latestStabRequestByUser.put(nick, call);
+			latestStabRequest = call;
+			return true;
+		} else return false;
+	}
+	
+	public static void stabRandom(String nick) {
+		if (!canStabRandom(nick)) return;
+	ArrayList<String> temp = main.Database.currentUsers;
+	String stabNick = temp.get((int) Math.round(Math.random() *(temp.size() - 1)));
+	botty.sendToBunny(getNick(stabNick) + " has been randomly stabbed! Ouch! 5 seconds timeout :(");
+	botty.sendToBunny(".timeout " + stabNick + " 5");
 	}
 
 	public static boolean canDailyBonus(String nick){

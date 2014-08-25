@@ -225,18 +225,18 @@ public class Shop {
 		Method filter = null;
 		argType = value.getClass();
 		chat.Privileges a = ShadyBotty.database.getPrivileges(nick);
-		item = item.substring(0, 1).toUpperCase() + item.substring(1);
+		String item2 = item.substring(0, 1).toUpperCase() + item.substring(1);
 
 		try {
 			if(item.equals("Filter")) {
 				method = a.getClass().getDeclaredMethod("setEmoFilter", argType);
 				filter = a.getClass().getDeclaredMethod("setCapsFilter", argType);
 			} else {
-				method = a.getClass().getDeclaredMethod("set" + item, argType);
+				method = a.getClass().getDeclaredMethod("set" + item2, argType);
 			}
-			method.invoke(ShadyBotty.database.getPrivileges(nick), value);
+			method.invoke(ShadyBotty.database.getPrivileges(nick.toLowerCase()), value);
 			if (filter != null)
-				filter.invoke(ShadyBotty.database.getPrivileges(nick), value);
+				filter.invoke(ShadyBotty.database.getPrivileges(nick.toLowerCase()), value);
 		} catch (SecurityException e) {
 			System.out.println("security");
 		} catch (NoSuchMethodException e) {
@@ -251,16 +251,17 @@ public class Shop {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-
+		System.out.println(item2 + " bought for " + nick + "fr value " + value);
+		
 		Wini ini;
 		try {
-			if (item.equals("Gain")) {
+			if (item2.equals("Gain")) {
 				ini = new Wini(new File("currencies.ini"));
-				ini.put(nick,item,value);
+				ini.put(nick.toLowerCase(),item2,value);
 				ini.store();
 			} else {
 			ini = new Wini(new File("users.ini"));
-			ini.put(nick,item,value);
+			ini.put(nick.toLowerCase(),item2,value);
 			ini.store();
 			}
 		} catch (IOException e) { 

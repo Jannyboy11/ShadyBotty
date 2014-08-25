@@ -82,7 +82,6 @@ public class ShadyBotty extends PircBot {
 		database.addPrivileges(sender);
 		Nicknames.addNick(sender);
 		Pair temp;
-		System.out.println("before check");
 		temp = ChatRules.checkMessage(sender, message);
 		if (temp.getTimeoutLength() > 0) {
 			System.out.println(temp.getTimeoutLength() + " time for timeout for " + sender);
