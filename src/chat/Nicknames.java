@@ -21,7 +21,7 @@ public class Nicknames {
 	}
 
 	public static String getNick(String user) {
-		return nickList.get(user) == null ? user : nickList.get(user);
+		return nickList.get(user.toLowerCase()) == null ? user : nickList.get(user.toLowerCase());
 	}
 
 	public static void addNick(String nn){
