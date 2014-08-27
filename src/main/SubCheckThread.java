@@ -18,7 +18,10 @@ public class SubCheckThread extends Thread {
 
 				for (int i = 0; i < toTest.size(); i++) {
 					if (temp.contains(toTest.get(i))) {
-
+						if (Database.usersIni.get(toTest.get(i),"Subscriber") == null) {
+							Database.usersIni.add(toTest.get(i),"Subscriber","false");
+							try {Database.usersIni.store();} catch (IOException e) { }	
+						}
 						if (Database.usersIni.get(toTest.get(i),"Subscriber").equals("true"))
 							//is a sub and in file.
 							continue;

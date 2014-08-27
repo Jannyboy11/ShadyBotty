@@ -15,14 +15,14 @@ public class Points {
 		double points;
 		Wini ini;
 			ini = Database.currenciesIni;
-			points = ini.get(nick,"points") == null ? new Double(0) : Double.parseDouble(ini.get(nick,"points"));
+			points = ini.get(nick.toLowerCase(),"points") == null ? new Double(0) : Double.parseDouble(ini.get(nick.toLowerCase(),"points"));
 			return points;	
 	}
 	public void setPoints(String nick, double amount) {
 		Wini ini;
 		try {
 			ini = Database.currenciesIni;
-			ini.put(nick, "points", amount);
+			ini.put(nick.toLowerCase(), "points", amount);
 			ini.store();
 		} catch (InvalidFileFormatException e) {
 			// TODO Auto-generated catch block
@@ -37,7 +37,7 @@ public class Points {
 		Wini ini;
 		try {
 			ini = Database.currenciesIni;
-			ini.put(nick, "points", getPoints(nick)+amount);
+			ini.put(nick.toLowerCase(), "points", getPoints(nick)+amount);
 			ini.store();
 		} catch (InvalidFileFormatException e) {
 			// TODO Auto-generated catch block

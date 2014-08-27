@@ -48,7 +48,13 @@ public class ShadyBotty extends PircBot {
 	}
 	
 	public void onConnect() {
-//something
+		try {
+			Thread.sleep(5000);
+			} catch(Exception ex) {
+			}
+		joinChannel("#shadybunny");
+		joinChannel("#shadybunny");
+		joinChannel("#shadybunny");
 		return;
 	}
 

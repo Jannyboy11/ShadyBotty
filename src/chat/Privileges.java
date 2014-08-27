@@ -32,7 +32,7 @@ public class Privileges {
 			capsFilter = ini.get(nick,"Filter") == null ? 0 : -1;
 			emoFilter = ini.get(nick,"Filter") == null ? 0 : -1;
 			faction = ini.get(nick,"Faction") == null ? "null" : ini.get(nick,"Faction");
-			subscriber = ini.get(nick,"Subscriber") == null ? false : true;
+			subscriber = "true".equals(ini.get(nick,"Subscriber")) ? true : false;
 			if (ini.get(nick,"Status") == null) {
 			status = Status.VIEWER;
 			ini.add(nick,"Status","viewer");
@@ -106,8 +106,8 @@ public class Privileges {
 		return status;
 	}
 
-	public void setStatus(Status status) {
-		this.status = status;
+	public void setStatus(String status) {
+		this.status =  Status.valueOf(status.toUpperCase());
 	}
 
 	public int getCooldown() {

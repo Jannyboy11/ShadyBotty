@@ -22,9 +22,8 @@ public class ShadyBottyMain {
 		blub.close();
 		subbot.connect("irc.twitch.tv",6667,password);
 		bot.connect("irc.twitch.tv",6667,password);
-
-		// Join the #pircbot channel.
 		bot.joinChannel("#shadybunny");
+		// Join the #pircbot channel.
 		subbot.joinChannel("#shadybunny");
 	}
 

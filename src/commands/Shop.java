@@ -8,6 +8,7 @@ import org.ini4j.Wini;
 
 import points.Chips;
 import points.Points;
+import main.Database;
 import main.ShadyBotty;
 import chat.ChatRules;
 import chat.Privileges;
@@ -88,6 +89,7 @@ public class Shop {
 			if (ShadyBotty.database.getPrivileges(nick).getLinks() == -1){
 				bot.sendToBunny("you already have this item " + nickn + ".");
 				setLatestShop(System.currentTimeMillis());
+				writePrivileges(nick,msg,"-1");
 				return true;
 			}
 			bot.sendToBunny(nickn + " can now permanently post links for just " + Math.round(Points.getCostItem(nick,new Double(650))) + " points.  No ab00se pls");
@@ -99,6 +101,7 @@ public class Shop {
 			if (ShadyBotty.database.getPrivileges(nick).getEmoFilter() == -1){
 				bot.sendToBunny("you already have this item " + nickn + ".");
 				setLatestShop(System.currentTimeMillis());
+				writePrivileges(nick,msg,"-1");
 				return true;
 			}
 			bot.sendToBunny("Pls not too much Capserino " +nickn+ " Kappa You have bought filter for " + Math.round(Points.getCostItem(nick,new Double(600))) + " points " );
@@ -109,6 +112,7 @@ public class Shop {
 			if (ShadyBotty.database.getPrivileges(nick).getStatus() != Status.REGULAR){
 				bot.sendToBunny("you already have this item or are a moderino :3 " + nickn + ".");
 				setLatestShop(System.currentTimeMillis());
+				writePrivileges(nick,"Status",msg);
 				return true;
 			}
 			bot.sendToBunny("WOOOH. "+ nickn + " IS NOW A PREMIUM. SUCCES! commands: !nick NAME !challenge NICK !stabrandom. " + Math.round(Points.getCostItem(nick,new Double(5000))) + " points substracted.");
@@ -169,7 +173,7 @@ public class Shop {
 			ShadyBotty.database.getPrivileges(nick).setTemplink(true);
 			setLatestShop(System.currentTimeMillis());			
 			return true;
-		} else if (msg.equals("regular") && shopAvailable() && Points.getPoints(nick) > Points.getCostItem(nick,new Double(1800))) {
+		} else if (msg.equals("regular") && shopAvailable() && Points.getPoints(nick) > Points.getCostItem(nick,new Double(1600))) {
 			if (ShadyBotty.database.getPrivileges(nick).getStatus() != Status.VIEWER){
 				bot.sendToBunny("you already have this item " + nickn + ".");
 				setLatestShop(System.currentTimeMillis());
@@ -256,11 +260,11 @@ public class Shop {
 		Wini ini;
 		try {
 			if (item2.equals("Gain")) {
-				ini = new Wini(new File("currencies.ini"));
+				ini = Database.currenciesIni;
 				ini.put(nick.toLowerCase(),item2,value);
 				ini.store();
 			} else {
-			ini = new Wini(new File("users.ini"));
+			ini = Database.usersIni;
 			ini.put(nick.toLowerCase(),item2,value);
 			ini.store();
 			}

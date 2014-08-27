@@ -157,9 +157,9 @@ public class StandardCmds {
 
 	public static void requestPoints(String nick,String target){		
 		if (canRequestPoints(nick)){
-			String toSend = getNick(target) + " has " + Math.round(Points.getPoints(target)) + " points";
+			String toSend = getNick(target) + " has " + Math.round(Points.getPoints(target.toLowerCase())) + " points";
 			if (Chips.getChips(target) != 0)
-				toSend += " and " + Math.round(Chips.getChips(target)) + " chips";
+				toSend += " and " + Math.round(Chips.getChips(target.toLowerCase())) + " chips";
 			toSend+= ". ";
 			if (ShadyBotty.database.getPrivileges(target.toLowerCase()).getFaction().equalsIgnoreCase("jb940")) 
 				toSend += getNick(target) + " also has 1 GodPoint! Kappa/";	
@@ -335,6 +335,7 @@ public class StandardCmds {
 		botty.sendToBunny( getNick(challengednick) + " and " + getNick(challengernick) + " play roulette. " + getNick(loser) + " got shot. REKT");
 		if (ShadyBotty.database.getPrivileges(loser).getStatus() != Status.DEMIMOD)
 			botty.sendToBunny("/timeout " + loser + " 30");
+		challengedNicks.remove(challengednick);
 		return;
 	}
 
@@ -368,12 +369,19 @@ public class StandardCmds {
 		if (!canStabRandom(nick)) return;
 	ArrayList<String> temp = main.Database.currentUsers;
 	String stabNick = temp.get((int) Math.round(Math.random() *(temp.size() - 1)));
+	while (Points.getPoints(stabNick) < 200) {
+		stabNick = temp.get((int) Math.round(Math.random() *(temp.size() - 1)));
+	}
 	botty.sendToBunny(getNick(stabNick) + " has been randomly stabbed! Ouch! 5 seconds timeout :(");
 	botty.sendToBunny(".timeout " + stabNick + " 5");
+	
 	}
 
 	public static boolean canDailyBonus(String nick){
+		System.out.println(nick +" used daily bonus");
+		System.out.println(ShadyBotty.database.getPrivileges(nick).isSubscriber());
 		if (!ShadyBotty.database.getPrivileges(nick).isSubscriber()) return false;
+		System.out.println("sub");
 		Long latest = new Long(0);
 		if (dailyBonus.containsKey(nick)){
 			latest = dailyBonus.get(nick);
