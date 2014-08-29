@@ -6,6 +6,7 @@ import points.GivePointsThread;
 import main.ShadyBotty;
 
 public class CheckStreamThread extends Thread {
+	private int printtimer = 0;
 
 	ShadyBotty botty;
 	public CheckStreamThread(ShadyBotty bot) 
@@ -18,8 +19,15 @@ public class CheckStreamThread extends Thread {
 			while (botty.isConnected()) {
 
 				try {Thread.sleep(5000);} catch (Exception e) {}
+				
+				SongAPI.checkMusic();
 				JSONObject a = TwitchAPI.getJSONStreamShady();
+				if (printtimer == 3) {
 				System.out.println("shady is: " + (a != null));
+				printtimer = 0;
+				}
+				
+				printtimer++;
 				if (a != null) {
 					if(!botty.getPointsThread().getStatus()) {
 						botty.getPointsThread().setOnline();
