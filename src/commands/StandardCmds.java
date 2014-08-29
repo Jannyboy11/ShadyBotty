@@ -69,6 +69,7 @@ public class StandardCmds {
 	}
 
 	public static boolean isValidStandardCmd(String msg, String nick) {
+		Status stat = ShadyBotty.database.getPrivileges(nick).getStatus();
 		String[] words = chat.ChatRules.getWords(msg);
 		if (words[0].equalsIgnoreCase("!points")) {
 			if ((ShadyBotty.database.getPrivileges(nick).getStatus() == Status.MOD 
@@ -92,7 +93,7 @@ public class StandardCmds {
 				ShadyBotty.database.addPrivileges(words[1]);
 				Nicknames.addNick(words[1]);
 			}
-			Status stat = ShadyBotty.database.getPrivileges(nick).getStatus();
+
 			if (!(stat == Status.VIEWER || stat == Status.REGULAR))
 			challenge(nick, words[1]);
 			return true;
@@ -115,6 +116,10 @@ public class StandardCmds {
 			return true;
 		} else if (words[0].equalsIgnoreCase("!nick") && words.length >= 2) {
 			Nicknames.ChangeNick(nick, msg.substring(6));
+			 return true;
+		} else if (words[0].equalsIgnoreCase("!stabrandom")) {
+			if (!(stat == Status.VIEWER || stat == Status.REGULAR)) 
+			stabRandom(nick);
 			return true;
 		}
 		return false;
@@ -354,6 +359,8 @@ public class StandardCmds {
 
 	public static boolean canStabRandom(String nick){
 		Long latestrequest = new Long(0);
+		if (ShadyBotty.database.getPrivileges(nick).getStatus() == Status.VIEWER ||
+				ShadyBotty.database.getPrivileges(nick).getStatus() == Status.REGULAR) return false;
 		long call =  System.currentTimeMillis();
 		Long wait = ShadyBotty.database.getPrivileges(nick.toLowerCase()).getCooldown() == -1 ? new Long(60000) : new Long(90000);
 		if (latestStabRequestByUser.containsKey(nick))
@@ -369,10 +376,11 @@ public class StandardCmds {
 		if (!canStabRandom(nick)) return;
 	ArrayList<String> temp = main.Database.currentUsers;
 	String stabNick = temp.get((int) Math.round(Math.random() *(temp.size() - 1)));
-	while (Points.getPoints(stabNick) < 200) {
+	while (Points.getPoints(stabNick) < 200 || (ShadyBotty.database.getPrivileges(stabNick).getStatus() == Status.MOD || ShadyBotty.database.getPrivileges(stabNick).getStatus() == Status.DEMIMOD)) {
 		stabNick = temp.get((int) Math.round(Math.random() *(temp.size() - 1)));
+		
 	}
-	botty.sendToBunny(getNick(stabNick) + " has been randomly stabbed! Ouch! 5 seconds timeout :(");
+	botty.sendToBunny("/me has stabbed " + getNick(stabNick) + " randomly! Ouch! 5 seconds timeout :(");
 	botty.sendToBunny(".timeout " + stabNick + " 5");
 	
 	}
