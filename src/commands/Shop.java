@@ -112,12 +112,13 @@ public class Shop {
 			if (ShadyBotty.database.getPrivileges(nick).getStatus() != Status.REGULAR){
 				bot.sendToBunny("you already have this item or are a moderino :3 " + nickn + ".");
 				setLatestShop(System.currentTimeMillis());
-				writePrivileges(nick,"Status",msg);
+
 				return true;
 			}
 			bot.sendToBunny("WOOOH. "+ nickn + " IS NOW A PREMIUM. SUCCES! commands: !nick NAME !challenge NICK !stabrandom. " + Math.round(Points.getCostItem(nick,new Double(5000))) + " points substracted.");
 			Points.buyItemWithPoints(nick, new Double(5000));
-			setLatestShop(System.currentTimeMillis());			
+			setLatestShop(System.currentTimeMillis());	
+			writePrivileges(nick,"Status",msg);
 			return true;
 		}
 		return false;

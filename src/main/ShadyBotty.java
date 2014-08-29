@@ -82,6 +82,7 @@ public class ShadyBotty extends PircBot {
 	
 	public void onMessage(String channel, String sender,
 			String login, String hostname, String message) {
+		if (sender.equals("failgaf") || sender.equals("honeybadgerino")) return;
 		
 		database.setLastMessage(sender, System.currentTimeMillis());
 		database.addCurrentUsers(sender);

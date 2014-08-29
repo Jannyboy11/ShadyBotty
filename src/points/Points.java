@@ -1,5 +1,6 @@
 package points;
 import java.io.File;
+import java.util.*;
 import java.io.IOException;
 
 import main.Database;
@@ -15,9 +16,18 @@ public class Points {
 		double points;
 		Wini ini;
 			ini = Database.currenciesIni;
+//			Set<String> a = ini.get(nick) == null ?  null : ini.get(nick).keySet();
+//			if (a != null) {
+//				Iterator<String> q = a.iterator();
+//				while (q.hasNext()) {
+//					System.out.println(q.next());
+//				}
+//			}
+		//	System.out.println(ini.get(nick.toLowerCase(),"points") + " points." + ini.get(nick,"points") + " not lowercase " + nick);
 			points = ini.get(nick.toLowerCase(),"points") == null ? new Double(0) : Double.parseDouble(ini.get(nick.toLowerCase(),"points"));
 			return points;	
 	}
+	
 	public void setPoints(String nick, double amount) {
 		Wini ini;
 		try {
