@@ -22,7 +22,7 @@ public class CheckStreamThread extends Thread {
 				
 				SongAPI.checkMusic();
 				JSONObject a = TwitchAPI.getJSONStreamShady();
-				if (printtimer == 3) {
+				if (printtimer == 2) {
 				System.out.println("shady is: " + (a != null));
 				printtimer = 0;
 				}

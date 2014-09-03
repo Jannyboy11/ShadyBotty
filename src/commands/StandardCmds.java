@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+import api.SongAPI;
 import chat.Nicknames;
 import chat.Privileges.Status;
 import points.Chips;
@@ -120,6 +121,10 @@ public class StandardCmds {
 		} else if (words[0].equalsIgnoreCase("!stabrandom")) {
 			if (!(stat == Status.VIEWER || stat == Status.REGULAR)) 
 			stabRandom(nick);
+			return true;
+		}else if (words[0].equalsIgnoreCase("!song")) {
+			SongAPI.checkMusic();
+			botty.sendToBunny(SongAPI.getLatestmusic());
 			return true;
 		}
 		return false;
@@ -331,6 +336,7 @@ public class StandardCmds {
 	public static void performChallenge(String challengednick){
 		System.out.println(challengednick);
 		if (!challengedNicks.containsKey(challengednick)) return;
+		System.out.println(challengednick);
 		HashMap<String,Long> temp = new HashMap<String, Long>();
 		temp = challengedNicks.get(challengednick);
 		String challengernick = (String) temp.keySet().toArray()[0];

@@ -24,16 +24,35 @@ public class SongAPI {
 	public static String getSongNameShady() {
 		JSONObject json = getJSONSong();
 
-		if (json != null)
-			return json.optJSONObject("recenttracks").optJSONObject("track").optString("name");
+		if (json != null) {
+			try {
+			String song = json.optJSONObject("recenttracks")
+					.optJSONArray("track").optJSONObject(0)
+					.optString("name");
+			return song;
+			} catch (NullPointerException e) {
+				return "none";
+			}
+		}
 		return "none";
 	}
 	
 	public static String getArtistNameShady() {
 		JSONObject json = getJSONSong();
 
-		if (json != null)
-			return json.optJSONObject("recenttracks").optJSONObject("track").optJSONObject("artist").optString("#text");
+		if (json != null) {
+			try {
+			String song = 	json.optJSONObject("recenttracks")
+					.optJSONArray("track").optJSONObject(0)
+					.optJSONObject("artist")
+					.optString("#text");
+			return song;
+			} catch (NullPointerException e) {
+				return "none";
+			}
+			
+
+		}
 		return "none";
 	}
 	public static void checkMusic() {

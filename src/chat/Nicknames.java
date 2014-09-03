@@ -44,11 +44,12 @@ public class Nicknames {
 			}
 			String goodnick = (double)ChatRules.countUppercase(nick)/(double)nick.length() > (double) 0.4 ? 
 					nick.substring(0,1).toUpperCase() + nick.substring(1).toLowerCase() : nick;
-			nickList.put(nn,goodnick);
+
 			Wini ini = Database.usersIni;
 			ini.put(nn,"nick",goodnick);
 			ini.store();
 			bot.sendToBunny("Dear " + getNick(nn) + ", your nick has been changed for 50 points to: " + goodnick);
+			nickList.put(nn,goodnick);
 			Points.delPoints(nn, 50);
 		} catch (IOException e) { 
 			// TODO Auto-generated catch block
