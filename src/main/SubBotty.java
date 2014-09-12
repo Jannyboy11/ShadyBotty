@@ -49,7 +49,7 @@ public class SubBotty extends PircBot {
 				this.connect("irc.twitch.tv",6667,password);
 
 				// Join the #pircbot channel.
-				this.joinChannel("#shadybunny");
+				this.joinChannel(ShadyBottyMain.ROOM);
 			} catch(Exception ex) {
 			}
 		}

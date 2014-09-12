@@ -27,7 +27,7 @@ public class ShadyBottyMain {
 		subbot.connect("irc.twitch.tv",6667,password);
 		bot.connect("irc.twitch.tv",6667,password);
 		privbot.connect("199.9.248.232",80,password);
-		bot.joinChannel("#shadybunny");
+		bot.joinChannel(ROOM);
 		// Join the #pircbot channel.
 		subbot.joinChannel(ROOM);
 		privbot.joinChannel("#_shadybottyroom");
