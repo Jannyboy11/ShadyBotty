@@ -7,7 +7,9 @@ import java.io.FileReader;
 import commands.StandardCmds;
 
 public class ShadyBottyMain {
- public static ShadyBotty bot;
+	public static ShadyBotty bot;
+	public static final String ROOM = "#shadybunny";
+ 
 	public static void main(String[] args) throws Exception {
 		System.out.println(new File(".").getCanonicalPath());
 		// Now start our bot up.
@@ -27,7 +29,7 @@ public class ShadyBottyMain {
 		privbot.connect("199.9.248.232",80,password);
 		bot.joinChannel("#shadybunny");
 		// Join the #pircbot channel.
-		subbot.joinChannel("#shadybunny");
+		subbot.joinChannel(ROOM);
 		privbot.joinChannel("#_shadybottyroom");
 	}
 
