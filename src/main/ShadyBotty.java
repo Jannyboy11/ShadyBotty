@@ -23,8 +23,13 @@ public class ShadyBotty extends PircBot {
 	public static Nicknames nicks;
 	public static Shop shop;
 	public static StandardCmds standardCmds;
+	
+	@Deprecated //use sendToChannel instead.
 	public void sendToBunny(String text) {
 		sendMessage("#shadybunny",text);
+	}
+	public void sendToChannel(String room, String message){
+		sendMessage(room, message);
 	}
 
 	public ShadyBotty(){
