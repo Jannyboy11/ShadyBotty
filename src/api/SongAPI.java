@@ -9,7 +9,7 @@ public class SongAPI {
 	
 	private static final String API = "http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=shadybunnylive&api_key=6bb626000cf39dabadb9e904e613d024&format=json&limit=1";
 ///,\"recenttracks\",\"track\",\"name\")
-	private static String latestMusic = "none";
+	private static String latestMusic = "API unreachable.";
 	public SongAPI() {
 	}
 	
@@ -57,7 +57,7 @@ public class SongAPI {
 	}
 	public static void checkMusic() {
 		String musicAPI = getArtistNameShady() + " - " + getSongNameShady();
-		if (musicAPI == "none" || musicAPI == null || musicAPI == latestMusic)
+		if (musicAPI.startsWith("none") || musicAPI.endsWith("none") || musicAPI == null || musicAPI == latestMusic)
 			return;
 		latestMusic = musicAPI;
 	}
