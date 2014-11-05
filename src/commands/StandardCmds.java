@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+import api.RiotAPI;
 import api.SongAPI;
 import chat.Nicknames;
 import chat.Privileges.Status;
@@ -18,6 +19,9 @@ public class StandardCmds {
 
 	private static ShadyBotty botty;
 
+	//used for rank request
+	private static long latestRankRequest;
+	
 	//used for points request
 	private static long latestPointsRequest;
 	private static HashMap<String, Long> latestPointsRequestByUser = new HashMap<String, Long>();
@@ -125,8 +129,11 @@ public class StandardCmds {
 			return true;
 		}else if (words[0].equalsIgnoreCase("!song")) {
 			SongAPI.checkMusic();
-			botty.sendToChannel(ShadyBottyMain.ROOM,SongAPI.getLatestmusic());
+			botty.sendToChannel(ch,SongAPI.getLatestmusic());
 			return true;
+		}
+		else if (words[0].equalsIgnoreCase("!rank")) {
+			return getRank(words,ch);
 		}
 		return false;
 	}
@@ -147,6 +154,19 @@ public class StandardCmds {
 		latestRouletteRequest = value;
 	}
 
+	public static boolean getRank(String[] words,String ch) {
+		long call =  System.currentTimeMillis();
+		if (call - latestRankRequest < 8000)
+			return false;
+		latestRankRequest = call;
+		if (words.length == 1)
+			botty.sendToChannel(ch,RiotAPI.getRank("ACE Shady", "euw"));
+		if (words.length == 2)
+			botty.sendToChannel(ch,RiotAPI.getRank(words[1], "euw"));
+		if (words.length == 3)
+			botty.sendToChannel(ch,RiotAPI.getRank(words[2], words[1]));
+		return true;
+	}
 	public static boolean canRequestPoints(String nick){
 		long call =  System.currentTimeMillis();
 		if (ShadyBotty.database.getPrivileges(nick).getCooldown() == -1 ||
