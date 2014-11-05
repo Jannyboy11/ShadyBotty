@@ -12,6 +12,7 @@ import chat.ChatRules;
 import chat.Nicknames;
 import chat.Pair;
 import api.CheckStreamThread;
+import api.RiotAPI;
 import points.GivePointsThread;
 import points.Points;
 
@@ -87,7 +88,8 @@ public class ShadyBotty extends PircBot {
 	
 	public void onMessage(String channel, String sender,
 			String login, String hostname, String message) {
-		if (sender.equals("failgaf") || sender.equals("honeybadgerino")) return;
+		if (sender.equalsIgnoreCase("JB940") && (message.startsWith("!testerino")))
+			System.out.println(RiotAPI.getRank(ChatRules.getWords(message)[1], "euw"));
 		
 		database.setLastMessage(sender, System.currentTimeMillis());
 		database.addCurrentUsers(sender);
@@ -97,15 +99,15 @@ public class ShadyBotty extends PircBot {
 		temp = ChatRules.checkMessage(sender, message);
 		if (temp.getTimeoutLength() > 0) {
 			System.out.println(temp.getTimeoutLength() + " time for timeout for " + sender);
-			sendToBunny("/timeout "+ sender+ " " + temp.getTimeoutLength());
-			sendToBunny(sender + " has been timed out for " 
+			sendMessage(channel,"/timeout "+ sender+ " " + temp.getTimeoutLength());
+			sendMessage(channel,sender + " has been timed out for " 
 			+ temp.getTimeoutLength() + " seconds. Reason: "
 			+ temp.getReason());
 			return;
 		}
-		if (Shop.isValidShopCommand(message,sender))
+		if (Shop.isValidShopCommand(message,sender,channel))
 			return;
-		if (StandardCmds.isValidStandardCmd(message,sender))
+		if (StandardCmds.isValidStandardCmd(message,sender,channel))
 			return;
 		
 		// CHECK IF HE TRIGGERED AN AUTOREPLY

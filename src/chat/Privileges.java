@@ -32,7 +32,7 @@ public class Privileges {
 			capsFilter = ini.get(nick,"Filter") == null ? 0 : -1;
 			emoFilter = ini.get(nick,"Filter") == null ? 0 : -1;
 			faction = ini.get(nick,"Faction") == null ? "null" : ini.get(nick,"Faction");
-			subscriber = "true".equals(ini.get(nick,"Subscriber")) ? true : false;
+			subscriber = "true".equalsIgnoreCase(ini.get(nick,"Subscriber")) ? true : false;
 			if (ini.get(nick,"Status") == null) {
 			status = Status.VIEWER;
 			ini.add(nick,"Status","viewer");
