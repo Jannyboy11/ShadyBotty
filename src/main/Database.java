@@ -17,12 +17,14 @@ public class Database {
 	public static ArrayList<String> currentUsers;
 	public static Wini usersIni;
 	public static Wini currenciesIni;
+	public static Wini autoreplyIni;
 
 
 	public Database() {
 		try {
 			usersIni = new Wini(new File("users.ini"));
 			currenciesIni = new Wini(new File("currencies.ini"));
+			autoreplyIni = new Wini(new File("autoreply.ini"));
 		lastChat = new HashMap<String,Long>();
 		privileges = new HashMap<String,chat.Privileges>();
 		currentUsers = (new ArrayList<String>());

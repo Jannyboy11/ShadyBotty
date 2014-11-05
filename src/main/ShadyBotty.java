@@ -6,6 +6,7 @@ import java.io.FileReader;
 import org.jibble.pircbot.PircBot;
 import org.jibble.pircbot.User;
 
+import commands.MadeCmds;
 import commands.Shop;
 import commands.StandardCmds;
 import chat.ChatRules;
@@ -23,6 +24,7 @@ public class ShadyBotty extends PircBot {
 	public static Points points;
 	public static Nicknames nicks;
 	public static Shop shop;
+	public static MadeCmds madeCmds;
 	public static StandardCmds standardCmds;
 	
 	@Deprecated //use sendToChannel instead.
@@ -38,6 +40,7 @@ public class ShadyBotty extends PircBot {
 		database = new Database();
 		points = new Points();
 		nicks = new Nicknames(this);
+		madeCmds = new MadeCmds(this);
 		pointsThread = new GivePointsThread(this);
 		pointsThread.start();
 		shop = new Shop(this);
@@ -109,6 +112,7 @@ public class ShadyBotty extends PircBot {
 			return;
 		if (StandardCmds.isValidStandardCmd(message,sender,channel))
 			return;
+		MadeCmds.sendCmd(message,sender, channel);
 		
 		// CHECK IF HE TRIGGERED AN AUTOREPLY
 		
