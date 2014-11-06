@@ -24,7 +24,7 @@ public class Database {
 		try {
 			usersIni = new Wini(new File("users.ini"));
 			currenciesIni = new Wini(new File("currencies.ini"));
-			autoreplyIni = new Wini(new File("autoreply.ini"));
+		//	autoreplyIni = new Wini(new File("autoreply.ini"));
 		lastChat = new HashMap<String,Long>();
 		privileges = new HashMap<String,chat.Privileges>();
 		currentUsers = (new ArrayList<String>());

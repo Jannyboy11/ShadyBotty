@@ -20,7 +20,7 @@ public class StandardCmds {
 	private static ShadyBotty botty;
 
 	//used for rank request
-	private static long latestRankRequest;
+	private static long latestRankRequest = 0;
 	
 	//used for points request
 	private static long latestPointsRequest;

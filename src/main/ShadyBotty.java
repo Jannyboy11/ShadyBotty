@@ -91,8 +91,6 @@ public class ShadyBotty extends PircBot {
 	
 	public void onMessage(String channel, String sender,
 			String login, String hostname, String message) {
-		if (sender.equalsIgnoreCase("JB940") && (message.startsWith("!testerino")))
-			System.out.println(RiotAPI.getRank(ChatRules.getWords(message)[1], "euw"));
 		
 		database.setLastMessage(sender, System.currentTimeMillis());
 		database.addCurrentUsers(sender);
