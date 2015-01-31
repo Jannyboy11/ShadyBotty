@@ -1,5 +1,4 @@
 /api/
-/chat/
-/commands/
 /main/
-/points/
+/commands/
+/trivia/

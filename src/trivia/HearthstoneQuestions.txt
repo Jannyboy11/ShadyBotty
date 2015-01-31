@@ -1,0 +1,173 @@
+Hearthstone: Basic Cards©Which Basic Neutral Card has the stats 6/7 and costs 6 Mana?©©Boulderfist Ogre
+Hearthstone: Basic Cards©Which Basic Neutral Card has the stats 3/2, costs 2 Mana and has the Battlecry "Destroy your opponent's weapon"?©©Acidic Swamp Ooze
+Hearthstone: Basic Cards©Which Basic Neutral Card has the stats 4/5, costs 5 Mana and has the Battlecry "Restore 2 health to all friendly characters"?©©Darkscale Healer
+Hearthstone: Basic Cards©Which Basic Neutral Card has the stats 4/4, costs 5 Mana and has the Battlecry "Gain +1/+1 for each other friendly minion on the battlefield"?©©Frostwolf Warlord
+Hearthstone: Basic Cards©Which Basic Neutral Card has the stats 2/7, costs 5 Mana and has the Card Enchantment "Whenever this minion takes damage, gain +3 Attack"?©©Gurubashi Berserker
+Hearthstone: Basic Cards©Which Basic Paladin Card has the stats 5/6, costs 7 Mana and has the Battlecry "Restore 6 Health to your hero"?©©Guardian of Kings
+Hearthstone: Basic Cards©Which Basic Paladin Spell costs 4 Mana and has the Card Enchantment "Deal 3 damage. Draw a card."©©Hammer of Wrath
+Hearthstone: Basic Cards©Which Basic Paladin Weapon has the stats 4/2, costs 4 Mana and has the Card Enchantment "Whenever your hero attacks, restore 2 Health to it"?©©Truesilver Champion
+Hearthstone: Basic Cards©Which Basic Paladin Spell costs 4 Mana and has the Card Enchantment "Give a minion +4/+4.(+4 Attack and +4 Health)."?©©Blessing of Kings
+Hearthstone: Basic Cards©Which Basic Paladin Spell costs 4 Mana and has the Card Enchantment "Deal 2 damage to all enemies"?©©Consecration
+Hearthstone: Basic Cards©Which Basic Shaman Card has the stats 6/5, costs 6 Mana and has the Battlecry "Deal 3 damage"?©©Fire Elemental
+Hearthstone: Basic Cards©Which Basic Shaman Spell costs 5 Mana and has the Card Enchantment "GIve your minions +3 Attack this turn"?©©Bloodlust
+Hearthstone: Basic Cards©Which Basic Shaman Card has the stats 0/3, costs 2 Mana and has the Card Enchantment "Adjacent minions have +2 Attack"?©©Flametongue Totem
+Hearthstone: Basic Cards©Which Basic Shaman Spell costs 3 Mana and has the Card Enchantment "Transform a minion into a 0/1 Frog with Taunt"?©©Hex
+Hearthstone: Basic Cards©Which Basic Shaman Spell costs 1 Mana and has the Card Enchantment "Give a friendly character +3 Attack this turn"?©©Rockbiter Weapon
+Hearthstone: Basic Cards©Which Basic Hunter Spell costs 3 Mana and has the Card Enchantment "Summon a random Beast Companion"?©©Animal Companion
+Hearthstone: Basic Cards©Which Basic Hunter Card has the stats 4/3, costs 4 Mana and has the Battlecry "Give a friendly Beast +2/+2 and Taunt"?©©Houndmaster
+Hearthstone: Basic Cards©Which Basic Hunter Spell costs 3 Mana and has the Card Enchantment "Deal 3 damage. If you have a Beast, deal 5 damage instead"?©©Kill Command
+Hearthstone: Basic Cards©Which Basic Hunter Card has the stats 5/2, costs 5 Mana and has the Card Enchantment "Whenever you summon a Beast, draw a card"?©©Starving Buzzard
+Hearthstone: Basic Cards©Which Basic Hunter Card has the stats 1/1, costs 1 Mana and has the Card Enchantment "Your other beast have +1 Attack"?©©Timber Wolf
+Hearthstone: Basic Cards©Which Basic Mage Spell costs 3 Mana and has the Card Enchantment "Draw 2 cards"?©©Arcane Intellect
+Hearthstone: Basic Cards©Which Basic Mage Spell costs 2 Mana and has the Card Enchantment "Deal 1 damage to all enemy minions"?©© Arcane Explosion
+Hearthstone: Basic Cards©Which Basic Mage Spell costs 7 Mana and has the Card Enchantment "Deal 4 damage to all enemy minions"?©©Flamestrike
+Hearthstone: Basic Cards©Which Basic Mage Card has the stats 3/6, costs 6 Mana and has the Card Enchantment "Freeze any character damaged by this minion"?©©Water Elemental
+Hearthstone: Basic Cards©Which Basic Mage Spell costs 4 Mana and has the Card Enchantment "Transform a minion into a 1/1 Sheep"?©©Polymorph
+Hearthstone: Classic Cards©Which Common Neutral Minion costs 3 mana and has the card enchantment "whenever this minion takes damage, draw a card"?©©Acolyte of Pain
+Hearthstone: Classic Cards©Which Common Neutral Minion costs 4 mana and has the battlecry:"Return a friendly minion from the battlefield to your hand"?©©Ancient Brewmaster
+Hearhstone: Classic Cards©Which Common Neutral Minion costs 4 mana and has the card enchantment "whenever one of your other minions dies, draw a card"?©©Cult Master
+Hearhstone: Classic Cards©Which Common Neutral Minion costs 3 mana and has the battlecry: "Restore 3 health"?©© Earthen Ring Farseer
+Hearhstone: Classic Cards©Which Common Neutral Minion costs 3 mana and has the deathrattle: "Summon a 2/1 damaged golem"?©©Harvest Golem
+Hearthstone: Basic Cards©Which Basic Priest Spell costs 2 mana and has the card enchantment "Deal 5 damage to the enemy hero"?©©Mind Blast
+Hearthstone: Basic Cards©Which Basic Priest Minion costs 1 mana and has the card enchantment "Whenever a minion is healed, draw a card"?©©Northshire Cleric
+Hearthstone: Basic Cards©Which Basic Priest Spell costs 5 mana and has the card enchantment "deal 2 damage to all enemies. Restore 2 health to all friendly characters."?©©Holy Nova
+Hearthstone: Basic Cards©Which Basic Priest Spell costs 1 mana and has the card enchantment "GIve a minion +2 health. Draw a card."?©©Power Word: Shield© Power word shield
+Hearthstone: Basic Cards©Which Basic Priest Spell costs 2 mana and has the card enchantment "double a minion's health"?©©Divine Spirit
+Hearthstone: Basic Cards©Which Basic Rogue Spell costs 1 mana and has the card enchantment "Give your weapon +2 attack"?©©Deadly Poison
+Hearthstone: Basic Cards©Which Basic Rogue Weapon costs 5 mana and has the stats 3/4?©©Assassin's Blade©Assassins Blade
+Hearthstone: Basic Cards©Which Basic Rogue spell costs 0 mana and has the card enchantment "Deal 2 damage to an undamaged minion"?©©Backstab
+Hearthstone: Basic Cards©Which Basic Rogue Spell costs 5 mana and has the card enchantment "Destroy an enemy minion"?©©Assassinate
+Hearthstone: Basic Cards©Which Basic Rogue Spell costs 3 mana and has the card enchantment "Deal 1 damage to all enemy minions. Draw a card."?©©Fan of Knives
+Hearthstone: Basic Cards©Which Basic Warrior Weapon costs 5 mana and has the stats 5/2?©©Arcanite Reaper
+Hearthstone: Basic Cards©Which Basic Warrior Wapon costs 2 mana and has the stats 3/2?©©Fiery War Axe
+Hearthstone: Basic Cards©Which Basic Warrior Spell costs 1 mana and has the card enchantment "Destroy an damaged enemy minion"?©©Execute
+Hearthstone: Basic Cards©Which Basic Warrior Spell costs 2 mana and has the card enchantment "Deal 2 damage to two random enemy minions"?©©Cleave
+Hearthstone: Basic Cards©Which Basic Warrior Minion costs 4 mana, has the stats 4/3 and has Charge?©©Kor'kron Elite©Korkron Elite
+Hearthstone: Basic Cards©Which Basic Druid Spell costs 0 mana and has the card enchantment "Gain 2 mana crystals this turn only"?©©Innervate
+Hearthstone: Basic Cards©Which Basic Druid Spell costs 2 mana and has the card enchantment "Give a minion Taunt and +2/+(+2 Attack/+2 Health)"?©©Mark of the wild
+Hearthstone: Basic Cards©Which Basic Druid Minion costs 8 mana, has the stats 8/8 and has Taunt?©©Ironbark Protector
+Hearthstone: Basic Cards©Which Basic Druid spell costs 3 mana and has the card enchantment "restore 8 health"?©©Healing Touch
+Hearthstone: Basic Cards©Which Basic Druid Spell costs 6 mana and has the card enchantment "Deal 5 damage. Draw a card"?©©Starfire
+Hearthstone: Basic Cards©Which Basic Warlock Spell costs 3 mana and has the card enchantment "Deal 2 damage. Restore 2 health to your hero"?©©Drain Life
+Hearthstone: Basic Cards©Which Basic Warlock Minion costs 6 mana, has the stats 6/6 and has the battlecry: "Deal 1 damage to ALL other characters"?©©Dread Infernal
+Hearthstone: Basic Cards©Which Basic Warlock Spell costs 1 mana and has the card enchantment "Choose an enemy minion. At the start of your turn, destroy it"?©©Corruption
+Hearthstone: Basic Cards©Which Basic Warlock Spell costs 1 mana and has the card enchantment "Deal 1 damage to a minion. If that kills it, draw a card"?©©Mortal Coil
+Hearthstone: Basic Cards©Which Basic Warlock Spell costs 3 mana and has the card enchantment "Deal 4 damage to a minion"?©©Shadow Bolt
+Hearthstone: Classic Cards©Which Commom Neutral Minion costs 6 mana, has the stats 5/5 and has the battlecry: "Freeze a character"?©©Frost Elemental
+Hearthstone: Classic Cards©Which Common Neutral Minion costs 2 mana, has the stats 2/1 and has the battlecry: "silence a minion"?©©Ironbeak Owl
+Hearthstone: Classic Cards©Which Common Neutral Minion costs 2 mana, has the stats 3/2 and has the battlecry: "Deal 3 damage randomly split between all other characters"?©© Mad Bomber
+Hearthstone: Classic Cards©Which Common Neutral Minion costs 5 mana, has the stats 4/4 and has the battlecry: "Summon a 2/2 Squire"?©©SIlver Hand Knight
+Hearthstone: Classic Cards©Which Common Neutral Minion costs 5 mana, has the stats 5/5 and has stealth?©©Stranglethorn Tiger
+Hearthstone: Classic Cards©Which Rare Neutral Minion costs 6 mana, has the stats 4/2 and has Charge and Divine Shield?©©Argent Commander
+Hearthstone: Classic Cards©Which Rare Neutral Minion costs 2 mana, has the stats 4/5 but cannot attack?©©Ancient Watcher
+Hearthstone: Classic Cards©Which Rare Neutral Minion costs 5 mana, has the stats 4/4 and has the card enchantment "Taunt. Deathrattle: deal 2 damage to ALL characters"?©©Abomination
+Hearthstone: Classic Cards©Which Rare Neutral Minion costs 3 mana, has the stats 0/3 and has the card enchantment "At the start of your turn, swap this minion with a random one in your hand"?©©Alarm-o-bot©Alarmobot©Alarmo-bot
+Hearthstone: Classic Cards©Which Rare Neutral Minion costs 5 mana, has the stats 4/4 and has the card enchantment "Spell damage +Battlecry: Draw a card"?©© Azure Drake
+Hearthstone: Classic Cards©Which Rare Neutral Minion costs 6 mana, has the stats 4/4 and has the card enchantment "Whenever you cast a spell, draw a card"?©©Gadgetzan Auctioneer
+Hearthstone: Classic Cards©Which Rare Neutral Minion costs 3 mana, has the stats 1/5 and has the card enchantment "At the end of your turn, deal 1 damage to this minion and summon a 1/1 Imp"?©©Imp Master
+Hearthstone: Classic Cards©Which Rare Neutral Minion costs 3 mana, has the stats 4/7 and has the battlecry: "Deal 4 damage to HIMSELF"?©©Injured Blademaster
+Hearthstone: Classic Cards©Which Rare Neutral Minion costs 6 mana, has the stats 4/5 and has Taunt and Divine Shield?©©Sunwalker©Sun Walker
+Hearthstone: Classic Cards©Which Rare Neutral Minion costs 4 mana, has the stats 4/1 and has the battlecry: "Gain +1 health for each card in your hand"?©©Twilight Drake
+Hearthstone: Classic Cards©Which Epic Neutral Minion costs 3 mana, has the stats 4/2 and has the battlecry: "Destroy a minion with an attack of 7 or more"?©©Big Game Hunter
+Hearthstone: Classic Cards©Which Epic Neutral Minion costs 3 mana, has the stats 3/3 and has the battlecry: "All minion lose Divine Shield. Gain +3/+3 for each Shield lost"?©©Blood Knight
+Hearthstone: Classic Cards©Which Epic Neutral Minion costs 2 mana, has the stats 0/7 and has the card enchantment "At the start of your turn, destroy ALL minions"?©©Doomsayer©Doom sayer
+Hearthstone: Classic Cards©Which Epic Neutral Minion costs 20 mana, has the stats 8/8 and has the card enchantment "costs (1) less for each damage your hero has taken"?©©Molten Giant
+Hearthstone: Classic Cards©Which Epic Neutral Minion costs 12 mana, has the stats 8/8 and has the card enchantment "costs (1) less for each other card in your hand"?©©Mountain Giant
+Hearthstone: Classic Cards©Which Epic Neutral Minion costs 10 mana, has the stats 8/8 and has the card enchantment "costs (1) less for each other minion on the battlefield"?©©Sea Giant
+Hearthstone: Classic Cards©Which Epic Neutral Minion costs 3 mana, has the stats 3/3 and has the card enchantment "Your other pirates has +1/+1"?©©Southsea Captain
+Hearthstone: Classic Cards©Which Epic Neutral Minion costs 3 mana, has the stats 3/3 and has the card enchantment "ALL other murlocs has +2/+1"?©©Murloc Warleader©Murloc War Leader
+Hearthstone: Classic Cards©Which Epic Neutral Minion costs 5 mana, has the stats 3/3 and has the battlecry: "Choose a minion and become a copy of it"?©©Faceless Manipulator
+Hearthstone: Classic Cards©Which Epic Neutral Minion costs 1 mana, has the stats 1/2 and has the battlecry: "Destroy a Murloc and gain +2/+2"?©©Hungry Crab
+Hearthstone: Classic Cards©Which Legendary Neutral Minion costs 9 mana, has the stats 8/8 and has the battlecry: "Set a hero's remaining health to 15"?©©Alexstasza
+Hearthstone: Classic Cards©Which Legendary Neutral Minion costs 7 mana, has the stats 7/5 and has the card enchantment "At the end of your turn, deal 2 damageto ALL other characters."?©©Baron Geddon
+Hearthstone: Classic Cards©Which Legendary Neutral Minion costs 2 mana, has the stats 1/1 and has the card enchantment "Spell damage +Deathrattle: Draw a card"?©©Bloodmage Thalnos©Blood Mage Thalnos
+Hearthstone: Classic Cards©Which Legendary Neutral Minion costs 6 mana, has the stats 4/5 and has the Deathrattle: "Summon a 4/5 Bain Bloodoof"?©©Cairne Bloodhoof
+Hearthstone: Classic Cards©Which Legendary Neutral Minion costs 5 mana, has the stats 5/4 and has the battlecry: "Give your weapon +1/+1"?©©Captain Greenskin
+Hearthstone: Classic Cards©Which Legendary Neutral Minion costs 10 mana, has the stats 12/12 and has the battlecry: "Destroy all other minions and discard your hand"?©©Deathwing©Death Wing
+Hearthstone: Classic Cards©Which Legendary Neutral Minion costs 8 mana, has the stats 7/7 and has the card enchantment "ath the end of each turn, gain +1/+1"?©©Gruul
+Hearthstone: Classic Cards©Which Legendary Neutral Minion costs 5 mana, has the stats 5/4 and has the battlecry: "Destroy your opponent's weapon and draw cards equal to its durability"?©©Harrison Jones
+Hearthstone: Classic Cards©Which Legendary Neutral Minion costs 6 mana, has the stats 4/4 and has the card enchantment "At the end of your turn, summon a 2/2 Gnoll with Taunt"?©©Hogger
+Hearthstone: Classic Cards©Which Legendary Neutral Minion costs 6 mana, has the stats 7/5 and has the card enchantment "Whenever you play a card, summon a 2/1 Flame of Azzinoth"?©©Illidan Stormrage
+Hearthstone: Classic Cards©Which Legendary Neutral Minion costs 9 mana, has the stats 4/12 and has the card enchantment "At the end of your turn, draw a Dream Card"?©©Ysera
+Hearthstone: Classic Cards©Which Legendary Neutral Minion costs 8 mana, has the stats 8/8 and has the card enchantment "Can't Attack. At the end of your turn, deal 8 damage to a random enemy"?©© Ragnaros the Firelord
+Hearthstone: Classic Cards©Which Legendary Neutral Minion costs 6 mana, has the stats 5/5 and has the Deathrattle: "Take control of a random enemy minion"?©©Sylvanas Windrunner
+Hearthstone: Classic Cards©Which Legendary Neutral Minion costs 6 mana, has the stats 4/5 and has the battlecry: "Destroy an enemy minion with Taunt"?©© The Black Knight©Black Knight
+Hearthstone: Classic Cards©Which Legendary Neutral Minion costs 9 mana, has the stats 4/12 and has the card enchantment "Spell Damage +5"?©©Malygos
+Hearthstone: Naxxramas Cards©Which Neutral Naxxramas Minion costs 4 mana, has the stats 1/7 and has the card enchantment "your minions trigger their deathrattles twice"?©©Baron RIvendare
+Hearthstone: Naxxramas Cards©Which Neutral Naxxramas Minion costs 3 mana, has the stats 4/4 and has the deathrattle: "your opponent draws a card"?©©Dancing Swords
+Hearthstone: Naxxramas Cards©Which Neutral Naxxramas Minion costs 3 mana, has the stats 2/8 and has the card enchantment "Taunt. Deathrattle: Your opponent puts a minion from their deck into the battlefield"?©©Deathlord©Death Lord
+Hearthstone: Naxxramas Cards©Which Neutral Naxxramas Minion costs 2 mana, has the stats 1/2 and has the battlecry: "Summon an exact copy of this minion at the end of the turn"?©© Echoing ooze
+Hearthstone: Naxxramas Cards©Which Neutral Naxxramas Minion costs 5 mana, has the stats 4/7 and has the Deathrattle: "If Stalagg also died this game, Summon Thaddius"?©©Feugen
+Hearthstone: Naxxramas Cards©Which Neutral Naxxramas Minion costs 2 mana, has the stats 1/2 and has the Deathrattle: "Summon two 1/1 Spectral Spiders"?©©Haunted Creeper
+Hearthstone: Naxxramas Cards©Which Neutral Naxxramas Minion costs 8 mana, has the stats 6/8 and has the card enchantment "At the end of each turn, summon all friendly minions that died this turn"?©©Kel'Thuzad©Kelthuzad
+Hearthstone: Naxxramas Cards©Which Neutral Naxxramas Minion costs 5 mana, has the stats 5/5 and has the battlecry: "Enemy spells costs (5) more next turn"?©©Loatheb
+Hearthstone: Naxxramas Cards©Which Neutral Naxxramas Minion costs 2 mana, has the stats 2/2 and has the Deathrattle: "Put a Secret from your deck into the battlefield"?©© Mad Scientist
+Hearthstone: Naxxramas Cards©Which Neutral Naxxramas Minion costs 6 mana, has the stats 2/8 and has the card enchantment "Destroy any minion damaged by this minion"?©©Maexxna
+Hearthstone: Naxxramas Cards©Which Neutral Naxxramas Minion costs 2 mana, has the stats 0/2 and has the Deathrattle: "Summon a 4/4 Nerubian"?©©Nerubian Egg
+Hearthstone: Naxxramas Cards©Which Neutral Naxxramas Minion costs 3 mana, has the stats 2/2 and has the card enchantment "Stealth. At the start of your turn, gain +1/+1"?©©Shade Of Naxxramas
+Hearthstone: Naxxramas Cards©Which Neutral Naxxramas Minion costs 5 mana, has the stats 3/5 and has the card enchantment "Taunt. Deathrattle: Summon a 1/2 Slime with Taunt"?©©Sludge Belcher
+Hearthstone: Naxxramas Cards©Which Neutral Naxxramas Minion costs 5 mana, has the stats 4/6 and has the card enchantment "Can't be targeted by spells or Hero Powers"?©©Spectral Knight
+Hearthstone: Naxxramas Cards©Which Neutral Naxxramas Minion costs 5 mana, has the stats 7/4 and has the Deathrattle: "If Feugen also died this game, summon Thaddius"?©©Stalagg
+Hearthstone: Naxxramas Cards©Which Neutral Naxxramas Minion costs 3 mana, has the stats 1/4 and has the card enchantment "At the start of your turn, restore this minion to full health"?©©Stoneskin Gargoyle
+Hearthstone: Naxxramas Cards©Which Neutral Naxxramas Minion costs 1 mana, has the stats 1/2 and has the card enchantment "Whenever you summon a minion with deathrattle, gain +1/+1"?©©Undertaker
+Hearthstone: Naxxramas Cards©Which Neutral Naxxramas Minion costs 2 mana, has the stats 1/3 and has the card enchantment "Taunt. Deathrattle: Deal 1 damage to all minions"?©©Unstable Ghoul
+Hearthstone: Naxxramas Cards©Which Neutral Naxxramas Minion costs 4 mana, has the stats 3/5 and has the battlecry: "Silence your other minions"?©©Wailing Soul
+Hearthstone: Naxxramas Cards©Which Neutral Naxxramas Minion costs 1 mana, has the stats 2/3 and has the deathrattle: "Restore 5 health to the enemy hero"?©©Zombie Chow
+Hearthstone: GvG©Which Common Neutral GvG Minion costs 2 mana, has the stats 1/2 and has Taunt And Divine shield?©©Annoy-O-Tron
+Hearthstone: GvG©Which Common Neutral GvG Minion costs 5 mana, has the stats 3/3 and has the battlecry: "Restore 8 health to your hero"?©©Antique Healbot
+Hearthstone: GvG©Which Common Neutral GvG Minion costs 4 mana, has the stats 3/5 and has the card enchantment "Whenever your opponent casts a spell, gain +2 Attack"?©©Burly Rockjaw Trogg
+Hearthstone: GvG©Which Common Neutral GvG Minion costs 1 mana, has the stats 2/1 and has the Deathrattle: "Add a spare part card to your hand"?©©Clockwork Gnome
+Hearthstone: GvG©Which Common Neutral GvG Minion costs 1 mana, has the stats 1/2 and has the card enchantment "Has +2 attack while you have a mech"?©©Cogmaster
+Hearthstone: GvG©Which Common Neutral GvG Minion costs 2 mana, has the stats 1/1 and has the Deathrattle: "Deal 2 damage to all minions"?©©Explosive Sheep
+Hearthstone: GvG©Which Common Neutral GvG Minion costs 3 mana, has the stats 1/4 and has windfury?©©Flying Machine
+Hearthstone: GvG©Which Common Neutral GvG Minion costs 8 mana, has the stats 7/7 and has Divine Shield?©©Force-Tank MAX©Force Tank Max
+Hearthstone: GvG©Which Common Neutral GvG Minion costs 2 mana, has the stats 2/3 and has stealth?©©Gilblin Stalker
+Hearthstone: GvG©Which Common Neutral GvG Minion costs 3 mana, has the stats 1/4 and has charge and taunt?©©Gnomeregan Infantry
+Hearthstone: GvG©Which Common Neutral GvG Minion costs 4 mana, has the stats 5/4 and is a beast?©©Lost Tallstrider
+Hearthstone: GvG©Which Common Neutral GvG Minion costs 4 mana, has the stats 4/5 and has the deathrattle: "Give each player a spare part"?©©Mechanical Yeti
+Hearthstone: GvG©Which Common Neutral GvG Minion costs 2 mana, has the stats 2/3 and has the card enchantment "Your mechs costs (1) less"?©©Mechwarper©Mech Warper
+Hearthstone: GvG©Which Common Neutral GvG Minion costs 2 mana, has the stats 1/2 and has the card enchantment "At the start of each turn, gain +1 attack"?©©Micro Machine
+Hearthstone: GvG©Which Common Neutral GvG Minion costs 3 mana, has the stats 4/4 and has the card enchantment "50% chance to attack the wrong enemy"?©©Ogre Brute
+Hearthstone: GvG©Which Common Neutral GvG Minion costs 4 mana, has the stats 4/3 and has the deathrattle: "Summon a random 2-cost minion"?©©Piloted Shredder
+Hearthstone: GvG©Which Common Neutral GvG Minion costs 2 mana, has the stats 3/2 and is a murloc?©©Puddlestomper
+Hearthstone: GvG©Which Common Neutral GvG Minion costs 5 mana, has the stats 7/4 and is a pirate?©©Salty Dog
+Hearthstone: GvG©Which Common Neutral GvG Minion costs 2 mana, has the stats 2/3 and has the card enchantment "Whenever you summon a pirate, deal 2 damage to a random enemy"?©©Ship's Cannon©Ships Cannon
+Hearthstone: GvG©Which Common Neutral GvG Minion costs 3 mana, has the stats 3/3 and has the battlecry: " If you have a mech, gain +1/+1 and add a spare part to your hand"?©©Tinkertown Technician
+Hearthstone: GvG©Which Rare Neutral GvG Minion costs 4 mana, has the stats 2/5 and has the card enchantment "Taunt. Can't be targeted by spels or hero powers"?©©Arcane Nullifier x-21
+Hearthstone: GvG©Which Rare Neutral GvG Minion costs 5 mana, has the stats 3/3 and has the battlecry: "Deal 4 damage to a random enemy minion"?©©Bomb Lobber
+Hearthstone: GvG©Which Rare Neutral GvG Minion costs 3 mana, has the stats 3/2 and has the battlecry: "Draw a card. If it's a minion, transform it into a Chicken"?©©Gnomish Experimenter
+Hearthstone: GvG©Which Rare Neutral GvG Minion costs 3 mana, has the stats 2/4 and has the card enchantment "Has +4 attack while your opponent has 6 or more cards in hand"?©©Goblin Sapper
+Hearthstone: GvG©Which Rare Neutral GvG Minion costs 3 mana, has the stats 2/4 and has the card enchantment "If you control a secret at the end of your turn, restore 4 health to your hero"?©©Illuminator
+Hearthstone: GvG©Which Rare Neutral GvG Minion costs 4 mana, has the stats 1/4 and has the card enchantment "At the end of each players turn, that player draws until they have 3 cards"?©©Jeeves
+Hearthstone: GvG©Which Rare Neutral GvG Minion costs 4 mana, has the stats 4/3 and has the battlecry: "Take control of a random enemy secret"?©©Kezan Mystic
+Hearthstone: GvG©Which Rare Neutral GvG Minion costs 3 mana, has the stats 2/3 and has the card enchantment "Taunt. Battlecry: Gain +1/+1 for each enemy Deathrattle minion"?©©Lil' Exorcist©Lil Exorcist
+Hearthstone: GvG©Which Rare Neutral GvG Minion costs 5 mana, has the stats 5/4 and has the battlecry: "Deal 6 damage randomly split between all other characters"?©©Madder Bomber
+Hearthstone: GvG©Which Rare Neutral GvG Minion costs 0 mana, has the stats 0/2 and has taunt?©©Target Dummy
+Hearthstone: GvG©Which Epic Neutral GvG Minion costs 12 mana, has the stats 8/8 and has the card enchantment "Costs (1) less for each card in your opponent's hand"?©©Clockwork Giant
+Hearthstone: GvG©Which Epic Neutral GvG Minion costs 4 mana, has the stats 3/2 and has the battlecry: "Give your other minions Windfury, Taunt, or Divine Shield. (At random)"?©©Enchance-o Mechano
+Hearthstone: GvG©Which Epic Neutral GvG Minion costs 5 mana, has the stats 8/8 and has the card enchantment "Whenever your opponent plays a card, discard the top 3 cards of your deck"?©©Fel Reaver
+Hearthstone: GvG©Which Epic Neutral GvG Minion costs 3 mana, has the stats 2/3 and has the card enchantment "Whenever you play a 1-attack minion, give it +2/+2"?©©Hobgoblin
+Hearthstone: GvG©Which Epic Neutral GvG Minion costs 5 mana, has the stats 1/5 and has the card enchantment "Whenever a friendly Mech dies, gain +2/+2"?©©Junkbot©Junk Bot
+Hearthstone: GvG©Which Epic Neutral GvG Minion costs 4 mana, has the stats 4/1 and has the card enchantment "Stealth. Spell damage +1"?©©Mini-Mage©Mini Mage
+Hearthstone: GvG©Which Epic Neutral GvG Minion costs 6 mana, has the stats 6/4 and has the deathrattle: "Summon a random 4-cost minion"?©©Piloted Sky Golem
+Hearthstone: GvG©Which Epic Neutral GvG Minion costs 2 mana, has the stats 3/2 and has the battlecry: "Transform a friendly minion into a random minion with the same cost"?©©Recombobulator
+Hearthstone: GvG©Which Legendary Neutral GvG Minion costs 5 mana, has the stats 3/4 and has the battlecry: "Equip a random weapon for each player"?©©Blingtron 3000
+Hearthstone: GvG©Which Legendary Neutral GvG Minion costs 7 mana, has the stats 7/7 and has the battlecry: "summon two 1/1 Boom Bots. WARNING: Bots may explode"?©©Dr. Boom
+Hearthstone: GvG©Which Legendary Neutral GvG Minion costs 8 mana, has the stats 6/9 and has the card enchantment "Also damages the minions next to whomever he attacks"?©©Foe Reaper 4000
+Hearthstone: GvG©Which Legendary Neutral GvG Minion costs 6 mana, has the stats 3/6 and has the card enchantment "Whenever you cast a 1-mana spell, add a random mech to your hand"?©©Gazlowe
+Hearthstone: GvG©Which Legendary Neutral GvG Minion costs 5 mana, has the stats 6/3 and has the battlecry: "Destroy a beast"?©©Hemet Nesingwary
+Hearthstone: GvG©Which Legendary Neutral GvG Minion costs 9 mana, has the stats 9/7 and has the card enchantment "Whenever an enemy minion dies, summon a Leper Gnome"?©©Mekgineer Thermaplugg
+Hearthstone: GvG©Which Legendary Neutral GvG Minion costs 5 mana, has the stats 4/5 and has the card enchantment "At the start of your turn, if you have at least 3 mechs, edstroy them all and form V-07-TR-0N"?©©Mimiron's Head©Mimirons Head
+Hearthstone: GvG©Which Legendary Neutral GvG Minion costs 6 mana, has the stats 7/6 and hsa the card enchantment "All minions have a 50% chance to attack the wrong enemy"?©©Mogor The Ogre
+Hearthstone: GvG©Which Legendary Neutral GvG Minion costs 8 mana, has the stats 5/7 and has the deathrattle: "Summon a random legendary minion"?©©Sneed's Old Shredder©Sneeds Old Shredder
+Hearthstone: GvG©Which Legendary Neutral GvG Minion costs  6 mana, has the stats 5/7 and has the battlecry and deathrattle: "Add a spare card part to your hand"?©©Toshley
+Hearthstone: GvG©Which Legendary Neutral GvG Minion costs 7 mana, has the stats 6/6 and has the card enchantment "Whenever your opponent casts a spell, summon a Burly Rockjaw Trogg"?©©Troggzor the Earthinator
+Hearthstone: Classes©Which class has the hero power "Restore 2 health"?©©Priest
+Hearthstone: Classes©Which class has the hero power "Deal 1 damage"?©©Mage
+Hearthstone: Classes©Which class has the hero power "Deal 2 damage to the enemy hero"?©©Hunter
+Hearthstone: Classes©Which class has the hero power "Gain 2 armor"?©©Warrior
+Hearthstone: Classes©Which class has the hero power "Equip a 1/2 Dagger"?©©Rogue
+Hearthstone: Classes©Which class has the hero power "Summon a random totem"?©©Shaman
+Hearthstone: Classes©Which class has the hero power "Summon a 1/1 Silver Hand Recruit"?©©Paladin
+Hearthstone: Classes©Which class has the hero power "Take 2 damage. Draw a card"?©©Warlock
+Hearthstone: Classes©Which class has the hero power "Gain 1 armor and 1 attack this turn"?©©Druid
