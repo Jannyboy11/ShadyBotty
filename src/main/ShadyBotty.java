@@ -9,13 +9,17 @@ import org.jibble.pircbot.User;
 import commands.MadeCmds;
 import commands.Shop;
 import commands.StandardCmds;
+import commands.Util;
 import chat.ChatRules;
 import chat.Nicknames;
 import chat.Pair;
+import chat.Privileges.Status;
 import api.CheckStreamThread;
 import api.RiotAPI;
+import api.TwitchAPI;
 import points.GivePointsThread;
 import points.Points;
+import trivia.TriviaThread;
 
 public class ShadyBotty extends PircBot {
 	public static Database database;
@@ -40,7 +44,6 @@ public class ShadyBotty extends PircBot {
 		database = new Database();
 		points = new Points();
 		nicks = new Nicknames(this);
-		madeCmds = new MadeCmds(this);
 		pointsThread = new GivePointsThread(this);
 		pointsThread.start();
 		shop = new Shop(this);
@@ -96,6 +99,29 @@ public class ShadyBotty extends PircBot {
 		database.addCurrentUsers(sender);
 		database.addPrivileges(sender);
 		Nicknames.addNick(sender);
+		String[] msg = message.split(" ");
+
+		if (!TriviaThread.topic.equals("") && TriviaThread.answers.contains(message.replaceAll("[^a-zA-Z0-9]","").toLowerCase()))
+			TriviaThread.addWinner(sender);
+		if (database.getPrivileges(sender).getStatus() == Status.MOD && message.split(" ")[0].equals("!next") && (TriviaThread.tr != null)) {
+		TriviaThread.tr.interrupt();
+		}
+		
+		if ((database.getPrivileges(sender).getStatus() == Status.MOD || sender.equalsIgnoreCase("shadybunny"))&& msg[0].equals("!title")) {
+			TwitchAPI.updateChannel(message.substring(msg[0].length() + 1).replace(" ", "+"));
+			sendMessage(channel,"title test!");
+		}
+		
+		if (database.getPrivileges(sender).getStatus() == Status.MOD && message.split(" ")[0].equals("!start")) {
+			TriviaThread a = new TriviaThread(this);
+			a.off = false;
+			a.start();
+			System.out.println("in here");
+		}
+		if (database.getPrivileges(sender).getStatus() == Status.MOD && message.split("")[0].equals("!stop")) {
+			TriviaThread.off = true;
+		}
+		System.out.println("before");
 		Pair temp;
 		temp = ChatRules.checkMessage(sender, message);
 		if (temp.getTimeoutLength() > 0) {
@@ -110,8 +136,32 @@ public class ShadyBotty extends PircBot {
 			return;
 		if (StandardCmds.isValidStandardCmd(message,sender,channel))
 			return;
-		MadeCmds.sendCmd(message,sender, channel);
+		System.out.println(message);
+		String cmd = MadeCmds.chatToCommand(sender,message,database.getPrivileges(sender).getStatus() == Status.MOD);
+		System.out.println(cmd);
+		if (cmd != null) {
+			sendMessage(channel,cmd);
+		}
+		String b = MadeCmds.getCommand(msg[0]);
 		
+		if (b != null && !b.equals("")) {
+			b = b.replace("(_NICK_)", sender);
+			for (int i = 1; i < msg.length && i < 6; i ++) {
+				b = b.replace("(_ARG"+i+"_)", msg[i]);
+				if (b.contains("(_ARG"+i+"+_)")) {
+					String rest = "";
+					for (int y = i; y < msg.length; y++) 
+						rest += " "+msg[y] ;
+					b = b.replace("(_ARG"+i+"+_)", rest);
+					break;
+				}
+			}
+
+			if (b.matches(".*(_ARG\\d\\+?_).*"))
+				return;
+			else
+				sendMessage(channel,b);
+		}
 		// CHECK IF HE TRIGGERED AN AUTOREPLY
 		
 		return;
