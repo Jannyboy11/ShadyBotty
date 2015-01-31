@@ -25,9 +25,9 @@ Hearthstone: Basic Cards©Which Basic Mage Card has the stats 3/6, costs 6 Mana 
 Hearthstone: Basic Cards©Which Basic Mage Spell costs 4 Mana and has the Card Enchantment "Transform a minion into a 1/1 Sheep"?©©Polymorph
 Hearthstone: Classic Cards©Which Common Neutral Minion costs 3 mana and has the card enchantment "whenever this minion takes damage, draw a card"?©©Acolyte of Pain
 Hearthstone: Classic Cards©Which Common Neutral Minion costs 4 mana and has the battlecry:"Return a friendly minion from the battlefield to your hand"?©©Ancient Brewmaster
-Hearhstone: Classic Cards©Which Common Neutral Minion costs 4 mana and has the card enchantment "whenever one of your other minions dies, draw a card"?©©Cult Master
-Hearhstone: Classic Cards©Which Common Neutral Minion costs 3 mana and has the battlecry: "Restore 3 health"?©© Earthen Ring Farseer
-Hearhstone: Classic Cards©Which Common Neutral Minion costs 3 mana and has the deathrattle: "Summon a 2/1 damaged golem"?©©Harvest Golem
+Hearthstone: Classic Cards©Which Common Neutral Minion costs 4 mana and has the card enchantment "whenever one of your other minions dies, draw a card"?©©Cult Master
+Hearthstone: Classic Cards©Which Common Neutral Minion costs 3 mana and has the battlecry: "Restore 3 health"?©© Earthen Ring Farseer
+Hearthstone: Classic Cards©Which Common Neutral Minion costs 3 mana and has the deathrattle: "Summon a 2/1 damaged golem"?©©Harvest Golem
 Hearthstone: Basic Cards©Which Basic Priest Spell costs 2 mana and has the card enchantment "Deal 5 damage to the enemy hero"?©©Mind Blast
 Hearthstone: Basic Cards©Which Basic Priest Minion costs 1 mana and has the card enchantment "Whenever a minion is healed, draw a card"?©©Northshire Cleric
 Hearthstone: Basic Cards©Which Basic Priest Spell costs 5 mana and has the card enchantment "deal 2 damage to all enemies. Restore 2 health to all friendly characters."?©©Holy Nova
