@@ -53,10 +53,12 @@ public class MadeCmds {
 		System.out.println("CO MEON");
 		for (Entry<String,String> cmd : s.entrySet()) {
 			System.out.println(cmd.getKey());
-			if (Util.getCommandCreator(cmd.getKey()).equals("mod"))
+			String name =Util.getCommandCreator(cmd.getKey());
+			System.out.println(name);
+			if (name.equals("mod"))
 				modCmds += cmd.getKey() + ", ";
 			else
-				userCmds+= cmd.getKey() + " (" + Util.getCommandCreator(cmd.getKey())+ "), ";
+				userCmds+= cmd.getKey() + " (" + name+ "), ";
 		}
 		System.out.println("WOOP"+ modCmds + userCmds);
 		return modCmds.substring(0, modCmds.length()-2) + ". " + userCmds;
