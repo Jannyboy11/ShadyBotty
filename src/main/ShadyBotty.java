@@ -100,7 +100,8 @@ public class ShadyBotty extends PircBot {
 		database.addPrivileges(sender);
 		Nicknames.addNick(sender);
 		String[] msg = message.split(" ");
-
+		if (StandardCmds.isValidStandardCmd(message,sender,channel))
+			return;
 		if (!TriviaThread.topic.equals("") && TriviaThread.answers.contains(message.replaceAll("[^a-zA-Z0-9]","").toLowerCase()))
 			TriviaThread.addWinner(sender);
 		if (database.getPrivileges(sender).getStatus() == Status.MOD && message.split(" ")[0].equals("!next") && (TriviaThread.tr != null)) {
@@ -134,8 +135,7 @@ public class ShadyBotty extends PircBot {
 		}
 		if (Shop.isValidShopCommand(message,sender,channel))
 			return;
-		if (StandardCmds.isValidStandardCmd(message,sender,channel))
-			return;
+
 		System.out.println(message);
 		String cmd = MadeCmds.chatToCommand(sender,message,database.getPrivileges(sender).getStatus() == Status.MOD);
 		System.out.println(cmd);

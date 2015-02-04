@@ -139,7 +139,7 @@ public class TriviaThread extends Thread{
 
 	public static void addWinner(String winner) {
 		if (firstAnswer == 0) {
-			winners.put(winner, 30);
+			winners.put(winner, 6);
 			firstAnswer = System.currentTimeMillis();
 			return;
 		}//check if question has already been answered, if not, input time of first answer and give guy points
@@ -147,15 +147,15 @@ public class TriviaThread extends Thread{
 		Long now = System.currentTimeMillis();
 		if (!winners.containsKey(winner)) {
 			if (now - firstAnswer < 500)
-				winners.put(winner, 25);
+				winners.put(winner, 5);
 			else 	if (now - firstAnswer < 1100)
-				winners.put(winner, 20);
+				winners.put(winner, 4);
 			else 	if (now - firstAnswer < 1800)
-				winners.put(winner, 15);
+				winners.put(winner, 3);
 			else 	if (now - firstAnswer < 2700)
-				winners.put(winner, 10);
+				winners.put(winner, 2);
 			else if (now - firstAnswer < 3800)
-				winners.put(winner, 5);		
+				winners.put(winner, 1);		
 		}
 	}
 

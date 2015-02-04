@@ -21,7 +21,7 @@ public class StandardCmds {
 
 	//used for rank request
 	private static long latestRankRequest = 0;
-	
+
 	//used for points request
 	private static long latestPointsRequest;
 	private static HashMap<String, Long> latestPointsRequestByUser = new HashMap<String, Long>();
@@ -51,8 +51,8 @@ public class StandardCmds {
 	public static ArrayList<String> lotteryPlayers = new ArrayList<String>();
 	private static int lotteryPot;
 	private static boolean lottery = false;
-	
-	
+
+
 	//for stabrandom
 	private static long latestStabRequest;
 	private static HashMap<String, Long> latestStabRequestByUser  = new HashMap<String, Long>();
@@ -68,6 +68,7 @@ public class StandardCmds {
 		setLatestGambleRequest(0);
 		setLatestSuicideRequest(0);
 		setLatestRouletteRequest(0);
+		latestChallengeRequest = 0;
 	}
 
 	public void setLatestStabRequest(int i) {
@@ -75,8 +76,10 @@ public class StandardCmds {
 	}
 
 	public static boolean isValidStandardCmd(String msg, String nick, String ch) {
-		Status stat = ShadyBotty.database.getPrivileges(nick).getStatus();
+
 		String[] words = chat.ChatRules.getWords(msg);
+
+		Status stat = ShadyBotty.database.getPrivileges(nick).getStatus();
 		if (words[0].equalsIgnoreCase("!points")) {
 			if ((ShadyBotty.database.getPrivileges(nick).getStatus() == Status.MOD 
 					|| ShadyBotty.database.getPrivileges(nick).getStatus() == Status.DEMIMOD) && words.length == 2)  {
@@ -84,29 +87,35 @@ public class StandardCmds {
 					ShadyBotty.database.addPrivileges(words[1]);
 					Nicknames.addNick(words[1]);	
 				}
+				System.out.println("punbts");
 				requestPoints(nick,words[1],ch);
 			}
-			else
+			else {
+				System.out.println("pubts");
 				requestPoints(nick, nick,ch);
+				
+			}
 			return true;
 
-		} else if (words[0].equalsIgnoreCase("!gamble")) {
+		} else if (words[0].equalsIgnoreCase("!accept")) {
+			ShadyBotty.database.addPrivileges(nick);
+			stat = ShadyBotty.database.getPrivileges(nick).getStatus();
+			performChallenge(nick,ch);
+			return true;
+		}else if (words[0].equalsIgnoreCase("!gamble")) {
 			if (ShadyBotty.database.getPrivileges(nick).getStatus() != Status.VIEWER && words.length == 2 && isDouble(words[1]))
 				gamble(nick, Double.parseDouble(words[1]),ch);
 			return true;
 		} else if (words[0].equalsIgnoreCase("!challenge") && words.length == 2) {
-			if (ShadyBotty.database.getPrivileges(words[1]) == null) {
-				ShadyBotty.database.addPrivileges(words[1]);
-				Nicknames.addNick(words[1]);
-			}
+
+			ShadyBotty.database.addPrivileges(nick);
+			ShadyBotty.database.addPrivileges(words[1]);
+			stat = ShadyBotty.database.getPrivileges(nick).getStatus();
 
 			if (!(stat == Status.VIEWER || stat == Status.REGULAR))
-			challenge(nick, words[1],ch);
+				challenge(nick, words[1],ch);
 			return true;
-		} else if (words[0].equalsIgnoreCase("!accept") && words.length == 1) {
-			performChallenge(nick,ch);
-			return true;
-		} else if (words[0].equalsIgnoreCase("!lottery")) {
+		}  else if (words[0].equalsIgnoreCase("!lottery")) {
 			if ((ShadyBotty.database.getPrivileges(nick).getStatus() == Status.DEMIMOD || ShadyBotty.database.getPrivileges(nick).getStatus() == Status.MOD)
 					&& words.length == 2 && isDouble(words[1]))
 				startLottery(nick, Double.parseDouble(words[1]),ch);
@@ -122,10 +131,10 @@ public class StandardCmds {
 			return true;
 		} else if (words[0].equalsIgnoreCase("!nick") && words.length >= 2) {
 			Nicknames.ChangeNick(nick, msg.substring(6));
-			 return true;
+			return true;
 		} else if (words[0].equalsIgnoreCase("!stabrandom")) {
 			if (!(stat == Status.VIEWER || stat == Status.REGULAR)) 
-			stabRandom(nick,ch);
+				stabRandom(nick,ch);
 			return true;
 		}else if (words[0].equalsIgnoreCase("!song")) {
 			SongAPI.checkMusic();
@@ -325,8 +334,8 @@ public class StandardCmds {
 		if (ShadyBotty.database.getPrivileges(nick).getStatus() == Status.VIEWER ||
 				ShadyBotty.database.getPrivileges(nick).getStatus() == Status.REGULAR) return false;
 		long call = System.currentTimeMillis();
-		Long latestrequest = new Long(0);
-		Long latestrequest2 = new Long(0);
+		Long latestrequest = 0L;
+		Long latestrequest2 =  0L;
 		if (latestChallengeRequestByUser.containsKey(nick)) {
 			latestrequest = latestChallengeRequestByUser.get(nick);
 		}
@@ -361,8 +370,9 @@ public class StandardCmds {
 		HashMap<String,Long> temp = new HashMap<String, Long>();
 		temp = challengedNicks.get(challengednick);
 		String challengernick = (String) temp.keySet().toArray()[0];
-		System.out.println(challengernick);
-		if (System.currentTimeMillis() - temp.get(challengernick) > 30000) return;
+		System.out.println(challengernick + " ");
+		if ((System.currentTimeMillis() - temp.get(challengernick)) > 39000) return;
+		System.out.println("in time");
 		String loser = Math.random() < 0.5 ? challengednick : challengernick;
 		botty.sendToChannel(ch, getNick(challengednick) + " and " + getNick(challengernick) + " play roulette. " + getNick(loser) + " got shot. REKT");
 		if (ShadyBotty.database.getPrivileges(loser).getStatus() != Status.DEMIMOD)
@@ -382,7 +392,7 @@ public class StandardCmds {
 		//TODO
 		return false;
 	}
-	
+
 
 	public static boolean canStabRandom(String nick){
 		Long latestrequest = new Long(0);
@@ -398,18 +408,18 @@ public class StandardCmds {
 			return true;
 		} else return false;
 	}
-	
+
 	public static void stabRandom(String nick, String ch) {
 		if (!canStabRandom(nick)) return;
-	ArrayList<String> temp = main.Database.currentUsers;
-	String stabNick = temp.get((int) Math.round(Math.random() *(temp.size() - 1)));
-	while (Points.getPoints(stabNick) < 200 || (ShadyBotty.database.getPrivileges(stabNick).getStatus() == Status.MOD || ShadyBotty.database.getPrivileges(stabNick).getStatus() == Status.DEMIMOD)) {
-		stabNick = temp.get((int) Math.round(Math.random() *(temp.size() - 1)));
-		
-	}
-	botty.sendToChannel(ch,"/me has stabbed " + getNick(stabNick) + " randomly! Ouch! 5 seconds timeout :(");
-	botty.sendToChannel(ch,".timeout " + stabNick + " 5");
-	
+		ArrayList<String> temp = main.Database.currentUsers;
+		String stabNick = temp.get((int) Math.round(Math.random() *(temp.size() - 1)));
+		while (Points.getPoints(stabNick) < 200 || (ShadyBotty.database.getPrivileges(stabNick).getStatus() == Status.MOD || ShadyBotty.database.getPrivileges(stabNick).getStatus() == Status.DEMIMOD)) {
+			stabNick = temp.get((int) Math.round(Math.random() *(temp.size() - 1)));
+
+		}
+		botty.sendToChannel(ch,"/me has stabbed " + getNick(stabNick) + " randomly! Ouch! 5 seconds timeout :(");
+		botty.sendToChannel(ch,".timeout " + stabNick + " 5");
+
 	}
 
 	public static boolean canDailyBonus(String nick){
