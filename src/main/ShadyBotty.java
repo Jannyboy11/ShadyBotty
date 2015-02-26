@@ -186,6 +186,18 @@ public class ShadyBotty extends PircBot {
 	public void timeout(String nick, int duration){
 		sendRawLine(".timeout " + nick + duration);
 	}
+	
+	@Override
+	public void onUserMode(String targetNick, String sourceNick, String sourceLogin,String sourceHostname,String mode) {
+		parseOp(mode);
+	}
+
+	private void parseOp(String mode) {
+		database.addPrivileges(mode.split(" ")[2]);
+		if (mode.split(" ")[1].equals("+o")) {
+			database.getPrivileges(mode.split(" ")[2]).setStatus(Status.MOD);
+		}
+	}
 
 
 

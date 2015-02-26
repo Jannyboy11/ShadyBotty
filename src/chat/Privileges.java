@@ -109,7 +109,11 @@ public class Privileges {
 	public void setStatus(String status) {
 		this.status =  Status.valueOf(status.toUpperCase());
 	}
-
+	
+	public void setStatus(Status status) {
+		this.status =  status;
+	}
+	
 	public int getCooldown() {
 		return cooldown;
 	}
