@@ -6,6 +6,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
+import main.ShadyBotty;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -65,6 +67,7 @@ public class TwitchAPI {
 	public static void updateChannel(String theTitle) {
 		try {
 			PUT(API + SHADYCHANNEL,new String[] {"oauth_token","channel[status]"}, new String[] {SECRETTITLE,theTitle});
+			ShadyBotty.scoreToFile(theTitle.replaceAll("\\+", " "));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -72,7 +75,20 @@ public class TwitchAPI {
 	}
 	
 	public static void main(String[] args) {
-		updateChannel("Gods of the arena Kappa happy CodeDay JB!".replace(" ", "+"));
+		System.out.println("12-0 Priest. adsd".matches("^(([2-9])|(1[0-2]?))-[0-3] (Warrior|Shaman|Rogue|Paladin|Hunter|Druid|Warlock|Mage|Priest).*"));
+
+		
+		
+	}
+	
+	public static String getTitle() {
+		try {
+			return Parser.readJsonFromUrl(API + SHADYCHANNEL + "?oauth=" + SECRETTITLE).optString("status");
+		} catch (JSONException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 

@@ -106,7 +106,9 @@ public class MadeCmds {
 	 */
 	public static String getCommand(String command) {
 		String cmd = command.toLowerCase();
+		System.out.println(cmd);
 		checkCommand(cmd);
+		System.out.println(isCommand(cmd));
 		if (!isCommand(cmd))
 			return "";
 

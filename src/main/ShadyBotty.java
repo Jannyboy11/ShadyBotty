@@ -1,7 +1,12 @@
 package main;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 
 import org.jibble.pircbot.PircBot;
 import org.jibble.pircbot.User;
@@ -100,8 +105,15 @@ public class ShadyBotty extends PircBot {
 		database.addPrivileges(sender);
 		Nicknames.addNick(sender);
 		String[] msg = message.split(" ");
+		System.out.println((database.getPrivileges(sender).getStatus() == Status.MOD && message.split(" ")[0].equals("!score") && msg.length == 3));
+		if (database.getPrivileges(sender).getStatus() == Status.MOD && message.split(" ")[0].equals("!score") && msg.length == 3) {
+			setTitle(msg[1] + " " + msg[2]);
+			sendMessage(ShadyBottyMain.ROOM,"score set!");
+			return;
+		}
 		if (StandardCmds.isValidStandardCmd(message,sender,channel))
 			return;
+
 		if (!TriviaThread.topic.equals("") && TriviaThread.answers.contains(message.replaceAll("[^a-zA-Z0-9]","").toLowerCase()))
 			TriviaThread.addWinner(sender);
 		if (database.getPrivileges(sender).getStatus() == Status.MOD && message.split(" ")[0].equals("!next") && (TriviaThread.tr != null)) {
@@ -122,6 +134,9 @@ public class ShadyBotty extends PircBot {
 		if (database.getPrivileges(sender).getStatus() == Status.MOD && message.split("")[0].equals("!stop")) {
 			TriviaThread.off = true;
 		}
+		
+
+		
 		System.out.println("before");
 		Pair temp;
 		temp = ChatRules.checkMessage(sender, message);
@@ -143,7 +158,7 @@ public class ShadyBotty extends PircBot {
 			sendMessage(channel,cmd);
 		}
 		String b = MadeCmds.getCommand(msg[0]);
-		
+		System.out.println(msg[0] + "   " + b);
 		if (b != null && !b.equals("")) {
 			b = b.replace("(_NICK_)", sender);
 			for (int i = 1; i < msg.length && i < 6; i ++) {
@@ -165,6 +180,24 @@ public class ShadyBotty extends PircBot {
 		// CHECK IF HE TRIGGERED AN AUTOREPLY
 		
 		return;
+	}
+	public void setTitle(String string) {
+	if (!string.matches("^(([2-9])|(1[0-2]?))-[0-3] (Warrior|Shaman|Rogue|Paladin|Hunter|Druid|Warlock|Mage|Priest).*"))
+		return;
+		String title = TwitchAPI.getTitle();
+		System.out.println("set title " + title);
+		if (title.matches("^(([2-9])|(1[0-2]?))-[0-3] (Warrior|Shaman|Rogue|Paladin|Hunter|Druid|Warlock|Mage|Priest)\\..*")) {
+			System.out.println("matches title " + title);
+			
+			String newtitle = title.substring(title.indexOf(".")+2);
+			if (string.trim().endsWith("."))
+				TwitchAPI.updateChannel((string + " " + newtitle).replace(" ", "+"));
+			else
+				TwitchAPI.updateChannel((string + ". " + newtitle).replace(" ", "+"));
+		} else {
+			TwitchAPI.updateChannel((string + " " + title).replace(" ", "+"));
+		}
+			
 	}
 	public void onJoin(String channel, String sender, String login, String hostname) {
 		database.addCurrentUsers(sender);
@@ -196,6 +229,28 @@ public class ShadyBotty extends PircBot {
 		database.addPrivileges(mode.split(" ")[2]);
 		if (mode.split(" ")[1].equals("+o")) {
 			database.getPrivileges(mode.split(" ")[2]).setStatus(Status.MOD);
+		}
+	}
+	public static void scoreToFile(String theTitle) {
+		System.out.println(theTitle);
+		if (theTitle.matches("^(([2-9])|(1[0-2]?))-[0-3] (Warrior|Shaman|Rogue|Paladin|Hunter|Druid|Warlock|Mage|Priest)\\..*")) {
+			File score = new File("score.txt");
+			if (!score.exists())
+				try {
+					score.createNewFile();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			try {
+				BufferedWriter wr = new BufferedWriter(new FileWriter(score));
+				wr.write(theTitle.split("\\.")[0]);
+				wr.flush();
+				wr.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
