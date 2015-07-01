@@ -13,6 +13,7 @@ public class CheckStreamThread extends Thread {
 	{
 		botty = bot;
 	}
+	@Override
 	public void run ()
 	{
 		while (true) {
@@ -23,7 +24,7 @@ public class CheckStreamThread extends Thread {
 				SongAPI.checkMusic();
 				JSONObject a = TwitchAPI.getJSONStreamShady();
 				if (printtimer == 2) {
-				System.out.println("shady is: " + (a != null));
+//				System.out.println("shady is: " + (a != null));
 				printtimer = 0;
 				}
 				

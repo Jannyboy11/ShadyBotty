@@ -1,7 +1,6 @@
 package api;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.regex.Matcher;
@@ -29,6 +28,7 @@ public class GetShadyMoveThread extends Thread {
 		}
 	}
 
+	@Override
 	public void run() {
 		BufferedReader lnr = null;
 		String str;

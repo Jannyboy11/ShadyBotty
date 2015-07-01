@@ -1,0 +1,34 @@
+<html>
+ <script src="./jquery-1.11.2.min.js"></script>
+ <body>
+ 	<script>
+	$.getJSON(
+    'http://soundcloud.com/oembed?url=http%3A//soundcloud.com/forss/flickermood&format=js&callback=?', 
+    function(data) { document.write (JSON.stringify(data));}
+	);
+ 	function endsWith(str, suffix) {
+ 		return str.indexOf(suffix, str.length - suffix.length) !== -1;
+ 	}
+ 	var reg = /.*<img id="image" src="(\S*)"/g;
+ 		 setInterval(function(){
+  	var last = document.getElementById("image").src;
+ 	   $.ajax({ 
+    url : window.location.pathname,
+     dataType : "text",
+     ifModified : true,
+     success : function(data, textStatus) {
+ 		reg.lastIndex = 0;
+ 		var arr = reg.exec(data);
+ 		arr =reg.exec(data);
+ 		console.log(last);
+ 		console.log(arr[1]);
+ 		 if (last != arr[1] && !(endsWith(last,"deck.html") && arr[1] == "")) { 
+		 location.reload();
+ 		 } 
+      }   }); }, 5000);
+ 	</script>
+ 	<div>
+ 	<img id="image" src="http://puu.sh/hg0UM/959f4ace5f.jpg" width="220" height="700" >
+ 	</div>
+ 	</body>
+ </html>

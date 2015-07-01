@@ -1,13 +1,8 @@
 package main;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import org.jibble.pircbot.PircBot;
-import org.jibble.pircbot.User;
+import chat.Privileges;
 
 public class SubBotty extends PircBot {
 	public static SubCheckThread thread;
@@ -30,11 +25,13 @@ public class SubBotty extends PircBot {
 		ArrayList<String> list = subUsers;
 		return  list;
 	}
+	@Override
 	public void onConnect() {
 		sendRawLine("TWITCHCLIENT 3");
 		return;
 	}
 
+	@Override
 	public void onDisconnect() {
 		while (!isConnected()) {
 			try {
@@ -43,9 +40,7 @@ public class SubBotty extends PircBot {
 			}
 			try {
 				// Connect to the IRC server.
-				BufferedReader blub = new BufferedReader(new FileReader("C:/wachtwoord.txt"));
-				String password = blub.readLine();
-				blub.close();
+				String password ="oauth:n6yzqpe8uqqd7qh8fgqh0f1yyb6lq1";
 				this.connect("irc.twitch.tv",6667,password);
 
 				// Join the #pircbot channel.
@@ -55,14 +50,43 @@ public class SubBotty extends PircBot {
 		}
 	}
 	
+	@Override
 	public void onMessage(String channel, String sender,
 			String login, String hostname, String message) {
+		String[] msg = message.split(" ");
 		if (!sender.equalsIgnoreCase("jtv") && !pendingUsers.contains(sender.toLowerCase())) {
 			pendingUsers.add(sender);
 		}
-		else if (sender.equalsIgnoreCase("jtv") && !subUsers.contains(message.split(" ")[1]) &&
-				message.startsWith("SPECIALUSER") && message.endsWith("subscriber")) {
-			subUsers.add(message.split(" ")[1]);	
+		else if (sender.equalsIgnoreCase("jtv")) {
+			Database.d.addPrivileges(msg[1]);
+//			System.out.println("jtv: " + message);
+			if (message.startsWith("SPECIALUSER") && !subUsers.contains(msg[1]) &&
+				 message.endsWith("subscriber")) {
+			subUsers.add(msg[1]);
+			} else if (message.startsWith("EMOTESET")) {
+				Privileges user = null;
+				try {
+					
+					user = ShadyBotty.database.getPrivileges(msg[1]);
+					String emotesets = msg[2].substring(1,msg[2].length()-1);
+					if (user == null || !user.equalEmoteSetSize(emotesets.length()))
+					user.setEmotesets(emotesets.split(","));
+//					System.out.println(emotesets);
+				} catch (NullPointerException e) {
+					e.printStackTrace();
+				}
+
+				
+			} else if (message.startsWith("USERCOLOR")) {
+				Privileges user = null;
+				try {
+					
+					user = ShadyBotty.database.getPrivileges(msg[1]);
+					user.chatcolor = msg[2];
+				} catch (NullPointerException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 			
 	}

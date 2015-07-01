@@ -1,6 +1,5 @@
-/api/
-/chat/
-/commands/
 /main/
-/points/
-/trivia/
+/display/
+/commands/
+/chat/
+/hearthstoneData/

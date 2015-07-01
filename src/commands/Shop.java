@@ -1,15 +1,12 @@
 package commands;
-import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.io.IOException;
-
-import org.ini4j.Wini;
 
 import points.Chips;
 import points.Points;
 import main.Database;
 import main.ShadyBotty;
+import main.ShadyBottyMain;
 import chat.ChatRules;
 import chat.Privileges;
 import chat.Privileges.Status;
@@ -183,7 +180,7 @@ public class Shop {
 			bot.sendMessage(ch,nickn + " is now a regular WOOOOH! Kappa " + Math.round(Points.getCostItem(nick,new Double(1600))) + " points have been removed");
 			Points.buyItemWithPoints(nick, new Double(1600));
 			setLatestShop(System.currentTimeMillis());
-			writePrivileges(nick,"Status",msg);
+			writePrivileges(nick,"Status","regular");
 			return true;
 		} else if (msg.equals("gain") && shopAvailable() && Points.getPoints(nick) >= (Points.getCostItem(nick,new Double((ShadyBotty.database.getPrivileges(nick).getGain()+1)*1500)))) {
 			bot.sendMessage(ch,nickn + " has bought level "
@@ -214,7 +211,7 @@ public class Shop {
 			setLatestShop(System.currentTimeMillis());			
 			return true;
 		} else if (msg.equals("gain") && shopAvailable()) {
-			bot.sendMessage(ch,"PRICES VARY ON CURRENT GAIN. get more points/min! current price for " + nickn + " is: "
+			ShadyBottyMain.privbot.sendPriv(nick,"PRICES VARY ON CURRENT GAIN. get more points/min! current price for " + nickn + " is: "
 					+ Math.round(Points.getCostItem(nick,new Double((ShadyBotty.database.getPrivileges(nick).getGain()+1)*1500)))
 					+ " for level " + (ShadyBotty.database.getPrivileges(nick).getGain()+1));
 			setLatestShop(System.currentTimeMillis());			
@@ -230,10 +227,10 @@ public class Shop {
 		Method filter = null;
 		argType = value.getClass();
 		chat.Privileges a = ShadyBotty.database.getPrivileges(nick);
-		String item2 = item.substring(0, 1).toUpperCase() + item.substring(1);
+		String item2 = item.substring(0, 1).toUpperCase() + item.substring(1).toLowerCase();
 
 		try {
-			if(item.equals("Filter")) {
+			if(item.equalsIgnoreCase("Filter")) {
 				method = a.getClass().getDeclaredMethod("setEmoFilter", argType);
 				filter = a.getClass().getDeclaredMethod("setCapsFilter", argType);
 			} else {
@@ -257,22 +254,15 @@ public class Shop {
 			e1.printStackTrace();
 		}
 		System.out.println(item2 + " bought for " + nick + "fr value " + value);
-		
-		Wini ini;
-		try {
-			if (item2.equals("Gain")) {
-				ini = Database.currenciesIni;
-				ini.put(nick.toLowerCase(),item2,value);
-				ini.store();
-			} else {
-			ini = Database.usersIni;
-			ini.put(nick.toLowerCase(),item2,value);
-			ini.store();
-			}
-		} catch (IOException e) { 
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+		if (item2.equals("Gain")) {
+			Database.getCurrencies().put(nick.toLowerCase(),item2,value);
+			Database.storeCurrencies();
+		} else {
+			Database.getUsers().put(nick.toLowerCase(),item2,value);
+			Database.storeUsers();
 		}
+
 	}
 
 

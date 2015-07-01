@@ -1,10 +1,6 @@
 package chat;
-import java.io.File;
 import java.io.IOException;
-
 import main.Database;
-import main.ShadyBotty;
-
 import org.ini4j.*;
 
 public class Privileges {
@@ -19,12 +15,14 @@ public class Privileges {
 	private int gain;
 	private boolean templink;
 	private String faction;
+	private String[] emotesets = new String[] { };
+	public String chatcolor;
 	
 	public enum Status{VIEWER, REGULAR, PREMIUM, DEMIMOD, MOD};
 	private Status status;
 	public Privileges(String n){
 		nick = n;
-		Wini ini = Database.usersIni;
+		Wini ini = Database.getUsers();
 			templink = false;
 
 			links = ini.get(nick,"Links") == null ? 0 : -1;
@@ -45,7 +43,7 @@ public class Privileges {
 			} else {
 			status = Status.valueOf(ini.get(nick,"Status").toUpperCase());
 			}
-			ini = Database.currenciesIni;
+			ini = Database.getCurrencies();
 			gain = ini.get(nick,"Gain") == null ? 0 : new Integer(ini.get(nick,"Gain"));
 
 
@@ -119,7 +117,7 @@ public class Privileges {
 	}
 
 	public void setCooldown(String cooldown) {
-		System.out.println(cooldown + "<string .. Int in priv>" + this.cooldown);
+//		System.out.println(cooldown + "<string .. Int in priv>" + this.cooldown);
 		this.cooldown = Integer.parseInt(cooldown);
 	}
 
@@ -130,12 +128,33 @@ public class Privileges {
 		return templink;
 	}
 
+	public boolean equalEmoteSetSize(int length){
+		return emotesets.length ==length;
+	}
+	
+	public String[] getEmotesets() {
+		return emotesets;
+	}
+	
+	public void setEmotesets(String[] emotesets) {
+		this.emotesets = emotesets;
+	}
+	
+	public void setSubscriber(boolean subscriber) {
+		this.subscriber = subscriber;
+	}
 
+	
 	public void setTemplink(boolean remplink) {
 		this.templink = remplink;
 	}
 	
 
-
+	public static void main(String[] args) {
+		Privileges a = new Privileges("jb940");
+		System.out.println(a.getStatus());
+		a.setStatus("regular");
+		System.out.println(a.getStatus());
+	}
 
 }

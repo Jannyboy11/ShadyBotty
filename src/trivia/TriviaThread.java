@@ -1,15 +1,12 @@
 package trivia;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Random;
 
 import chat.Nicknames;
@@ -60,6 +57,7 @@ public class TriviaThread extends Thread{
 		}
 	}
 	
+	@Override
 	public void run() {
 		Random rand = new Random();
 		while (!off) {
@@ -69,7 +67,7 @@ public class TriviaThread extends Thread{
 			int randomNum = rand.nextInt(questions.size());			
 			String nextQuestion = questions.get(randomNum);
 			questions.remove(randomNum);
-			System.out.println("!" + nextQuestion);
+//			System.out.println("!" + nextQuestion);
 			separateQuestion(nextQuestion); //separates the questions based on the ©
 			System.out.println(topic + "  " + question);
 			b.sendMessage(ShadyBottyMain.ROOM, "[" + randomNum + "] topic: " + topic + ". Question: " + question);
@@ -84,7 +82,7 @@ public class TriviaThread extends Thread{
 				answers.clear();
 				firstAnswer = 0;
 			} else {
-				b.sendMessage(ShadyBottyMain.ROOM, "the answer was: " + displayAnswer + ". Nobody has guessed correctly! motionRekt");
+				b.sendMessage(ShadyBottyMain.ROOM, "the answer was: " + displayAnswer + ". Nobody has guessed correctly! shadySalt");
 					
 				System.out.println("the answer was: " + displayAnswer + ". Nobody has guessed correctly! motionRekt");
 				answers.clear();

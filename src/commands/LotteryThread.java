@@ -11,6 +11,7 @@ public class LotteryThread extends Thread {
 	room = ch;
 	}
 
+	@Override
 	public void run() {
 		try {Thread.sleep(60000);} catch (Exception e) {}
 		String msg = "one minute has passed. type !enter (25points) to join lottery. current pot: " + StandardCmds.getPot() + ". people in: " + getInLottery();

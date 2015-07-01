@@ -16,7 +16,7 @@ public class TwitchAPI {
 	private static final String API = "https://api.twitch.tv/kraken/";
 	private static final String SHADY = "streams/shadybunny";
 	private static final String SHADYCHANNEL = "channels/shadybunny";
-	private static final String SECRETTITLE = "kme7og92u2qluzu8f6ax2mo4fh4lja";
+	private static final String SECRETTITLE = "6s3zahxold5ibp84c7r60gqr5jswzo";
 
 	public TwitchAPI() {
 
@@ -44,7 +44,8 @@ public class TwitchAPI {
 		return 0;
 	}
 
-	public static void PUT(String url, String[] names,String[] values) throws Exception {
+	public static void PUT(String url, String[] names,String[] values) {
+		try {
 		String toWrite = "?"+names[0] + "=" + values[0];
 		for (int i = 1; i < names.length; i++) {
 			toWrite += "&"+names[i]+"="+values[i];
@@ -53,20 +54,23 @@ public class TwitchAPI {
 		HttpURLConnection httpCon = (HttpURLConnection) site.openConnection();
 		httpCon.setDoOutput(true);
 		httpCon.setRequestMethod("PUT");
- 	httpCon.addRequestProperty("Authorization", "OAuth 493i5sfeqdpe89v6y6xwa0ltdtlyp4");
+ 	httpCon.addRequestProperty("Authorization", "OAuth 6s3zahxold5ibp84c7r60gqr5jswzo");
 		OutputStreamWriter out = new OutputStreamWriter(
 		    httpCon.getOutputStream());
 
 
-		out.write(toWrite);
-		System.out.println(toWrite);
+		out.write(toWrite.substring(1));
+//	System.out.println(toWrite);
 		out.close();
 		httpCon.getInputStream();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public static void updateChannel(String theTitle) {
 		try {
-			PUT(API + SHADYCHANNEL,new String[] {"oauth_token","channel[status]"}, new String[] {SECRETTITLE,theTitle});
+			PUT(API + SHADYCHANNEL,new String[] {"oauth_token","channel[status]"}, new String[] {SECRETTITLE,URLEncoder.encode(theTitle)});
 			ShadyBotty.scoreToFile(theTitle.replaceAll("\\+", " "));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -74,12 +78,10 @@ public class TwitchAPI {
 		}
 	}
 	
-	public static void main(String[] args) {
-		System.out.println("12-0 Priest. adsd".matches("^(([2-9])|(1[0-2]?))-[0-3] (Warrior|Shaman|Rogue|Paladin|Hunter|Druid|Warlock|Mage|Priest).*"));
-
-		
-		
-	}
+		public static void main(String[] args) {
+			ShadyBotty a = new ShadyBotty();
+			a.setTitle("5-2 Priest");
+		}
 	
 	public static String getTitle() {
 		try {

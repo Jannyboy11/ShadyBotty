@@ -1,9 +1,9 @@
 package main;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Frame;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.Window;
@@ -27,6 +27,7 @@ public class testFrame extends JFrame {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					testFrame frame = new testFrame();
@@ -48,7 +49,7 @@ public class testFrame extends JFrame {
 		int reso = Toolkit.getDefaultToolkit().getScreenResolution();
 		this.setUndecorated(true);
 		Window w=new Window(null);
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setExtendedState(Frame.MAXIMIZED_BOTH);
 		setBackground(new Color(0, 0, 255));
 		setResizable(false);
 		setAlwaysOnTop(true);

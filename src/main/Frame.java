@@ -2,14 +2,14 @@ package main;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
-import java.awt.Font;
 import javax.swing.UIManager;
 
 public class Frame extends JFrame {
@@ -21,11 +21,17 @@ public class Frame extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+	
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
+				
+						
 					Frame frame = new Frame();
 					frame.setVisible(true);
+					if (args.length > 0 && args[0].equals("minimized"))
+						 frame.setState(java.awt.Frame.ICONIFIED);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -44,7 +50,33 @@ public class Frame extends JFrame {
 	public Frame() {
 		setTitle("ShadyBOTTEH");
 		setFont(UIManager.getFont("InternalFrame.titleFont"));
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		addWindowListener(new WindowListener() {
+
+
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				Database.storeUsers();
+				Database.getCurrencies().put("lastOn", "lastOn",System.currentTimeMillis());
+				Database.storeCurrencies();
+				Database.storeAutoreplies();
+				
+				System.exit(0);
+			}
+
+			@Override
+			public void windowClosed(WindowEvent e) {
+				Database.storeUsers();
+				Database.storeCurrencies();
+				Database.storeAutoreplies();			
+			}
+			@Override public void windowIconified(WindowEvent e) {}
+			@Override public void windowDeiconified(WindowEvent e) {}
+			@Override public void windowActivated(WindowEvent e) {}
+			@Override public void windowDeactivated(WindowEvent e) {}
+			@Override public void windowOpened(WindowEvent e) {}
+			
+		});
 		setBounds(100, 100, 346, 147);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

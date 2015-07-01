@@ -1,12 +1,12 @@
 package chat;
 
-import java.util.HashMap;
+import java.util.regex.Pattern;
 
-import chat.Privileges;
 import chat.Privileges.Status;
 import main.ShadyBotty;
 
 public class ChatRules {
+	private static Pattern url = Pattern.compile("(@)?(href=')?(HREF=')?(HREF=\")?(href=\")?(http://)?[a-zA-Z_0-9\\-]+(\\.\\w[a-zA-Z_0-9\\-]+)+(/[#&\\n\\-=?\\+\\%/\\.\\w]+)?");
 	public static String[] emoticons = {":)",":P",":D",":O","o_o",":(","4Head","ArsonNoSexy","AsianGlow","BCWarrior","BORT","BatChest","BibleThump","BigBrother","BionicBunion","BlargNaut","BloodTrail","BrainSlug","BrokeBack","CougarHunt","DAESuppy","DBstyle","DansGame","DatSheffy","DogFace","EagleEye","EleGiggle","EvilFetus","FPSMarksman","FUNgineer","FailFish","FrankerZ","FreakinStinkin","FuzzyOtterOO","GingerPower","GrammarKing","HassanChop","HotPokket","ItsBoshyTime","JKanStyle","Jebaited","JonCarnage","KZassault","KZcover","KZguerilla","KZhelghast","KZowl","KZskull","Kappa","Keepo","KevinTurtle","Kippa","Kreygasm","MVGame","MrDestructoid","NinjaTroll","NoNoSpot","OMGScoots","OneHand","OpieOP","OptimizePrime","PJSalt","PMSTwin","PanicVis","PazPazowitz","PeoplesChamp","PicoMause","PipeHype","PogChamp","Poooound","PunchTrees","RalpherZ","RedCoat","ResidentSleeper","RitzMitz","RuleFive","SMOrc","SMSkull","SSSsss","ShazBotstix","SoBayed","SoonerLater","StoneLightning","StrawBeary","SuperVinlin","SwiftRage","TF2John","TehFunrun","TheRinger","TheTarFu","TheThing","ThunBeast","TinyFace","TooSpicy","TriHard","UleetBackup","UnSane","UncleNox","Volcania","WTRuck","WholeWheat","WinWaker","YouWHY","aneleanele"};
 	ShadyBotty botty;
 	public ChatRules(ShadyBotty bot){
@@ -56,7 +56,7 @@ public class ChatRules {
 				}
 			}
 		}
-		if ((emocounter > 4 && total < 15) || emocounter > 6){ 
+		if ((emocounter > 6 && total < 10) || emocounter > 9){ 
 			//emo's just too annoying. pls keep low. no annoying methz
 
 			ShadyBotty.database.getPrivileges(nick).setEmoFilter(""+ (filters + 1)); //adds one point to the warningcounter
@@ -82,6 +82,8 @@ public class ChatRules {
 		}
 
 		for (String word : getWords(message)){
+//			if (url.matcher(word).matches())
+//				System.out.println(word);
 			int length = word.length();
 			boolean isLink = false;
 			if (word.startsWith("www.") || word.startsWith("http://") || word.startsWith("https://")){
@@ -117,7 +119,7 @@ public class ChatRules {
 
 		String messageWithoutEmoticons = removeEmoticons(message);
 
-		if (messageWithoutEmoticons.length() > 9 && (double)countUppercase(messageWithoutEmoticons)/(double)messageWithoutEmoticons.length() > 0.6){
+		if (messageWithoutEmoticons.length() > 25 && (double)countUppercase(messageWithoutEmoticons)/(double)messageWithoutEmoticons.length() > 0.7){
 			//user spammed to many caps
 			ShadyBotty.database.getPrivileges(nick).setCapsFilter("" +filters + 1);
 			if (filters == 0) return 2;

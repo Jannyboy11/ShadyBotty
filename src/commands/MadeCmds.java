@@ -1,27 +1,15 @@
 package commands;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import org.ini4j.Wini;
-
-import chat.ChatRules;
-import chat.Nicknames;
-import main.Database;
-import main.ShadyBotty;
-import main.ShadyBottyMain;
-import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Map.Entry;
 
-import org.ini4j.Wini;
 import org.ini4j.Profile.Section;
 
 public class MadeCmds {
-
+	
 	/**
 	 * Checks if a command already exists as a key in settings.ini commands section 
 	 * @param command the Command to check for.
@@ -50,17 +38,17 @@ public class MadeCmds {
 			return "no commands!";
 		String modCmds = "mod commands: ";
 		String userCmds = "user made: ";
-		System.out.println("CO MEON");
+//		System.out.println("CO MEON");
 		for (Entry<String,String> cmd : s.entrySet()) {
-			System.out.println(cmd.getKey());
+//			System.out.println(cmd.getKey());
 			String name =Util.getCommandCreator(cmd.getKey());
-			System.out.println(name);
+//			System.out.println(name);
 			if (name.equals("mod"))
 				modCmds += cmd.getKey() + ", ";
 			else
 				userCmds+= cmd.getKey() + " (" + name+ "), ";
 		}
-		System.out.println("WOOP"+ modCmds + userCmds);
+//		System.out.println("WOOP"+ modCmds + userCmds);
 		return modCmds.substring(0, modCmds.length()-2) + ". " + userCmds;
 	}
 
@@ -92,6 +80,15 @@ public class MadeCmds {
 	 * or not and for what reason it was not if it failed.
 	 */
 	public static String addCommandMod(String command, String text) {
+		File temp = new File("temp.ini");
+		try {
+			BufferedWriter a = new BufferedWriter(new FileWriter(temp));
+			a.write(command + " " +text);
+			a.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if (isCommand(command))
 			return "this command already exists";
 		Util.saveSettingsCommandWithTime(command, text, "mod", 0L);
@@ -105,13 +102,12 @@ public class MadeCmds {
 	 * @return the text (value) of the command(key), or "" if it doesn't exist anymore.
 	 */
 	public static String getCommand(String command) {
-		String cmd = command.toLowerCase();
-		System.out.println(cmd);
+		String cmd = command.toLowerCase();	
+//		System.out.println(cmd +"<- cmd   text->" + Util.getSettingsCommand(cmd));
 		checkCommand(cmd);
-		System.out.println(isCommand(cmd));
-		if (!isCommand(cmd))
+		if (!isCommand(cmd) || System.currentTimeMillis() - Util.getCommandLastUsed(command) < 30000L)
 			return "";
-
+		Util.setCommandLastUsed(cmd);
 		return Util.getCommandResponse(cmd);
 	}
 
@@ -182,7 +178,7 @@ public class MadeCmds {
 	 * or not and for what reason it was not if it failed.
 	 */
 	public static String deleteCommandMod(String command) {
-		System.out.println("in del");
+//		System.out.println("in del");
 		if (getCommand(command).equals(""))
 			return "command doesn't exist";
 		Util.removeSettingsCommand(command);
@@ -206,7 +202,7 @@ public class MadeCmds {
 		String text = "";
 		for (int i = 3; i < msg.length; i++)
 			text += msg[i] + " ";
-		System.out.println(mod);
+//		System.out.println(mod);
 		if (msg[2].startsWith("!")) {
 			if (mod) {
 				if (msg[1].equalsIgnoreCase("list"))

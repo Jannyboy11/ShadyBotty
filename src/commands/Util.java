@@ -1,18 +1,25 @@
 package commands;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
-
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import main.Database;
 import org.ini4j.Profile.Section;
 import org.ini4j.Wini;
 
 
+
 public class Util{
 
-	public static File inifile = new File("autoreply.ini");
-	public static Wini ini;
-	static {try {ini = new Wini(inifile);} catch (Exception e) {}
-	}
+
+	public static Wini ini = Database.getAutoreplies();
+
+	
 	/**
 	 *  Utility function created to make code look better. <br>
 	 *  calls the <code> Thread.sleep(sleep) </code> function <br>
@@ -39,7 +46,7 @@ public class Util{
 	public static void storeSettings() {
 		try {
 			ini.store();
-		} catch (IOException e) {
+			} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -78,6 +85,7 @@ public class Util{
 	 */
 	public static String getSettings(String section,String key) {
 		return ini.get(section.toLowerCase(), key.toLowerCase());
+
 
 	}
 
@@ -175,7 +183,7 @@ public class Util{
 	public static void saveSettingsCommandWithTime(String command, String text,String creator,long time) {
 
 
-		saveToSettings("commands",command,text + "-__-+_" + creator + "-__-+_" + time);
+		saveToSettings("commands",command,text + "-__-+_" + creator + "-__-+_" + time +"-__-+_0");
 	}
 
 	/**
@@ -206,6 +214,27 @@ public class Util{
 	public static String getCommandResponse(String command) {
 		return getSettingsCommand(command).split("-__-\\+_")[0];
 	}
+	
+	/**
+	 * returns the last time a command was used
+	 * @param command the command to get
+	 * @return a Long<br>
+	 * or <code> null </code> if it doesn't exist
+	 */
+	public static long getCommandLastUsed(String command) {
+		long result =getSettingsCommand(command).split("-__-\\+_").length < 4 ? 0L : Long.parseLong(getSettingsCommand(command).split("-__-\\+_")[3]);
+		return result;
+	}
+	
+	/**
+	 * sets the last time a command was used
+	 * @param command the command to set
+	 */
+	public static void setCommandLastUsed(String command) {
+		String[] temp = getSettingsCommand(command).split("-__-\\+_");
+		String result = temp[0] + "-__-+_" + temp[1] + "-__-+_" + temp[2] + "-__-+_" + System.currentTimeMillis();
+		ini.put("commands", command,result);
+	}
 
 	/**
 	 * Returns the expiration time in millis of a specific command from settings.ini commands section
@@ -232,7 +261,6 @@ public class Util{
 	 * or <code> null </code> if it doesn't exist
 	 */
 	public static String getCommandCreator(String command) {
-		System.out.println("hah"+getSettingsCommand(command));
 		return getSettingsCommand(command).split("-__-\\+_")[1];
 	}
 
@@ -246,7 +274,7 @@ public class Util{
 	}
 
 
-	
+
 
 	public static void toLowerCaseDisplayMessage() {
 		if ( ini.get("displayMessages") != null) {
@@ -254,8 +282,64 @@ public class Util{
 			storeSettings();
 		}
 	}
+	
+	/** transforms the given filename to another encoding.
+	 * 
+	 * @param source the file to change encoding
+	 * @param srcEncoding encoding the file is currently in
+	 * @param tgtEncoding new encoding
+	 * @throws IOException dayumm file is busy.
+	 */
+	public static void transform(File source, String srcEncoding, String tgtEncoding) throws IOException {
+		File target = source;
+		File temp = new File("temp2.ini");
+		boolean succes =source.renameTo(temp);
+		System.out.println(succes);
+		source = new File("temp2.ini");
+		try (
 
-	public static void main(String[] a) {
-		toLowerCaseDisplayMessage();
+				BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(source), srcEncoding));
+
+				BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(target), tgtEncoding)); ) {
+			char[] buffer = new char[16384];
+			int read;
+			while ((read = br.read(buffer)) != -1)
+				bw.write(buffer, 0, read);
+		} 
+		source.delete();
 	}
+	
+	/**
+	 * adds a dummy entry to the commands section to make sure the file <br>
+	 * is in the  correct format. if it is not, transform the file in the correct format <br>
+	 * using {@link #transform(File, String, String)}
+	 */
+	public static void putSettingsCorrectFormat() {
+		saveSettingsCommandWithTime("marco","polo","mod",0);
+		System.out.println("before");
+		String a;
+		boolean contains = false;
+		try {
+			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(new File("autoreply.ini"))));
+			while ( (a = br.readLine()) != null && !contains) {
+				if (a.contains("©"))
+					contains = true;
+			}	
+			br.close();
+			if (!contains) {
+				Util.transform(new File("autoreply.ini"), "UTF-8", "Cp1252");
+				System.out.println( "not contain!");
+				File inifile = new File("autoreply.ini");
+				try {Util.ini = new Wini(inifile);} catch (Exception e) {}
+			}
+			System.out.println("formatted");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public static void main(String[] a) throws Exception{
+		System.out.println(ini);
+		}
 }

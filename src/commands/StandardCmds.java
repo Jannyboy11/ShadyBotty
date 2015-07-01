@@ -1,9 +1,7 @@
 package commands;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Random;
 
 import api.RiotAPI;
@@ -80,7 +78,10 @@ public class StandardCmds {
 		String[] words = chat.ChatRules.getWords(msg);
 
 		Status stat = ShadyBotty.database.getPrivileges(nick).getStatus();
+//		System.out.println("inhere2");
+		
 		if (words[0].equalsIgnoreCase("!points")) {
+//			System.out.println("in points");
 			if ((ShadyBotty.database.getPrivileges(nick).getStatus() == Status.MOD 
 					|| ShadyBotty.database.getPrivileges(nick).getStatus() == Status.DEMIMOD) && words.length == 2)  {
 				if (ShadyBotty.database.getPrivileges(words[1]) == null) {
@@ -138,7 +139,7 @@ public class StandardCmds {
 			return true;
 		}else if (words[0].equalsIgnoreCase("!song")) {
 			SongAPI.checkMusic();
-			botty.sendToChannel(ch,SongAPI.getLatestmusic());
+			botty.sendMessage(ch,SongAPI.getLatestmusic());
 			return true;
 		}
 		else if (words[0].equalsIgnoreCase("!rank")) {
@@ -169,11 +170,11 @@ public class StandardCmds {
 			return false;
 		latestRankRequest = call;
 		if (words.length == 1)
-			botty.sendToChannel(ch,RiotAPI.getRank("ACE Shady", "euw"));
+			botty.sendMessage(ch,RiotAPI.getRank("ACE Shady", "euw"));
 		if (words.length == 2)
-			botty.sendToChannel(ch,RiotAPI.getRank(words[1], "euw"));
+			botty.sendMessage(ch,RiotAPI.getRank(words[1], "euw"));
 		if (words.length == 3)
-			botty.sendToChannel(ch,RiotAPI.getRank(words[2], words[1]));
+			botty.sendMessage(ch,RiotAPI.getRank(words[2], words[1]));
 		return true;
 	}
 	public static boolean canRequestPoints(String nick){
@@ -203,8 +204,8 @@ public class StandardCmds {
 			toSend+= ". ";
 			if (ShadyBotty.database.getPrivileges(target.toLowerCase()).getFaction().equalsIgnoreCase("jb940")) 
 				toSend += getNick(target) + " also has 1 GodPoint! Kappa/";	
-			System.out.println(toSend);
-			botty.sendToChannel(ch,toSend);
+//			System.out.println(toSend);
+			ShadyBottyMain.privbot.sendPriv(nick,toSend);
 
 		}
 	}
@@ -225,7 +226,7 @@ public class StandardCmds {
 
 
 		if (result){
-			System.out.println("result true");
+//			System.out.println("result true");
 			if (Chips.getChips(nick) >= amount){ 
 				latestGambleRequestByUser.put(nick, call);
 				latestGambleRequest = call;
@@ -237,13 +238,13 @@ public class StandardCmds {
 	}
 
 	public static void gamble(String nick, double amount, String ch){
-		System.out.println("test");
+//		System.out.println("test");
 		if (canGamble(nick, (int) Math.round(amount))){
-			System.out.println("passed cangamble");
+//			System.out.println("passed cangamble");
 			if (amount <= 100 && 0 < amount)
 				performGamble(nick, Math.random(), (int) Math.round(amount),ch);
 			else 
-				botty.sendToChannel(ch,"The stake must be in range of 1-100.");
+				botty.sendMessage(ch,"The stake must be in range of 1-100.");
 		}
 	}
 
@@ -251,25 +252,25 @@ public class StandardCmds {
 		Chips.delChips(nick, stake);
 		if (random < 0.01){
 			Chips.addChips(nick, stake * 10);
-			botty.sendToChannel(ch,"Gamble rolls... and " + getNick(nick) + " has won the JACKPOT!!! " + getNick(nick) + " has won " + stake * 10 + "chips!");
+			botty.sendMessage(ch,"Gamble rolls... and " + getNick(nick) + " has won the JACKPOT!!! " + getNick(nick) + " has won " + stake * 10 + "chips!");
 			return;
 		}
 		if (random < 0.06){
 			Chips.addChips(nick, stake * 4);
-			botty.sendToChannel(ch,"Gamble rolls... and QUADRUPLES your chips! " + getNick(nick) + " has won " + stake * 4 + "chips!");
+			botty.sendMessage(ch,"Gamble rolls... and QUADRUPLES your chips! " + getNick(nick) + " has won " + stake * 4 + "chips!");
 			return;
 		}
 		if (random < 0.21){
 			Chips.addChips(nick, stake * 2);
-			botty.sendToChannel(ch,"Gamble rolls... and doubles your chips! " + getNick(nick) + " has won" + stake * 2 + " chips!");
+			botty.sendMessage(ch,"Gamble rolls... and doubles your chips! " + getNick(nick) + " has won" + stake * 2 + " chips!");
 			return;
 		}
 		if (random < 0.46){
 			Chips.addChips(nick, stake);
-			botty.sendToChannel(ch,"Gamble rolls... and you get your chips back! " + getNick(nick) + " has retained his " + stake + " chips.");
+			botty.sendMessage(ch,"Gamble rolls... and you get your chips back! " + getNick(nick) + " has retained his " + stake + " chips.");
 			return;
 		}
-		botty.sendToChannel(ch,"Gamble rolls... and totally misses your bet! " + getNick(nick) + " has lost " + stake + " chips.");
+		botty.sendMessage(ch,"Gamble rolls... and totally misses your bet! " + getNick(nick) + " has lost " + stake + " chips.");
 	}
 
 	public static boolean canSuicide(String nick){
@@ -289,12 +290,12 @@ public class StandardCmds {
 	public static void suicide(String nick, String ch){
 		if (!canSuicide(nick)) return;
 		if (ShadyBotty.database.getPrivileges(nick).getStatus() == Status.VIEWER){
-			botty.sendToChannel(ch,getNick(nick) + " is down! RIP in peace Kappa"); //no need to get the nick, caus only premiums can change their nicks? :P
-			botty.sendToChannel(ch,".timeout " + nick + "180");
+			botty.sendMessage(ch,getNick(nick) + " is down! RIP in peace Kappa"); //no need to get the nick, caus only premiums can change their nicks? :P
+			botty.sendMessage(ch,".timeout " + nick + "180");
 		} else if (ShadyBotty.database.getPrivileges(nick).getStatus() == Status.MOD){
-			botty.sendToChannel(ch,"You're a mod. Genius Kappa");
+			botty.sendMessage(ch,"You're a mod. Genius Kappa");
 		} else {
-			botty.sendToChannel(ch,"You're a regular, pls we need you here! :(");
+			botty.sendMessage(ch,"You're a regular, pls we need you here! :(");
 		}
 		return;
 	}
@@ -318,15 +319,15 @@ public class StandardCmds {
 		Status status = ShadyBotty.database.getPrivileges(nick).getStatus();
 		if (Math.random() < 0.5){
 			if (status == Status.VIEWER){
-				botty.sendToChannel(ch,getNick(nick) + " is down! RIP in peace Kappa");
-				botty.sendToChannel(ch,".timeout " + nick + "180");
+				botty.sendMessage(ch,getNick(nick) + " is down! RIP in peace Kappa");
+				botty.sendMessage(ch,".timeout " + nick + "180");
 			} else if (status == Status.DEMIMOD || status == Status.MOD){
-				botty.sendToChannel(ch,getNick(nick) + ", you're such a cheater with your mod armor!");
+				botty.sendMessage(ch,getNick(nick) + ", you're such a cheater with your mod armor!");
 			} else {
-				botty.sendToChannel(ch,"/me cathes bullet for " + getNick(nick) + "!");
+				botty.sendMessage(ch,"/me cathes bullet for " + getNick(nick) + "!");
 			}
 		} else {
-			botty.sendToChannel(ch,getNick(nick) + " survived roulette! Is that a God? Kappa");
+			botty.sendMessage(ch,getNick(nick) + " survived roulette! Is that a God? Kappa");
 		}
 	}
 
@@ -356,27 +357,27 @@ public class StandardCmds {
 		if (!(canChallenge(challengernick, challengednick))) return;
 		HashMap<String,Long> temp = new HashMap<String, Long>();
 		temp.put(challengernick, System.currentTimeMillis());
-		botty.sendToChannel(ch,"Dear " + getNick(challengednick) + ", " + getNick(challengernick) + " has challenged you to a game of roulette! press !accept to play!");
+		botty.sendMessage(ch,"Dear " + getNick(challengednick) + ", " + getNick(challengernick) + " has challenged you to a game of roulette! press !accept to play!");
 		challengedNicks.put(challengednick,temp);
 		temp = challengedNicks.get(challengednick);
-		System.out.println(temp.keySet().toArray()[0] + " wooop  " +temp.get(temp.keySet().toArray()[0]));
+//		System.out.println(temp.keySet().toArray()[0] + " wooop  " +temp.get(temp.keySet().toArray()[0]));
 		return;
 	}
 
 	public static void performChallenge(String challengednick,String ch){
-		System.out.println(challengednick);
+//		System.out.println(challengednick);
 		if (!challengedNicks.containsKey(challengednick)) return;
-		System.out.println(challengednick);
+//		System.out.println(challengednick);
 		HashMap<String,Long> temp = new HashMap<String, Long>();
 		temp = challengedNicks.get(challengednick);
 		String challengernick = (String) temp.keySet().toArray()[0];
-		System.out.println(challengernick + " ");
+//		System.out.println(challengernick + " ");
 		if ((System.currentTimeMillis() - temp.get(challengernick)) > 39000) return;
-		System.out.println("in time");
+//		System.out.println("in time");
 		String loser = Math.random() < 0.5 ? challengednick : challengernick;
-		botty.sendToChannel(ch, getNick(challengednick) + " and " + getNick(challengernick) + " play roulette. " + getNick(loser) + " got shot. REKT");
+		botty.sendMessage(ch, getNick(challengednick) + " and " + getNick(challengernick) + " play roulette. " + getNick(loser) + " got shot. REKT");
 		if (ShadyBotty.database.getPrivileges(loser).getStatus() != Status.DEMIMOD)
-			botty.sendToChannel(ch,"/timeout " + loser + " 30");
+			botty.sendMessage(ch,"/timeout " + loser + " 30");
 		challengedNicks.remove(challengednick);
 		return;
 	}
@@ -417,16 +418,16 @@ public class StandardCmds {
 			stabNick = temp.get((int) Math.round(Math.random() *(temp.size() - 1)));
 
 		}
-		botty.sendToChannel(ch,"/me has stabbed " + getNick(stabNick) + " randomly! Ouch! 5 seconds timeout :(");
-		botty.sendToChannel(ch,".timeout " + stabNick + " 5");
+		botty.sendMessage(ch,"/me has stabbed " + getNick(stabNick) + " randomly! Ouch! 5 seconds timeout :(");
+		botty.sendMessage(ch,".timeout " + stabNick + " 5");
 
 	}
 
 	public static boolean canDailyBonus(String nick){
-		System.out.println(nick +" used daily bonus");
+//		System.out.println(nick +" used daily bonus");
 		System.out.println(ShadyBotty.database.getPrivileges(nick).isSubscriber());
 		if (!ShadyBotty.database.getPrivileges(nick).isSubscriber()) return false;
-		System.out.println("sub");
+//		System.out.println("sub");
 		Long latest = new Long(0);
 		if (dailyBonus.containsKey(nick)){
 			latest = dailyBonus.get(nick);
@@ -443,7 +444,7 @@ public class StandardCmds {
 		if (!canDailyBonus(nick)) return;
 		int amount = (int) Math.round(Math.random() * 300);
 		Points.addPoints(nick, amount);
-		botty.sendToChannel(ch,getNick(nick) + " has got " + amount + " points today!");
+		botty.sendMessage(ch,getNick(nick) + " has got " + amount + " points today!");
 
 	}
 
@@ -469,7 +470,7 @@ public class StandardCmds {
 		if (lottery) return;
 		if (!canStartLottery(nick, amount)) return;
 		lotteryPot = (int)Math.round(amount);
-		botty.sendToChannel(ch,"the lottery has been started by " + getNick(nick) + ". The Lottery has started with " +lotteryPot + " points! type !enter to join(cost 25).");
+		botty.sendMessage(ch,"the lottery has been started by " + getNick(nick) + ". The Lottery has started with " +lotteryPot + " points! type !enter to join(cost 25).");
 		new LotteryThread(botty,ch).start();
 		Points.delPoints(nick, amount);
 		lottery = true;
@@ -491,15 +492,15 @@ public class StandardCmds {
 				double profit;
 				String winner = getNick(lotteryPlayers.get(randomNum));
 				if (i == 0) {
-					profit = (double) getPot()*0.5;
+					profit = getPot()*0.5;
 					message += getNick(winner + " with " + profit + ", ");
 					Points.addPoints(winner,profit);
 				} else if (i == 1) {
-					profit = (double) getPot()*0.35;
+					profit = getPot()*0.35;
 					message += getNick(winner + " with " + profit + ", ");
 					Points.addPoints(winner,profit);
 				} else {
-					profit = (double) getPot()*0.15;
+					profit = getPot()*0.15;
 					message += getNick(winner + " with " + profit + ", ");
 					Points.addPoints(winner,profit);
 				}
@@ -507,7 +508,7 @@ public class StandardCmds {
 		} else {
 			message = "Not enough people have participated. Everyone will receive their points back.";
 			for (int i = 1; i < lotteryPlayers.size(); i++) {
-				Points.addPoints(lotteryPlayers.get(i), (double) 25);
+				Points.addPoints(lotteryPlayers.get(i), 25);
 				lotteryPot -= 25;
 			}
 			Points.addPoints(lotteryPlayers.get(0),lotteryPot);
@@ -515,7 +516,7 @@ public class StandardCmds {
 		lotteryPot = 0;
 		lottery = false;
 		lotteryPlayers.clear();
-		botty.sendToChannel(ch,message);
+		botty.sendMessage(ch,message);
 	}
 
 	public static void enterLottery(String nick) {

@@ -1,6 +1,9 @@
 package points;
 
 import java.util.ArrayList;
+
+import org.ini4j.Wini;
+
 import main.*;
 
 public class GivePointsThread extends Thread {
@@ -11,27 +14,30 @@ public class GivePointsThread extends Thread {
 		botty = bot;
 	}
 
+	@Override
 	public void run ()
 	{
 		while (Online) {
 			ArrayList<String> temp = ShadyBotty.database.getCurrentUsers();
-			System.out.println("poitns given");
+			Wini ini =Database.getCurrencies();
+//			System.out.println("poitns given");
 			for (int i=0; i<temp.size(); i++) {
 				String nick = temp.get(i);
 				if (!ShadyBotty.database.getPrivileges(nick).isSubscriber()) { //nonsub 
-					Points.addPoints(nick,(ShadyBotty.database.getPrivileges(nick).getGain() + 2) * 0.25);
+					Points.addNoSavePoints(ini,nick,(ShadyBotty.database.getPrivileges(nick).getGain() + 2) * 0.25);
 					if (ShadyBotty.database.getDifferenceSeconds(nick) < 600) {
 
-						Points.addPoints(nick,(ShadyBotty.database.getPrivileges(nick).getGain() + 2));
+						Points.addNoSavePoints(ini,nick,(ShadyBotty.database.getPrivileges(nick).getGain() + 2));
 					}
 				} else { // subs get x2
-					Points.addPoints(nick,(ShadyBotty.database.getPrivileges(nick).getGain() + 2) * 0.5);
+					Points.addNoSavePoints(ini,nick,(ShadyBotty.database.getPrivileges(nick).getGain() + 2) * 0.5);
 					if (ShadyBotty.database.getDifferenceSeconds(nick) < 600) {
 
-						Points.addPoints(nick,(ShadyBotty.database.getPrivileges(nick).getGain() + 2) * 2);
+						Points.addNoSavePoints(ini,nick,(ShadyBotty.database.getPrivileges(nick).getGain() + 2) * 2);
 					}
 				}
 			}
+			Database.storeCurrencies();
 			try {
 				Thread.sleep(60000);
 			} catch (Exception e) {}
